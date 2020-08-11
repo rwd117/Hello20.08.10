@@ -13,5 +13,7 @@ public class testframe
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(10, 10, 300, 300);
 	}
+	
+	
 
 }
