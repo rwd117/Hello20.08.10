@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Random;
 
 public class test4 {
-
+ 
 	public static void main(String[] args) 
 	{
 		Date today=new Date();

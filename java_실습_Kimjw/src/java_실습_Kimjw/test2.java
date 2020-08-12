@@ -9,7 +9,7 @@ public class test2
 		System.out.println(myChar);
 		System.out.println("----------");
 		
-		int myint=0x15;
+		int myint=0x15; 
 		System.out.println(myint);
 		System.out.println("----------");
 		

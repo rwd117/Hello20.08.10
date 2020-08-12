@@ -7,7 +7,7 @@ public class test1 {
 		int i;
 		float f;
 		double d;
-		char c;
+		 char c;
 		boolean b;
 		
 		i=120;

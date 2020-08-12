@@ -9,5 +9,5 @@ public class test3 {
 		Random r=new Random();
 		System.out.println(Math.abs(r.nextInt())%100);
 	}
-
+ 
 }
