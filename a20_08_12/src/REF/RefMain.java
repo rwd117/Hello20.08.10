@@ -1,5 +1,7 @@
 package REF;
 
+import javax.swing.JFrame;
+
 public class RefMain 
 {
 	public static void call(Point obj) 
@@ -24,6 +26,12 @@ public class RefMain
 		
 		Point x=new Point();
 		call(x);
+		
+		JFrame frame=new JFrame();
+		frame.setVisible(true);
+		frame.setTitle("¿¬½À");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(300, 300, 500, 500);
 	}
 
 }
