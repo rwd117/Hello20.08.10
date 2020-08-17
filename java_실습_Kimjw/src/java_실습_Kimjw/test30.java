@@ -19,6 +19,7 @@ public class test30
 		do {
 			z=Math.abs(r.nextInt()%9)+1;
 		}while((z==x)||(z==y));
+		
 		System.out.println(x+","+y+","+z);
 		
 		return playGame(x,y,z);
@@ -42,7 +43,8 @@ public class test30
 			do
 			{
 				System.out.println("카운트 :"+count);
-				BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+				BufferedReader in=new BufferedReader
+						(new InputStreamReader(System.in));
 				
 				String user;
 			
@@ -66,9 +68,11 @@ public class test30
 					System.out.println("1~9사이의 숫자 입력. 다시 입력");
 				}else if((usr[0]==usr[1])||(usr[1]==usr[2])||(usr[0]==usr[2]))
 				{
-					System.out.println("서로 다른 숫자 입력. 다시 이렵");
+					System.out.println("서로 다른 숫자 입력. 다시 입력");
 				}
-			}while((usr[0]==1)||(usr[1]==1)||(usr[2]==1)||(usr[0]>9)||(usr[1]>9)||(usr[2]>9)||(usr[0]==usr[1])||(usr[1]==usr[2])||(usr[0]==usr[2]));
+			}while((usr[0]==0)||(usr[1]==0)||(usr[2]==0)||
+					(usr[0]>9)||(usr[1]>9)||(usr[2]>9)||
+					(usr[0]==usr[1])||(usr[1]==usr[2])||(usr[0]==usr[2]));
 		
 		
 		strike = ball = 0;
