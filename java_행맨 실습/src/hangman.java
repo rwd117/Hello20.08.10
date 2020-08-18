@@ -52,7 +52,6 @@ public class hangman
 				}
 			}
 		
-		
 		if(!already) {
 			inputString.append(guess);
 			boolean success=false;
