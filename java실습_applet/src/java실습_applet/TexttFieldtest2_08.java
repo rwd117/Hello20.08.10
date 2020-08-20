@@ -2,7 +2,7 @@ package java½Ç½À_applet;
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
-public class TexttFieldtest2 extends Applet implements ActionListener
+public class TexttFieldtest2_08 extends Applet implements ActionListener
 {
 	Button button;
 	TextField textfield;
