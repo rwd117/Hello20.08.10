@@ -60,7 +60,7 @@ public class Calculate extends Applet implements ActionListener
 		pnl1.add(btn[14]);
 		btn[15]=new Button("÷");
 		pnl1.add(btn[15]);
-		btn[16]=new Button("%");
+		btn[16]=new Button("");
 		pnl1.add(btn[16]);
 		btn[17]=new Button("=");
 		pnl1.add(btn[17]);
@@ -79,55 +79,52 @@ public class Calculate extends Applet implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{	//9,ac
 		//12,+,13,-,14,*,15,/,16,%,17,=
+		// e.getsource()==변수과 e.getsource().equals(변수)는 같다
 		for(int i=0;i<10;i++) {
-			if(e.getSource().equals(btn[i])) {
-				str+=""+i;
+			if(e.getSource()==btn[i]) {
+				str=str+i;
 				ta.setText(str);
 			}
 			}
-		if(e.getSource().equals(btn[11])) 
+		if(e.getSource()==btn[11]) 
 		{
 			str="꽝!";
 			ta.setText(str);
+		}else if (e.getSource()==btn[16]) {
+			str="트릭쇼";
+			ta.setText(str);
 		}
 		
-		if(e.getSource().equals(btn[12])) {
-			if(!str.equals("")) {
+		if(e.getSource()==btn[12]) {
+			if(str!="") {
 				op='+';
 				ta.setText(str);
 				num=Double.parseDouble(str);
 				str="";
 				}
-		}else if(e.getSource().equals(btn[13])) {
-			if(!str.equals("")) {
+		}else if(e.getSource()==btn[13]) {
+			if(str!="") {
 				op='-';
 				ta.setText(str);
 				num=Double.parseDouble(str);
 				str="";
 				}
-		}if(e.getSource().equals(btn[14])) {
-			if(!str.equals("")) {
+		}if(e.getSource()==btn[14]) {
+			if(str!="") {
 				op='×';
 				ta.setText(str);
 				num=Double.parseDouble(str);
 				str="";
 				}
-		}if(e.getSource().equals(btn[15])) {
-			if(!str.equals("")) {
+		}if(e.getSource()==btn[15]) {
+			if(str!="") {
 				op='÷';
 				ta.setText(str);
 				num=Double.parseDouble(str);
 				str="";
 				}
-		}if(e.getSource().equals(btn[16])) {
-			if(!str.equals("")) {
-				op='%';
-				ta.setText(str);
-				num=Double.parseDouble(str);
-				str="";
-				}
-		}else if(e.getSource().equals(btn[17])) {
-			if(!str.equals("")) {
+				}else if(e.getSource()==btn[17]) {
+			if(str!="") {
 				if(op=='+') {
 					result=num+Double.parseDouble(str);
 					ta.setText(Double.toString(result));
@@ -141,8 +138,7 @@ public class Calculate extends Applet implements ActionListener
 					ta.setText(Double.toString(result));
 					str=Double.toString(result);
 				}else if(op=='÷') {
-					if(Double.parseDouble(str)==0)
-					{ 
+					if(Double.parseDouble(str)==0){ 
 					ta.setText("0으로는 나눌 수 없습니다.");
 					str="";
 					}else {
@@ -150,18 +146,9 @@ public class Calculate extends Applet implements ActionListener
 					ta.setText(Double.toString(result));
 					str=Double.toString(result);}
 					}
-				}/*else if(op=='%'){
-				if(Double.parseDouble(str)==0){ 
-				ta.setText("0으로는 나눌 수 없습니다.");
-				str="";
-				}else {
-				result=num%Double.parseDouble(str);
-				ta.setText(Double.toString(result));
-				str=Double.toString(result);
-					
-				}*/
+				}
 			
-		}else if(e.getSource().equals(btn[10])) 
+		}else if(e.getSource()==btn[10]) 
 			{
 			str="";
 			ta.setText(str);
