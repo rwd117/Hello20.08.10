@@ -7,6 +7,7 @@ import java.util.Set;
 //그 중에서 hashtable 클래스 활용.
 public class Collection5 
 {
+	
 	public static void main(String[]args) {
 		
 		Hashtable<String,String> ht=new Hashtable<String,String>();

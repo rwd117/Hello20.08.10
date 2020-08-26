@@ -9,6 +9,7 @@ import java.util.Vector;
 //vector arraylist linkedlist ¿¡ »ç¿ë
 public class Collection4
 {
+	
 	public static void main(String[]args) {
 		Vector<String> n=new Vector<String>(10,10);
 		n.addElement("r");

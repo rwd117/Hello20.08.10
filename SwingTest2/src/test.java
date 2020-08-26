@@ -143,5 +143,6 @@ public class test implements ActionListener {
 			tf3.setText("");
 			tf4.setText("");
 		}
+		
 	}
 }

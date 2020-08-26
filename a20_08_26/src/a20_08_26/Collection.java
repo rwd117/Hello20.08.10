@@ -2,6 +2,7 @@ package a20_08_26;
 
 import java.util.Vector;
 
+
 	
 //vector
 public class Collection {
