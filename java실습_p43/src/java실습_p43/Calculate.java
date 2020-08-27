@@ -15,7 +15,6 @@ public class Calculate extends Applet implements ActionListener
 {
 	Button[] btn=new Button[20];
 	Panel pnl1;
-	Label lbl;
 	TextArea ta;	
 	String str="";
 	double num,result;
