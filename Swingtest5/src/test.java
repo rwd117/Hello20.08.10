@@ -9,7 +9,6 @@ public class test implements Runnable {
 	private JFrame frame;
 	JLabel lbl,lbl2;
 	Thread thr;	
-	Calendar now=Calendar.getInstance();
 	int year,month,date,hour,min,sec;
 	String str;
 
@@ -28,9 +27,7 @@ public class test implements Runnable {
 	}
 
 	public test() {
-		
 		initialize();
-		
 	}
 	
 	private void initialize() {
@@ -41,30 +38,23 @@ public class test implements Runnable {
 		
 		lbl = new JLabel("\uC624\uB298\uC758 \uB0A0\uC9DC\uC640 \uC2DC\uAC04");
 		lbl.setBounds(12, 10, 116, 28);
-		frame.getContentPane().add(lbl);
 		
 		
 		lbl2 = new JLabel();
 		lbl2.setBounds(12, 76, 410, 175);
-		if(thr==null) {
-			thr=new Thread(this);
-			thr.start();
-		}
+
+		Thread thr=new Thread(this);
+		thr.start();
 		
-		Thread thr=new Thread();
+		frame.getContentPane().add(lbl);
 		frame.getContentPane().add(lbl2);
 	}
 	
+	
+	
 	public void run() {
 		while(true) {
-			year=now.get(Calendar.YEAR);
-			month=now.get(Calendar.MONTH)+1;
-			date=now.get(Calendar.DATE);
-			hour=now.get(Calendar.HOUR);
-			min=now.get(Calendar.MINUTE);
-			sec=now.get(Calendar.SECOND);
-			str=year+"년  "+month+"월  "+date+"일  "+hour+":"+min+":"+sec;
-			lbl2.setText(str);
+			lbl2.setText(str());
 			try {
 				thr.sleep(1000);
 			} catch (InterruptedException e) {
@@ -72,4 +62,18 @@ public class test implements Runnable {
 			}
 		}
 	}
+	
+	public String str() {
+        Calendar now = Calendar.getInstance();
+        year=now.get(Calendar.YEAR);
+		month=now.get(Calendar.MONTH)+1;
+		date=now.get(Calendar.DATE);
+		hour=now.get(Calendar.HOUR);
+		min=now.get(Calendar.MINUTE);
+		sec=now.get(Calendar.SECOND);
+		
+		str=year+"년  "+month+"월  "+date+"일  "+hour+":"+min+":"+sec;
+        
+	return str;
+    }
 }
