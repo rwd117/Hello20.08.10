@@ -15,7 +15,7 @@ class mythread5 extends Thread{
 	}
 }
 
-public class Threadtest5 {
+public class Threadtest5 {	
 
 	public static void main(String[] args) {
 		mythread5 my5=new mythread5("±è");
