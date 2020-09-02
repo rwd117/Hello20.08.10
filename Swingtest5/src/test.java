@@ -54,7 +54,16 @@ public class test implements Runnable {
 	
 	public void run() {
 		while(true) {
-			lbl2.setText(str());
+			Calendar now = Calendar.getInstance();
+	        year=now.get(Calendar.YEAR);
+			month=now.get(Calendar.MONTH)+1;
+			date=now.get(Calendar.DATE);
+			hour=now.get(Calendar.HOUR);
+			min=now.get(Calendar.MINUTE);
+			sec=now.get(Calendar.SECOND);
+			
+			str=year+"년  "+month+"월  "+date+"일  "+hour+":"+min+":"+sec;
+			lbl2.setText(str);
 			try {
 				thr.sleep(1000);
 			} catch (InterruptedException e) {
@@ -62,18 +71,4 @@ public class test implements Runnable {
 			}
 		}
 	}
-	
-	public String str() {
-        Calendar now = Calendar.getInstance();
-        year=now.get(Calendar.YEAR);
-		month=now.get(Calendar.MONTH)+1;
-		date=now.get(Calendar.DATE);
-		hour=now.get(Calendar.HOUR);
-		min=now.get(Calendar.MINUTE);
-		sec=now.get(Calendar.SECOND);
-		
-		str=year+"년  "+month+"월  "+date+"일  "+hour+":"+min+":"+sec;
-        
-	return str;
-    }
 }
