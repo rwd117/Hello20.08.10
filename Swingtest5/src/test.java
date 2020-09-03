@@ -8,7 +8,6 @@ public class test implements Runnable {
 
 	private JFrame frame;
 	JLabel lbl,lbl2;
-	Thread thr;	
 	int year,month,date,hour,min,sec;
 	String str;
 
@@ -64,8 +63,9 @@ public class test implements Runnable {
 			
 			str=year+"³â  "+month+"¿ù  "+date+"ÀÏ  "+hour+":"+min+":"+sec;
 			lbl2.setText(str);
+			
 			try {
-				thr.sleep(1000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
