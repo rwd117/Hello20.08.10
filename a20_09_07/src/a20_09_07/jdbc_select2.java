@@ -37,6 +37,7 @@ public class jdbc_select2 {
 			e.printStackTrace();
 		}
 		
+		
 	}
 
 }
