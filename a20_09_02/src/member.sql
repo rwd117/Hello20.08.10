@@ -88,3 +88,4 @@ select * from member;
 
 drop table member;
 
+alter table member modify(code varchar2(10) primary key);

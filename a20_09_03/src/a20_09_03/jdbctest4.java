@@ -19,6 +19,7 @@ public class jdbctest4 {
 		int re=stm.executeUpdate(sql);
 		
 		if(re==1) System.out.println("d");
+		
 	}
 
 }
