@@ -1,6 +1,11 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +30,21 @@ public class jdbcprostep1 implements ActionListener {
 	private static final int SEARCH=3;
 	private static final int TOTAL=4;
 	int cmd=NONE;
+	
+	String driver="oracle.jdbc.OracleDriver";
+	String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	String user="system";
+	String password="123456";
+	
+	Connection con=null;
+	PreparedStatement pst=null;
+	
+	String sqlTotal="select * from customer";
+	String sqlInsert="insert into customer values(?,?,?,?)";
+	String sqlDelete="delete from customer where name=?";
+	String sqlUpdate="update customer set email? tel=? where code=?";
+	String sqlSearch="select * from customer where name=?";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -44,11 +64,19 @@ public class jdbcprostep1 implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public jdbcprostep1() {
+	public jdbcprostep1() throws Exception {
 		initialize();
 		init();
+		dbcon();
 	}
-
+	public void dbcon() {
+		try {
+			Class.forName(driver);
+			con=DriverManager.getConnection(url,user,password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -129,7 +157,68 @@ public class jdbcprostep1 implements ActionListener {
 		btnse.addActionListener(this);
 		
 	}
-
+	
+	public void add() {
+		//btnto,btnad,btnca,btnde,btnse;
+		//txtno,txtna,txtem,txttel
+		String no=txtno.getText();
+		String na=txtna.getText();
+		String em=txtem.getText();
+		String tel=txttel.getText();
+		
+		try {
+			pst=con.prepareStatement(sqlInsert);
+			pst.setInt(1, Integer.valueOf(no));
+			pst.setString(2, na);
+			pst.setString(3, em);
+			pst.setString(4, tel);
+			int res=pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void del() {
+		//btnto,btnad,btnca,btnde,btnse;
+		//txtno,txtna,txtem,txttel
+		String na=txtna.getText();
+		try {
+			pst=con.prepareStatement(sqlDelete);
+			pst.setString(1, na);
+			int res=pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void se() {
+		//btnto,btnad,btnca,btnde,btnse;
+		//txtno,txtna,txtem,txttel
+		try {
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void to() {
+		//btnto,btnad,btnca,btnde,btnse;
+		//txtno,txtna,txtem,txttel
+		try {
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void up() {
+		//btnto,btnad,btnca,btnde,btnse;
+		//txtno,txtna,txtem,txttel
+		try {
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//btnto,btnad,btnca,btnde,btnse;
@@ -140,24 +229,26 @@ public class jdbcprostep1 implements ActionListener {
 				call(ADD);	
 				return;
 				}
-				frame.setTitle("?");
+				add(); 
 			}else if(e.getSource()==btnde) {
 				if(cmd!=DELETE) {
 				call(DELETE);
 				return;
 			}
+				del();
 			}else if(e.getSource()==btnse) {
 				if(cmd!=SEARCH) {
 				call(SEARCH);
 				return;
-			}
+			}	
+				se();
 			}else if(e.getSource()==btnto) {
-			call(TOTAL);
+				call(TOTAL);
+				to();
 			}	
 				System.out.println("√Î");
-				
 				call(NONE);
-			
+				init();
 	}
 	public void init() {
 		txtno.setText("");
@@ -168,60 +259,45 @@ public class jdbcprostep1 implements ActionListener {
 		txtna.setEditable(false);
 		txtem.setEditable(false);
 		txttel.setEditable(false);
+		btnto.setEnabled(true);
+		btnad.setEnabled(true);
+		btnde.setEnabled(true);
+		btnse.setEnabled(true);
+		btnca.setEnabled(true);
 	}
 	public void call(int a) {
 		//btnto,btnad,btnca,btnde,btnse;
 		//txtno,txtna,txtem,txttel
-		switch(a) {
-		case ADD:	
-				txtno.setEditable(true);
-				txtna.setEditable(true);
-				txtem.setEditable(true);
-				txttel.setEditable(true);
-		break;
-		
-		case DELETE:
-		case SEARCH:
-				txtna.setEditable(true);
-				break;
-		}
 		btnto.setEnabled(false);
 		btnad.setEnabled(false);
 		btnde.setEnabled(false);
 		btnse.setEnabled(false);
-		
-		
+		btnca.setEnabled(true);
 		switch(a) {
-		
-		case ADD:	
-			btnad.setEnabled(true);
-			cmd=ADD;
-			break;
-
+			case ADD:	
+				txtno.setEditable(true);
+				txtna.setEditable(true);
+				txtem.setEditable(true);
+				txttel.setEditable(true);
+				btnad.setEnabled(true);
+				cmd=ADD;
+				break;
 		case DELETE:
-			btnde.setEnabled(true);
-			cmd=DELETE;
-			break;
-
+				txtna.setEditable(true);
+				btnde.setEnabled(true);
+				cmd=DELETE;
+				break;
 		case SEARCH:
-			btnse.setEnabled(true);
-			cmd=SEARCH;
-			break;
-		
+				txtna.setEditable(true);
+				btnse.setEnabled(true);
+				cmd=SEARCH;
+				break;
 		case TOTAL:
-			
-			cmd=TOTAL;
-			
+				cmd=TOTAL;
+				break;
 		case NONE:
-			
-			btnto.setEnabled(true);
-			btnad.setEnabled(true);
-			btnde.setEnabled(true);
-			btnse.setEnabled(true);
-			btnca.setEnabled(true);
-			cmd=NONE;
-			break;
+				cmd=NONE;
+				break;
 		}
-		
 	}
 }
