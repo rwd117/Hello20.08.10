@@ -22,13 +22,14 @@ public class jdbcprostep1 implements ActionListener {
 	private JTextField txtem;
 	private JTextField txttel;
 	private JTable table;
-	JButton btnto,btnad,btnca,btnde,btnse;
+	JButton btnto,btnad,btnca,btnde,btnse,btnup;
 	
 	private static final int NONE=0;
 	private static final int ADD=1;
 	private static final int DELETE=2;
 	private static final int SEARCH=3;
 	private static final int TOTAL=4;
+	private static final int UPDATE=5;
 	int cmd=NONE;
 	
 	String driver="oracle.jdbc.OracleDriver";
@@ -42,7 +43,7 @@ public class jdbcprostep1 implements ActionListener {
 	String sqlTotal="select * from customer";
 	String sqlInsert="insert into customer values(?,?,?,?)";
 	String sqlDelete="delete from customer where name=?";
-	String sqlUpdate="update customer set email? tel=? where code=?";
+	String sqlUpdate="update customer set email=?, tel=? where code=?";
 	String sqlSearch="select * from customer where name=?";
 	
 	/**
@@ -150,11 +151,16 @@ public class jdbcprostep1 implements ActionListener {
 		btnca.setBounds(399, 381, 82, 23);
 		frame.getContentPane().add(btnca);
 		
+		btnup = new JButton("\uC218\uC815");
+		btnup.setBounds(211, 411, 97, 23);
+		frame.getContentPane().add(btnup);
+		
 		btnto.addActionListener(this);
 		btnad.addActionListener(this);
 		btnca.addActionListener(this);
 		btnde.addActionListener(this);
 		btnse.addActionListener(this);
+		btnup.addActionListener(this);
 		
 	}
 	
@@ -194,7 +200,12 @@ public class jdbcprostep1 implements ActionListener {
 	public void se() {
 		//btnto,btnad,btnca,btnde,btnse;
 		//txtno,txtna,txtem,txttel
+		String na=txtna.getText();
+		
 		try {
+			pst=con.prepareStatement(sqlSearch);
+			pst.setString(1, na); 
+			
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -211,8 +222,17 @@ public class jdbcprostep1 implements ActionListener {
 	}
 	public void up() {
 		//btnto,btnad,btnca,btnde,btnse;
-		//txtno,txtna,txtem,txttel
+		//txtno,txtem,txttel
+		int no=Integer.parseInt(txtno.getText());
+		String em=txtem.getText();
+		String tel=txttel.getText();
+		
 		try {
+			pst=con.prepareStatement(sqlUpdate);
+			pst.setString(1, em);
+			pst.setString(2, tel);
+			pst.setInt(3, no);
+			pst.executeUpdate();
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -221,7 +241,7 @@ public class jdbcprostep1 implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//btnto,btnad,btnca,btnde,btnse;
+		//btnto,btnad,btnca,btnde,btnse,btnup;
 		//txtno,txtna,txtem,txttel
 		
 			if(e.getSource()==btnad) {
@@ -242,6 +262,11 @@ public class jdbcprostep1 implements ActionListener {
 				return;
 			}	
 				se();
+			}else if(e.getSource()==btnup) {
+				if(cmd!=UPDATE) {
+					call(UPDATE);
+					return;}
+				up();
 			}else if(e.getSource()==btnto) {
 				call(TOTAL);
 				to();
@@ -264,6 +289,7 @@ public class jdbcprostep1 implements ActionListener {
 		btnde.setEnabled(true);
 		btnse.setEnabled(true);
 		btnca.setEnabled(true);
+		btnup.setEnabled(true);
 	}
 	public void call(int a) {
 		//btnto,btnad,btnca,btnde,btnse;
@@ -272,7 +298,9 @@ public class jdbcprostep1 implements ActionListener {
 		btnad.setEnabled(false);
 		btnde.setEnabled(false);
 		btnse.setEnabled(false);
+		btnup.setEnabled(false);
 		btnca.setEnabled(true);
+		
 		switch(a) {
 			case ADD:	
 				txtno.setEditable(true);
@@ -291,6 +319,13 @@ public class jdbcprostep1 implements ActionListener {
 				txtna.setEditable(true);
 				btnse.setEnabled(true);
 				cmd=SEARCH;
+				break;
+		case UPDATE:
+				txtno.setEditable(true);
+				txttel.setEditable(true);
+				txtem.setEditable(true);
+				btnup.setEnabled(true);
+				cmd=UPDATE;
 				break;
 		case TOTAL:
 				cmd=TOTAL;
