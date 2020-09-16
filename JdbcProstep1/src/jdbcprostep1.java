@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,6 +32,8 @@ public class jdbcprostep1 implements ActionListener {
 	private static final int UPDATE=5;
 	int cmd=NONE;
 	
+	mymodel model;
+	
 	String driver="oracle.jdbc.OracleDriver";
 	String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
 	String user="system";
@@ -39,12 +41,15 @@ public class jdbcprostep1 implements ActionListener {
 	
 	Connection con=null;
 	PreparedStatement pst=null;
+	PreparedStatement pstmtto, pstmttosc;
+	PreparedStatement pstmtse, pstmtsesc;
+	//pstmtto,pstmttosc,pstmtse,pstmtsesc
 	
 	String sqlTotal="select * from customer";
 	String sqlInsert="insert into customer values(?,?,?,?)";
 	String sqlDelete="delete from customer where name=?";
 	String sqlUpdate="update customer set email=?, tel=? where code=?";
-	String sqlSearch="select * from customer where name=?";
+	String sqlSearch="select * from customer where name like '%";
 	
 	/**
 	 * Launch the application.
@@ -182,6 +187,13 @@ public class jdbcprostep1 implements ActionListener {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void del() {
@@ -195,29 +207,76 @@ public class jdbcprostep1 implements ActionListener {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void se() {
 		//btnto,btnad,btnca,btnde,btnse;
 		//txtno,txtna,txtem,txttel
+		//pstmtse,pstmtsesc
 		String na=txtna.getText();
+		sqlSearch=sqlSearch+na+"%'";
 		
 		try {
-			pst=con.prepareStatement(sqlSearch);
-			pst.setString(1, na); 
 			
+			pstmtsesc=con.prepareStatement(sqlSearch,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			pstmtse=con.prepareStatement(sqlSearch);
+			
+			ResultSet rsscroll=pstmtsesc.executeQuery();
+			ResultSet rs=pstmtse.executeQuery();
+			
+			if(model==null) model=new mymodel();
+			model.getRowCount(rsscroll);
+			model.setData(rs);
+			table.setModel(model);
+			table.updateUI();
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				pstmtsesc.close();
+				pstmtse.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void to() {
 		//btnto,btnad,btnca,btnde,btnse;
 		//txtno,txtna,txtem,txttel
+		//pstmtto,pstmttosc,pstmtse,pstmtsesc
+		
 		try {
+			pstmttosc=con.prepareStatement(sqlTotal,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			pstmtto=con.prepareStatement(sqlTotal);
+			
+			ResultSet rsscroll=pstmttosc.executeQuery();
+			ResultSet rs=pstmtto.executeQuery();
+			
+			if(model==null) model=new mymodel();
+			model.getRowCount(rsscroll);
+			model.setData(rs);
+			table.setModel(model);
+			table.updateUI();
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				pstmtto.close();
+				pstmttosc.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void up() {
@@ -236,6 +295,13 @@ public class jdbcprostep1 implements ActionListener {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -243,19 +309,21 @@ public class jdbcprostep1 implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		//btnto,btnad,btnca,btnde,btnse,btnup;
 		//txtno,txtna,txtem,txttel
-		
+		//pstmtto,pstmttosc,pstmtse,pstmtsesc
 			if(e.getSource()==btnad) {
 				if(cmd!=ADD) {
 				call(ADD);	
 				return;
 				}
 				add(); 
+				to();
 			}else if(e.getSource()==btnde) {
 				if(cmd!=DELETE) {
 				call(DELETE);
 				return;
 			}
 				del();
+				to();
 			}else if(e.getSource()==btnse) {
 				if(cmd!=SEARCH) {
 				call(SEARCH);
@@ -267,6 +335,7 @@ public class jdbcprostep1 implements ActionListener {
 					call(UPDATE);
 					return;}
 				up();
+				to();
 			}else if(e.getSource()==btnto) {
 				call(TOTAL);
 				to();
