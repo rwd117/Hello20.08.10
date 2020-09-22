@@ -53,7 +53,9 @@ public class chattest implements ActionListener, Runnable{
 			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
 			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
 			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
-		
+			out.println("LOGIN|"+mySocket);
+			
+			
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -81,17 +83,6 @@ public class chattest implements ActionListener, Runnable{
 		input.setBounds(177, 354, 394, 21);
 		frame.getContentPane().add(input);
 		
-		
-		clock=new Thread(this);
-		clock.start();
-		
-		
-		input.addActionListener(this);
-	}
-
-	@Override
-	public void run() {
-		out.println("LOGIN|"+mySocket);
 		try {
 			while(true) {
 				String msg=in.readLine();
@@ -102,6 +93,14 @@ public class chattest implements ActionListener, Runnable{
 		}catch(Exception e) {
 			memo.append(e.toString()+"\n");
 		}
+		
+		input.addActionListener(this);
+	}
+
+	@Override
+	public void run() {
+		
+		
 
 		
 	}
@@ -109,9 +108,9 @@ public class chattest implements ActionListener, Runnable{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==input) {
-			
+			String data=input.getText();
 			input.setText("");
-			out.println("TALK|"+name.getText()+":"+input.getText());
+			out.println("TALK|"+name.getText()+":"+data);
 			out.flush();
 		}
 	}

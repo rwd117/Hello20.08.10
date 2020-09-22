@@ -27,7 +27,7 @@ public class Gamechat extends Applet implements ActionListener, Runnable
 	
 	public void init() {
 		try {
-			mySocket=new Socket("192.168.0.6",2587);//127.0.0.1
+			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
 			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
 			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
 		
