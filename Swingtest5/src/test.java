@@ -41,7 +41,7 @@ public class test implements Runnable {
 		
 		lbl2 = new JLabel();
 		lbl2.setBounds(12, 76, 410, 175);
-
+		
 		Thread thr=new Thread(this);
 		thr.start();
 		

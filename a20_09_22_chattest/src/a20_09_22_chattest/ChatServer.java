@@ -1,4 +1,4 @@
-package chatting;
+package a20_09_22_chattest;
 
 import java.io.IOException;
 import java.net.ServerSocket;
