@@ -70,6 +70,7 @@ public class ChatThread extends Thread  {
 			System.out.println("[접속]"+mySocket);
 			try {
 				myServer.broadcast("[현재 접속자 수]"+myServer.clientNum+"명");
+				
 			}catch(IOException e) {
 				System.out.println(e.toString());
 				}
