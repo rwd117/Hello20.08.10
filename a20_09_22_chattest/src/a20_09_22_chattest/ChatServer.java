@@ -7,7 +7,7 @@ import java.util.Vector;
 public class ChatServer {
 	Vector clientVector=new Vector();
 	int clientNum=0;
-			
+		     	
 	public void broadcast(String msg) throws IOException
 	{
 		synchronized(clientVector){

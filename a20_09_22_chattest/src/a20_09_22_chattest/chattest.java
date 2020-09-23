@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class chattest implements ActionListener {
-
+   
 	private JFrame frame;
 	private JTextField name;
 	private JTextField input;

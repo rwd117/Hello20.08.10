@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class ChatThread extends Thread  {
 	ChatServer myServer;
 	Socket mySocket;
-	
+	    
 	PrintWriter out;
 	BufferedReader in;
 	 

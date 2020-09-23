@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class fcustomer implements ActionListener {
-
+  
 	private JFrame frame;
 	private JTextField tf1;
 	private JTextField tf2;
