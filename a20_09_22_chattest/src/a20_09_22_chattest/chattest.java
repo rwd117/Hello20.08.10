@@ -9,12 +9,12 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 
-public class chattest implements ActionListener {
+public class chattest implements ActionListener{
    
 	private JFrame frame;
 	private JTextField name;
@@ -23,9 +23,9 @@ public class chattest implements ActionListener {
 	JButton btnca;
 	private JButton btnco;
 
-	Socket mySocket=null ;
-	PrintWriter out=null ;
-	BufferedReader in=null ;
+	Socket mySocket;
+	PrintWriter out;
+	BufferedReader in;
 	Thread clock;
 
 	public static void main(String[] args) {
@@ -43,7 +43,6 @@ public class chattest implements ActionListener {
 
 	public chattest() {
 		initialize();
-		
 	}
 	
 	private void initialize() {
@@ -75,39 +74,37 @@ public class chattest implements ActionListener {
 		btnco.setBounds(177, 385, 97, 23);
 		frame.getContentPane().add(btnco);
 		
-		st();
 		input.disable();
 		name.disable();
-		
 		btnca.setVisible(false);
-		
 		
 		btnca.addActionListener(this);
 		btnco.addActionListener(this);
 		input.addActionListener(this);
+		
 	}
 
 	public void st() {
-		try {
-			while (true) {
-				String msg = in.readLine();
-				if (!msg.equals("") && !msg.equals(null)) {
-					memo.append(msg + "\n");
-				}
-			}
-		} catch (Exception e) {
-			memo.append(e.toString() + "\n");
-		}
+	try {
+			String msg = in.readLine();
+			if (!msg.equals("")&&!msg.equals(null)) //여기가 범인.
+			memo.append(msg + "\n");
+	} catch (Exception e) {
+		memo.append(e.toString() + "\n");
+		}		
 	}
+	 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+			
 		if (e.getSource() == input) {
+			st();
 			String data = input.getText();
 			input.setText("");
 			out.println("TALK|" + name.getText() + ":" + data);
-			memo.append("TALK|" + name.getText() + ":" + data + "\n");
 			out.flush();
+			
 		} else if (e.getSource() == btnca) {
 			if ((clock != null) && (clock.isAlive())) {
 				clock = null;
@@ -125,13 +122,15 @@ public class chattest implements ActionListener {
 				btnca.disable();
 				btnca.setVisible(false);
 				btnco.setVisible(true);
+				
 			} catch (Exception a) {
 				memo.append(a.toString() + "\n");
 			}
-			
-
 		} else if (e.getSource().equals(btnco)) {
-				
+			if(clock==null) {
+				clock=new Thread();
+				clock.start();
+			}
 			try {
 				mySocket = new Socket("127.0.0.1", 2587);// 127.0.0.1
 				out = new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(), "KSC5601"), true);
@@ -139,6 +138,8 @@ public class chattest implements ActionListener {
 				out.println("LOGIN|" + mySocket);
 				memo.append("LOGIN|" + mySocket + "\n");
 				memo.append("접속\n");
+				out.flush();
+				
 				
 				input.enable();
 				name.enable();
@@ -146,11 +147,11 @@ public class chattest implements ActionListener {
 				btnco.setVisible(false);
 				btnca.setVisible(true);
 				
-				
 			} catch (Exception c) {
 				System.out.println(c.toString());
 			}
 			
 		}
 	}
+
 }

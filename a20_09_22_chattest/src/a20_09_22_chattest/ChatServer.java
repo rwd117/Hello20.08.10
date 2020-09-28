@@ -37,7 +37,6 @@ public class ChatServer {
 	public static void main(String[] args) {
 		ServerSocket myServerSocket=null;
 		ChatServer myServer=new ChatServer();
-		
 		try{
 			myServerSocket=new ServerSocket(2587);
 		}catch(IOException e) {
@@ -52,7 +51,6 @@ public class ChatServer {
 				ChatThread client=new ChatThread(myServer,myServerSocket.accept());
 				client.start();
 				myServer.addClinet(client);
-				
 				myServer.clientNum++;
 				System.out.println("[현재 접속자 수]"+myServer.clientNum+"명");
 			}
