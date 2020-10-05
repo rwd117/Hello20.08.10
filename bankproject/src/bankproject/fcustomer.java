@@ -1,6 +1,5 @@
 package bankproject;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,12 +12,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class fcustomer implements ActionListener {
-  
+public class fcustomer extends JInternalFrame implements ActionListener {
+ 
 	private JFrame frame;
 	private JTextField tf1;
 	private JTextField tf2;
@@ -43,18 +43,18 @@ public class fcustomer implements ActionListener {
 	static String customer_dist[] = { "°³ÀÎ°í°´", "±â¾÷°í°´" };
 	boolean bInsertFlag = false;
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					fcustomer window = new fcustomer();
-					window.frame.setVisible(true);
+					window.this.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	public fcustomer() {
 		initialize();
@@ -77,115 +77,112 @@ public class fcustomer implements ActionListener {
 		try {
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			rs = stmt.executeQuery(strQuery);
-		} catch (SQLException se) {
+			
+		} catch (Exception se) {
 			JOptionPane.showMessageDialog(null, "SQLException");
 		}
 	}
 
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 724, 486);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+//		frame = new JFrame();
+		this.setBounds(100, 100, 724, 486);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		lbl1 = new JLabel("\uACE0\uAC1D\uBC88\uD638");
 		lbl1.setBounds(12, 55, 54, 15);
-		frame.getContentPane().add(lbl1);
+		this.getContentPane().add(lbl1);
 
 		lbl2 = new JLabel("\uACE0\uAC1D\uC774\uB984");
 		lbl2.setBounds(12, 97, 54, 15);
-		frame.getContentPane().add(lbl2);
+		this.getContentPane().add(lbl2);
 
 		lbl3 = new JLabel("\uC8FC\uC18C");
 		lbl3.setBounds(12, 144, 54, 15);
-		frame.getContentPane().add(lbl3);
+		this.getContentPane().add(lbl3);
 
 		lbl4 = new JLabel("\uC804\uD654\uBC88\uD638");
 		lbl4.setBounds(12, 189, 54, 15);
-		frame.getContentPane().add(lbl4);
+		this.getContentPane().add(lbl4);
 
 		lbl5 = new JLabel("\uACE0\uAC1D\uAD6C\uBD84");
 		lbl5.setBounds(12, 237, 54, 15);
-		frame.getContentPane().add(lbl5);
+		this.getContentPane().add(lbl5);
 
 		tf1 = new JTextField();
 		tf1.setText("");
 		tf1.setBounds(78, 52, 116, 21);
-		frame.getContentPane().add(tf1);
+		this.getContentPane().add(tf1);
 		tf1.setColumns(10);
 
 		tf2 = new JTextField();
 		tf2.setText("");
 		tf2.setColumns(10);
 		tf2.setBounds(78, 94, 116, 21);
-		frame.getContentPane().add(tf2);
+		this.getContentPane().add(tf2);
 
 		tf3 = new JTextField();
 		tf3.setText("");
 		tf3.setColumns(10);
 		tf3.setBounds(78, 141, 308, 21);
-		frame.getContentPane().add(tf3);
+		this.getContentPane().add(tf3);
 
 		tf4 = new JTextField();
 		tf4.setText("");
 		tf4.setColumns(10);
 		tf4.setBounds(78, 186, 116, 21);
-		frame.getContentPane().add(tf4);
+		this.getContentPane().add(tf4);
 
 		jcb1 = new JComboBox();
 		for (int i = 0; i < customer_dist.length; i++) {
 			jcb1.addItem(customer_dist[i]);
 		}
 		jcb1.setBounds(78, 234, 116, 21);
-		frame.getContentPane().add(jcb1);
+		this.getContentPane().add(jcb1);
 
 		btnMoveFirst = new JButton("");
 		btnMoveFirst.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\FIRST.GIF"));
 		btnMoveFirst.setBounds(12, 10, 34, 23);
-		frame.getContentPane().add(btnMoveFirst);
+		this.getContentPane().add(btnMoveFirst);
 
 		btnMovePre = new JButton("");
 		btnMovePre.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\PREV.GIF"));
 		btnMovePre.setBounds(47, 10, 34, 23);
-		frame.getContentPane().add(btnMovePre);
+		this.getContentPane().add(btnMovePre);
 
 		btnMoveNext = new JButton("");
 		btnMoveNext.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\NEXT.GIF"));
 		btnMoveNext.setBounds(78, 10, 34, 23);
-		frame.getContentPane().add(btnMoveNext);
+		this.getContentPane().add(btnMoveNext);
 
 		btnMoveLast = new JButton("");
 		btnMoveLast.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\LAST.GIF"));
 		btnMoveLast.setBounds(112, 10, 34, 23);
-		frame.getContentPane().add(btnMoveLast);
+		this.getContentPane().add(btnMoveLast);
 
 		btnInsertItem = new JButton("");
-		btnInsertItem
-				.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\INSERT.GIF"));
+		btnInsertItem.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\INSERT.GIF"));
 		btnInsertItem.setBounds(196, 10, 34, 23);
-		frame.getContentPane().add(btnInsertItem);
+		this.getContentPane().add(btnInsertItem);
 
 		btnDeleteItem = new JButton("");
-		btnDeleteItem
-				.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\DELETE.GIF"));
+		btnDeleteItem.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\DELETE.GIF"));
 		btnDeleteItem.setBounds(229, 10, 34, 23);
-		frame.getContentPane().add(btnDeleteItem);
+		this.getContentPane().add(btnDeleteItem);
 
 		btnSaveItem = new JButton("");
 		btnSaveItem.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\SAVE.GIF"));
 		btnSaveItem.setBounds(263, 10, 34, 23);
-		frame.getContentPane().add(btnSaveItem);
+		this.getContentPane().add(btnSaveItem);
 
 		btnPrintItem = new JButton("");
 		btnPrintItem.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\PRINT.GIF"));
 		btnPrintItem.setBounds(297, 10, 34, 23);
-		frame.getContentPane().add(btnPrintItem);
+		this.getContentPane().add(btnPrintItem);
 
 		btnCloseWindow = new JButton("");
-		btnCloseWindow
-				.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btnCloseWindow.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnCloseWindow.setBounds(331, 10, 34, 23);
-		frame.getContentPane().add(btnCloseWindow);
+		this.getContentPane().add(btnCloseWindow);
 
 		btnMoveFirst.addActionListener(this);
 		btnMovePre.addActionListener(this);
@@ -393,6 +390,6 @@ public class fcustomer implements ActionListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		frame.dispose();
+		this.dispose();
 	}
 }
