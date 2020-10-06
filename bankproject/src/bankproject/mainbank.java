@@ -185,6 +185,7 @@ public class mainbank implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+	
 	public void menuCustomer() {
 		ifCustomer = new fcustomer();
 		ifCustomer.pack();

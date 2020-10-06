@@ -87,14 +87,14 @@ public class chattest implements ActionListener{
 	public void st() {
 	try {
 			String msg = in.readLine();
-			if (!msg.equals("")&&!msg.equals(null)) //여기가 범인.
+			if (!msg.equals("")&&!msg.equals(null)) 
 			memo.append(msg + "\n");
+			
 	} catch (Exception e) {
 		memo.append(e.toString() + "\n");
 		}		
 	}
 	 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			
