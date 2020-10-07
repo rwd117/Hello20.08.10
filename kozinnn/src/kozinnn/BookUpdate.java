@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 
 public class BookUpdate extends JInternalFrame implements ActionListener {
 
@@ -25,7 +26,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 	private JTextField tf3;
 	private JTextField tf4;
 	private JTable table;
-	private JButton Btok, Btca, btn1, btn2, btn3, btn4;
+	private JButton Btok, Btca, btn1, btn2, btn3, btn4,btnexit;
 
 	private final static int A = 0;
 	private final static int B = 1;
@@ -176,6 +177,11 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		lblll = new JLabel("\uD65C\uC131\uD654 \uBC84\uD2BC \uD558\uB098\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694 (\uBCF5\uC218 \uBD88\uAC00)");
 		lblll.setBounds(24, 30, 325, 43);
 		getContentPane().add(lblll);
+		
+		btnexit = new JButton("");
+		btnexit.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btnexit.setBounds(24, 10, 30, 23);
+		this.getContentPane().add(btnexit);
 
 		Btok.addActionListener(this);
 		Btca.addActionListener(this);
@@ -184,6 +190,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		btn3.addActionListener(this);
 		btn4.addActionListener(this);
 		btn5.addActionListener(this);
+		btnexit.addActionListener(this);
 	}
 
 	public void dbcon() {
@@ -288,6 +295,8 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 			}
 			tb5();
 			cmd=F;
+		}else if(e.getSource().equals(btnexit)) {
+			subCloseWindow();
 		}
 	}
 
@@ -455,4 +464,16 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 			}
 		}
 	}
+
+	public void subCloseWindow() {
+	       
+		try {
+           
+        	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        setVisible(false);
+        dispose();
+    }
 }

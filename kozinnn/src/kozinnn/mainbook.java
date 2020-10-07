@@ -27,6 +27,7 @@ public class mainbook implements ActionListener {
 	
 	Bookinsert Binsert;
 	BookUpdate Bupdate;
+	BookDelete Bdelete;
 
 	static Connection conn = null;
 	static ResultSet rs = null;
@@ -59,7 +60,6 @@ public class mainbook implements ActionListener {
 		}
 	}
 	
-	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 900, 600);
@@ -73,23 +73,11 @@ public class mainbook implements ActionListener {
 		JMenu mn = new JMenu("\uC2DC\uC2A4\uD15C");
 		menuBar.add(mn);
 		
-		JMenu mn1 = new JMenu("\uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
-		menuBar.add(mn1);
-		
 		JMenu mn2 = new JMenu("\uAC80\uC0C9");
 		menuBar.add(mn2);
 		
 		btex = new JMenuItem("\uC885\uB8CC");
 		mn.add(btex);
-		
-		btin = new JMenuItem("\uCD94\uAC00");
-		mn1.add(btin);
-		
-		btup = new JMenuItem("\uC218\uC815");
-		mn1.add(btup);
-		
-		btde = new JMenuItem("\uC0AD\uC81C");
-		mn1.add(btde);
 		
 		btsena = new JMenuItem("\uCC45 \uC81C\uBAA9");
 		mn2.add(btsena);
@@ -100,10 +88,22 @@ public class mainbook implements ActionListener {
 		JMenuItem mntmNewMenuItem = new JMenuItem("\uCD9C\uD310\uC0AC");
 		mn2.add(mntmNewMenuItem);
 		
-		btex.addActionListener(this);
+		JMenu mn1 = new JMenu("\uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
+		menuBar.add(mn1);
+		
+		btin = new JMenuItem("\uCD94\uAC00");
+		mn1.add(btin);
+		
+		btup = new JMenuItem("\uC218\uC815");
+		mn1.add(btup);
+		
+		btde = new JMenuItem("\uC0AD\uC81C");
+		mn1.add(btde);
 		btin.addActionListener(this);
 		btup.addActionListener(this);
 		btde.addActionListener(this);
+		
+		btex.addActionListener(this);
 		btsena.addActionListener(this);
 		btsema.addActionListener(this);
 	}
@@ -117,7 +117,7 @@ public class mainbook implements ActionListener {
 		}else if(e.getSource().equals(btup)) {
 			goUpdate();
 		}else if(e.getSource().equals(btde)) {
-			
+			goDelete();
 		}else if(e.getSource().equals(btsena)) {
 			
 		}else if(e.getSource().equals(btsema)) {
@@ -146,6 +146,19 @@ public class mainbook implements ActionListener {
 		frame.getContentPane().add(Bupdate);
 		try {
 			Bupdate.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void goDelete() {
+		Bdelete = new BookDelete();
+		Bdelete.pack();
+		Bdelete.setVisible(true);
+		Bdelete.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Bdelete);
+		try {
+			Bdelete.setSelected(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,11 +1,15 @@
 package a20_09_07;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 
-public class jdbc_delete {
+import javax.swing.JInternalFrame;
+
+public class jdbc_delete extends JInternalFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		String driver="oracle.jdbc.OracleDriver";
@@ -31,6 +35,12 @@ public class jdbc_delete {
 			
 		}catch(Exception e){
 				e.printStackTrace();}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

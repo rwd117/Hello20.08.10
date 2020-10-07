@@ -20,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 
-class Bookinsert extends JInternalFrame implements ActionListener,WindowListener{
+public class Bookinsert extends JInternalFrame implements ActionListener{
 	
 	private JTextField tf;
 	private JTextField tf1;
@@ -228,53 +228,15 @@ class Bookinsert extends JInternalFrame implements ActionListener,WindowListener
 	}
 
 	public void subCloseWindow() {
-        try {
-            pst.close();
-        } catch(SQLException e) {
+       
+		try {
+           
+        	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        } catch(Exception e) {
             e.printStackTrace();
         }
-
         setVisible(false);
         dispose();
     }
 	
-	public void windowClosing(WindowEvent evt) {
-		subCloseWindow();
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}  
-
 }
