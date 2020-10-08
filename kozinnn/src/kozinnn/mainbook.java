@@ -18,7 +18,7 @@ public class mainbook implements ActionListener {
 
 	private JFrame frame;
 	private JMenuBar menuBar;
-	private JMenuItem btin,btex,btup,btde,btsena,btsema;
+	private JMenuItem btin,btex,btup,btde,btsena,btsema,btnpublish;
 	
 	String driver = "oracle.jdbc.OracleDriver";
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -28,6 +28,9 @@ public class mainbook implements ActionListener {
 	Bookinsert Binsert;
 	BookUpdate Bupdate;
 	BookDelete Bdelete;
+	BookTitle Btitle;
+	BookMan Bman;
+	BookPublish Bpublish;
 
 	static Connection conn = null;
 	static ResultSet rs = null;
@@ -79,14 +82,15 @@ public class mainbook implements ActionListener {
 		btex = new JMenuItem("\uC885\uB8CC");
 		mn.add(btex);
 		
-		btsena = new JMenuItem("\uCC45 \uC81C\uBAA9");
+		btsena = new JMenuItem("\uCC45 \uC81C\uBAA9 \uAC80\uC0C9");
 		mn2.add(btsena);
 		
-		btsema = new JMenuItem("\uC791\uAC00");
+		btsema = new JMenuItem("\uC791\uAC00 \uAC80\uC0C9");
 		mn2.add(btsema);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("\uCD9C\uD310\uC0AC");
-		mn2.add(mntmNewMenuItem);
+		btnpublish =new JMenuItem("출판사 검색");
+		mn2.add(btnpublish);
+		btnpublish.addActionListener(this);
 		
 		JMenu mn1 = new JMenu("\uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
 		menuBar.add(mn1);
@@ -99,6 +103,8 @@ public class mainbook implements ActionListener {
 		
 		btde = new JMenuItem("\uC0AD\uC81C");
 		mn1.add(btde);
+		
+		
 		btin.addActionListener(this);
 		btup.addActionListener(this);
 		btde.addActionListener(this);
@@ -119,9 +125,11 @@ public class mainbook implements ActionListener {
 		}else if(e.getSource().equals(btde)) {
 			goDelete();
 		}else if(e.getSource().equals(btsena)) {
-			
+			goTitle();
 		}else if(e.getSource().equals(btsema)) {
-			
+			goMan();
+		}else if(e.getSource().equals(btnpublish)) {
+			goPublish();
 		}
 	}
 	
@@ -163,4 +171,43 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
+	public void goTitle() {
+		Btitle = new BookTitle();
+		Btitle.pack();
+		Btitle.setVisible(true);
+		Btitle.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Btitle);
+		try {
+			Btitle.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void goMan() {
+		Bman = new BookMan();
+		Bman.pack();
+		Bman.setVisible(true);
+		Bman.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Bman);
+		try {
+			Bman.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void goPublish() {
+		Bpublish = new BookPublish();
+		Bpublish.pack();
+		Bpublish.setVisible(true);
+		Bpublish.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Bpublish);
+		try {
+			Bpublish.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
 }
