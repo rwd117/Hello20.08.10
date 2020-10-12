@@ -49,7 +49,7 @@ public class BookDelete  extends JInternalFrame implements ActionListener{
 
 	Bookmodel model;
 	
-	String sqlTotal = "select * from book ";
+	String sqlTotal = "select * from book order by b_code asc";
 	String sqlDeletec="delete from book where b_code=?";
 	String sqlDeleten="delete from book where b_number=?";
 	String sqlDeletet="delete from book where b_title=?";
@@ -242,6 +242,7 @@ public class BookDelete  extends JInternalFrame implements ActionListener{
 				bplf();
 				to();
 			}
+			set();
 		} else if (e.getSource().equals(Btca)) {
 			set();
 		} else if (e.getSource().equals(btn1)) {
@@ -308,7 +309,7 @@ public class BookDelete  extends JInternalFrame implements ActionListener{
 		try {
 
 			pst = con.prepareStatement(sqlDeletec);
-			pst.setString(1, code);
+			pst.setInt(1, Integer.valueOf(code));
 			int res = pst.executeUpdate();
 
 		} catch (Exception e) {

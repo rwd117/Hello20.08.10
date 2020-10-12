@@ -53,7 +53,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 	String sqlUpdatej = "update book set b_ju=?  where b_code=?";
 	String sqlUpdatei=	"update book set b_in=?  where b_code=?";
 
-	String sqlTotal = "select * from book ";
+	String sqlTotal = "select * from book order by b_code asc";
 	private JLabel label_4;
 	private JTextField tf5;
 	private JButton btn5;
@@ -64,20 +64,6 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		set();
 		dbcon();
 		to();
-	}
-
-	public void set() {
-		tf1.setEnabled(false);
-		tf2.setEnabled(false);
-		tf3.setEnabled(false);
-		tf4.setEnabled(false);
-		tf5.setEnabled(false);
-		tf.setText("");
-		tf1.setText("");
-		tf2.setText("");
-		tf3.setText("");
-		tf4.setText("");
-		tf5.setText("");
 	}
 
 	private void initialize() {
@@ -252,6 +238,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 				bplf();
 				to();
 			}
+			set();
 		} else if (e.getSource().equals(Btca)) {
 			set();
 		} else if (e.getSource().equals(btn1)) {
@@ -300,6 +287,22 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		}
 	}
 
+
+	public void set() {
+		tf1.setEnabled(false);
+		tf2.setEnabled(false);
+		tf3.setEnabled(false);
+		tf4.setEnabled(false);
+		tf5.setEnabled(false);
+		tf.setText("");
+		tf1.setText("");
+		tf2.setText("");
+		tf3.setText("");
+		tf4.setText("");
+		tf5.setText("");
+	}
+
+	
 	public void tb1() {
 		tf1.setEnabled(true);
 		tf2.setEnabled(false);
@@ -353,7 +356,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		try {
 
 			pst = con.prepareStatement(sqlUpdaten);
-			pst.setString(2, code);
+			pst.setInt(2, Integer.valueOf(code));
 			pst.setString(1, number);
 			int res = pst.executeUpdate();
 
@@ -377,7 +380,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		try {
 
 			pst = con.prepareStatement(sqlUpdatet);
-			pst.setString(2, code);
+			pst.setInt(2, Integer.valueOf(code));
 			pst.setString(1, title);
 			int res = pst.executeUpdate();
 
@@ -402,7 +405,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		try {
 
 			pst = con.prepareStatement(sqlUpdatena);
-			pst.setString(2, code);
+			pst.setInt(2, Integer.valueOf(code));
 			pst.setString(1, name);
 			int res = pst.executeUpdate();
 
@@ -426,7 +429,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		try {
 
 			pst = con.prepareStatement(sqlUpdatej);
-			pst.setString(2, code);
+			pst.setInt(2, Integer.valueOf(code));
 			pst.setString(1, ju);
 			int res = pst.executeUpdate();
 
@@ -449,7 +452,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		try {
 
 			pst = con.prepareStatement(sqlUpdatei);
-			pst.setString(2, code);
+			pst.setInt(2, Integer.valueOf(code));
 			pst.setString(1, in);
 			int res = pst.executeUpdate();
 

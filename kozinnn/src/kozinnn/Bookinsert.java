@@ -29,7 +29,12 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 	private JTextField tf4;
 	private JTextField tf5;
 	private JTable table;
-	private JButton Btok,Btca; 
+	private JButton Btok,Btca,btngo; 
+	
+	private final static int A = 0;
+	private final static int B = 1;
+	int cmd=A;
+	private boolean kfc=true;
 	
 	String driver="oracle.jdbc.OracleDriver";
 	String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -42,14 +47,16 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 	
 	Bookmodel model;
 	
-	String sqlInsert="insert into book values(?,?,?,?,?,?)";
-	String sqlTotal="select * from book ";
+	String sqlInsertt="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in) values(no_seq1.nextval,?,?,?,?,?)";
+	String sqlInsertf="insert into book values(?,?,?,?,?,?)";
+	String sqlTotal="select * from book order by b_code asc";
 	private JButton btn1;
 	
 	public Bookinsert() {
 		initialize();
 		dbcon();
 		to();
+		clear();
 	}
 	
 	private void initialize() {
@@ -131,9 +138,19 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		btn1.setBounds(39, 10, 32, 23);
 		this.getContentPane().add(btn1);
 		
+		btngo = new JButton("\uD65C\uC131\uD654");
+		btngo.setBounds(307, 56, 70, 23);
+		getContentPane().add(btngo);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(131, 18, 165, 29);
+		lblNewLabel_1.setText("\uCF54\uB4DC \uC9C0\uC815 \uC6D0\uD560 \uC2DC \uD65C\uC131\uD654");
+		getContentPane().add(lblNewLabel_1);
+		
 		btn1.addActionListener(this);
 		Btok.addActionListener(this);
 		Btca.addActionListener(this);
+		btngo.addActionListener(this);
 	}
 	
 	public void dbcon() {
@@ -175,12 +192,24 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(Btok)) {
-			add();
+			adbc();
 			to();
+			clear();
 		}else if(e.getSource().equals(Btca)) {
 			clear();
 		}else if(e.getSource().equals(btn1)){
 			subCloseWindow();
+		}else if(e.getSource().equals(btngo)) {
+			if(cmd!=B) {
+				tf.setEnabled(true);
+				cmd=B;
+				kfc=false;
+				return;
+			}
+			tf.setEnabled(false);
+			tf.setText("");
+			kfc=true;
+			cmd=A;
 		}
 		
 	}
@@ -191,39 +220,72 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		tf3.setText("");
 		tf4.setText("");
 		tf5.setText("");
+		tf.setEnabled(false);
+		kfc=true;
 		
 	}
 	
-	public void add() {
+	public void adbc() {
 		//코드,종류,제목,작가이름,출판사,날짜
-		String code=tf.getText();
-		String number=tf1.getText();
-		String title=tf2.getText();
-		String name=tf3.getText();
-		String bhome=tf4.getText();
-		String day=tf5.getText();
-		
-		try {
+		if(kfc==true) {
+			String number=tf1.getText();
+			String title=tf2.getText();
+			String name=tf3.getText();
+			String bhome=tf4.getText();
+			String day=tf5.getText();
 			
-			pst=con.prepareStatement(sqlInsert);
-			pst.setString(1, code);
-			pst.setString(2, number);
-			pst.setString(3, title);
-			pst.setString(4, name);
-			pst.setString(5, bhome);
-			pst.setString(6, day);
-			int res=pst.executeUpdate();
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
 			try {
-				pst.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
+				pst=con.prepareStatement(sqlInsertt);
+				pst.setString(1, number);
+				pst.setString(2, title);
+				pst.setString(3, name);
+				pst.setString(4, bhome);
+				pst.setString(5, day);
+				int res=pst.executeUpdate();
+				
+			}catch(Exception e){
 				e.printStackTrace();
+			}finally {
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}else if(kfc==false) {
+			String code=tf.getText();
+			String number=tf1.getText();
+			String title=tf2.getText();
+			String name=tf3.getText();
+			String bhome=tf4.getText();
+			String day=tf5.getText();
+			
+			try {
+				
+				pst=con.prepareStatement(sqlInsertf);
+				pst.setInt(1, Integer.valueOf(code));
+				pst.setString(2, number);
+				pst.setString(3, title);
+				pst.setString(4, name);
+				pst.setString(5, bhome);
+				pst.setString(6, day);
+				int res=pst.executeUpdate();
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+		
+		
 		
 	}
 
@@ -238,5 +300,4 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
         setVisible(false);
         dispose();
     }
-	
 }

@@ -37,6 +37,7 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 	String sqlTotal="select * from book";
 	String sqlSearch="select * from book where b_title like '%";
 	String sql;
+	private JButton btnSearch;
 	
 	public BookTitle() {
 		initialize();
@@ -69,8 +70,13 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 		btnex.setBounds(12, 23, 37, 23);
 		this.getContentPane().add(btnex);
 		
+		btnSearch = new JButton("\uAC80\uC0C9");
+		btnSearch.setBounds(435, 103, 97, 23);
+		getContentPane().add(btnSearch);
+		
 		btnex.addActionListener(this);
 		input.addActionListener(this);
+		btnSearch.addActionListener(this);
 	}
 
 	public void dbcon() {
@@ -116,6 +122,9 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 			clear();
 		}else if(e.getSource().equals(btnex)) {
 			subCloseWindow();
+		}else if(e.getSource().equals(btnSearch)) {
+			Sear();
+			clear();
 		}
 		
 	}

@@ -38,6 +38,7 @@ public class BookMan extends JInternalFrame implements ActionListener  {
 	String sqlTotal="select * from book";
 	String sqlSearch="select * from book where b_name like '%";
 	String sql;
+	private JButton btnSearch;
 	
 	public BookMan() {
 		initialize();
@@ -49,7 +50,7 @@ public class BookMan extends JInternalFrame implements ActionListener  {
 		this.getContentPane().setLayout(null);
 		this.setTitle("작가 검색");
 		
-		JLabel lbl = new JLabel("\uCC45 \uC81C\uBAA9");
+		JLabel lbl = new JLabel("\uC791\uAC00 \uAC80\uC0C9");
 		lbl.setBounds(134, 99, 88, 30);
 		this.getContentPane().add(lbl);
 		
@@ -70,8 +71,13 @@ public class BookMan extends JInternalFrame implements ActionListener  {
 		btnex.setBounds(12, 23, 37, 23);
 		this.getContentPane().add(btnex);
 		
+		btnSearch = new JButton("\uAC80\uC0C9");
+		btnSearch.setBounds(432, 103, 97, 23);
+		getContentPane().add(btnSearch);
+		
 		btnex.addActionListener(this);
 		input.addActionListener(this);
+		btnSearch.addActionListener(this);
 	}
 
 	public void dbcon() {
@@ -117,6 +123,9 @@ public class BookMan extends JInternalFrame implements ActionListener  {
 			clear();
 		}else if(e.getSource().equals(btnex)) {
 			subCloseWindow();
+		}else if(e.getSource().equals(btnSearch)) {
+			Sear();
+			clear();
 		}
 		
 	}

@@ -18,7 +18,8 @@ public class mainbook implements ActionListener {
 
 	private JFrame frame;
 	private JMenuBar menuBar;
-	private JMenuItem btin,btex,btup,btde,btsena,btsema,btnpublish;
+	private JMenuItem btin,btex,btup,btde,btsena,btsema,btnpublish,btnReturn,btnCheckout,addbtn,delbtn,updabtn;
+	private JMenuItem McodeSe,MnameSe;
 	
 	String driver = "oracle.jdbc.OracleDriver";
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -31,6 +32,11 @@ public class mainbook implements ActionListener {
 	BookTitle Btitle;
 	BookMan Bman;
 	BookPublish Bpublish;
+	MemberInsert Minsert;
+	MemberDelete Mdelete;
+	MemberUpdate Mupdate;
+	MemberCode Mcode;
+	MemberName Mname;
 
 	static Connection conn = null;
 	static ResultSet rs = null;
@@ -76,21 +82,17 @@ public class mainbook implements ActionListener {
 		JMenu mn = new JMenu("\uC2DC\uC2A4\uD15C");
 		menuBar.add(mn);
 		
-		JMenu mn2 = new JMenu("\uAC80\uC0C9");
-		menuBar.add(mn2);
+		JMenu mnNewMenu = new JMenu("\uB300\uCD9C/\uBC18\uB0A9");
+		menuBar.add(mnNewMenu);
+		
+		btnCheckout = new JMenuItem("\uB300\uCD9C");
+		mnNewMenu.add(btnCheckout);
+		
+		btnReturn = new JMenuItem("\uBC18\uB0A9");
+		mnNewMenu.add(btnReturn);
 		
 		btex = new JMenuItem("\uC885\uB8CC");
 		mn.add(btex);
-		
-		btsena = new JMenuItem("\uCC45 \uC81C\uBAA9 \uAC80\uC0C9");
-		mn2.add(btsena);
-		
-		btsema = new JMenuItem("\uC791\uAC00 \uAC80\uC0C9");
-		mn2.add(btsema);
-		
-		btnpublish =new JMenuItem("출판사 검색");
-		mn2.add(btnpublish);
-		btnpublish.addActionListener(this);
 		
 		JMenu mn1 = new JMenu("\uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
 		menuBar.add(mn1);
@@ -104,14 +106,53 @@ public class mainbook implements ActionListener {
 		btde = new JMenuItem("\uC0AD\uC81C");
 		mn1.add(btde);
 		
+		JMenu mn2 = new JMenu("\uAC80\uC0C9");
+		menuBar.add(mn2);
+		
+		btsena = new JMenuItem("\uCC45 \uC81C\uBAA9 \uAC80\uC0C9");
+		mn2.add(btsena);
+		
+		btsema = new JMenuItem("\uC791\uAC00 \uAC80\uC0C9");
+		mn2.add(btsema);
+		
+		btnpublish =new JMenuItem("출판사 검색");
+		mn2.add(btnpublish);
+		
+		McodeSe = new JMenuItem("\uD68C\uC6D0 \uBC88\uD638 \uAC80\uC0C9");
+		mn2.add(McodeSe);
+		
+		MnameSe = new JMenuItem("\uD68C\uC6D0 \uC774\uB984 \uAC80\uC0C9");
+		mn2.add(MnameSe);
+		
+		JMenu mnNewMenu_1 = new JMenu("\uD68C\uC6D0 \uAD00\uB9AC");
+		menuBar.add(mnNewMenu_1);
+		
+		addbtn = new JMenuItem("\uD68C\uC6D0 \uB4F1\uB85D");
+		mnNewMenu_1.add(addbtn);
+		
+		delbtn = new JMenuItem("\uD68C\uC6D0 \uC0AD\uC81C");
+		mnNewMenu_1.add(delbtn);
+		
+		updabtn =new JMenuItem("\uD68C\uC6D0 \uC218\uC815");
+		mnNewMenu_1.add(updabtn);
+		btex.addActionListener(this);
+		
+		btsena.addActionListener(this);
+		btsema.addActionListener(this);
+		btnpublish.addActionListener(this);
+		McodeSe.addActionListener(this);
+		MnameSe.addActionListener(this);
 		
 		btin.addActionListener(this);
 		btup.addActionListener(this);
 		btde.addActionListener(this);
 		
-		btex.addActionListener(this);
-		btsena.addActionListener(this);
-		btsema.addActionListener(this);
+		btnCheckout.addActionListener(this);
+		btnReturn.addActionListener(this);
+		
+		addbtn.addActionListener(this);
+		delbtn.addActionListener(this);
+		updabtn.addActionListener(this);
 	}
 	
 	@Override
@@ -119,17 +160,31 @@ public class mainbook implements ActionListener {
 		if(e.getSource().equals(btex)) {
 			System.exit(0);
 		}else if(e.getSource().equals(btin)) {
-			goInsert();
+			goInsert();//책 추가
 		}else if(e.getSource().equals(btup)) {
-			goUpdate();
+			goUpdate();//책 수정
 		}else if(e.getSource().equals(btde)) {
-			goDelete();
+			goDelete();//책 삭제
 		}else if(e.getSource().equals(btsena)) {
-			goTitle();
+			goTitle();//책 제목 검색
 		}else if(e.getSource().equals(btsema)) {
-			goMan();
+			goMan();//작가 검색
 		}else if(e.getSource().equals(btnpublish)) {
-			goPublish();
+			goPublish();//출판사 검색
+		}else if(e.getSource().equals(McodeSe)) {
+			goMcode();//회원 번호 검색
+		}else if(e.getSource().equals(MnameSe)) {
+			goMname();//회원 이름 검색
+		}else if(e.getSource().equals(btnReturn)) {
+			
+		}else if(e.getSource().equals(btnCheckout)) {
+			
+		}else if(e.getSource().equals(addbtn)) {
+			goMInsert();//회원 추가
+		}else if(e.getSource().equals(delbtn)) {
+			goMDelete();//회원 삭제
+		}else if(e.getSource().equals(updabtn)) {
+			goMUpdate();//회원 수정
 		}
 	}
 	
@@ -210,4 +265,69 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}	
+	
+	public void goMcode() {
+		Mcode = new MemberCode();
+		Mcode.pack();
+		Mcode.setVisible(true);
+		Mcode.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Mcode);
+		try {
+			Mcode.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void goMname() {
+		Mname = new MemberName();
+		Mname.pack();
+		Mname.setVisible(true);
+		Mname.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Mname);
+		try {
+			Mname.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void goMInsert() {
+		Minsert = new MemberInsert();
+		Minsert.pack();
+		Minsert.setVisible(true);
+		Minsert.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Minsert);
+		try {
+			Minsert.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void goMDelete() {
+		Mdelete = new MemberDelete();
+		Mdelete.pack();
+		Mdelete.setVisible(true);
+		Mdelete.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Mdelete);
+		try {
+			Mdelete.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void goMUpdate() {
+		Mupdate = new MemberUpdate();
+		Mupdate.pack();
+		Mupdate.setVisible(true);
+		Mupdate.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Mupdate);
+		try {
+			Mupdate.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

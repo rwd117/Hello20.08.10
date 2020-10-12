@@ -18,8 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class BookPublish extends JInternalFrame implements ActionListener {
-
+public class MemberCode	extends JInternalFrame implements ActionListener  {
+	
 	private JTextField input;
 	private JTable table;
 	private JButton btnex; 
@@ -35,23 +35,22 @@ public class BookPublish extends JInternalFrame implements ActionListener {
 	
 	Bookmodel model;
 	
-	String sqlTotal="select * from book";
-	String sqlSearch="select * from book where b_ju like '%";
+	String sqlTotal="select * from member1";
+	String sqlSearch="select * from member1 where m_code like '%";
 	String sql;
 	private JButton btnSearch;
 	
-	public BookPublish() {
+	public MemberCode() {
 		initialize();
 		dbcon();
 		to();
-		clear();
 	}
 
 	private void initialize() {
 		this.getContentPane().setLayout(null);
-		this.setTitle("출판사 검색");
+		this.setTitle("회원 번호 검색");
 		
-		JLabel lbl = new JLabel("\uCD9C\uD310\uC0AC \uAC80\uC0C9");
+		JLabel lbl = new JLabel("\uD68C\uC6D0 \uBC88\uD638");
 		lbl.setBounds(134, 99, 88, 30);
 		this.getContentPane().add(lbl);
 		
@@ -73,7 +72,7 @@ public class BookPublish extends JInternalFrame implements ActionListener {
 		this.getContentPane().add(btnex);
 		
 		btnSearch = new JButton("\uAC80\uC0C9");
-		btnSearch.setBounds(432, 103, 97, 23);
+		btnSearch.setBounds(458, 103, 97, 23);
 		getContentPane().add(btnSearch);
 		
 		btnex.addActionListener(this);
@@ -128,11 +127,10 @@ public class BookPublish extends JInternalFrame implements ActionListener {
 			Sear();
 			clear();
 		}
-		
 	}
 	
 	public void Sear() {
-		String search=input.getText();	
+		int search=Integer.parseInt(input.getText());	
 		sql=sqlSearch+search+"%'";
 		
 		try {
@@ -173,7 +171,7 @@ public class BookPublish extends JInternalFrame implements ActionListener {
         setVisible(false);
         dispose();
 	}
-	
+
 	public void clear() {
 		input.setText("");
 	}

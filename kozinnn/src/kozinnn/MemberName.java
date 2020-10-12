@@ -18,64 +18,63 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class BookPublish extends JInternalFrame implements ActionListener {
+public class MemberName extends JInternalFrame implements ActionListener {
 
 	private JTextField input;
 	private JTable table;
-	private JButton btnex; 
-	
-	String driver="oracle.jdbc.OracleDriver";
-	String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
-	String user="system";
-	String password="123456";
-	
-	Connection con=null;
-	PreparedStatement pst=null;
+	private JButton btnex;
+
+	String driver = "oracle.jdbc.OracleDriver";
+	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	String user = "system";
+	String password = "123456";
+
+	Connection con = null;
+	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
-	
+
 	Bookmodel model;
-	
-	String sqlTotal="select * from book";
-	String sqlSearch="select * from book where b_ju like '%";
+
+	String sqlTotal = "select * from member1";
+	String sqlSearch = "select * from member1 where m_name like '%";
 	String sql;
 	private JButton btnSearch;
-	
-	public BookPublish() {
+
+	public MemberName() {
 		initialize();
 		dbcon();
 		to();
-		clear();
 	}
 
 	private void initialize() {
 		this.getContentPane().setLayout(null);
-		this.setTitle("출판사 검색");
-		
-		JLabel lbl = new JLabel("\uCD9C\uD310\uC0AC \uAC80\uC0C9");
+		this.setTitle("회원 이름 검색");
+
+		JLabel lbl = new JLabel("\uD68C\uC6D0 \uC774\uB984");
 		lbl.setBounds(134, 99, 88, 30);
 		this.getContentPane().add(lbl);
-		
+
 		input = new JTextField();
 		input.setBounds(250, 104, 170, 21);
 		this.getContentPane().add(input);
 		input.setColumns(10);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 152, 629, 296);
 		this.getContentPane().add(scrollPane);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
+
 		btnex = new JButton("");
 		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnex.setBounds(12, 23, 37, 23);
 		this.getContentPane().add(btnex);
-		
+
 		btnSearch = new JButton("\uAC80\uC0C9");
-		btnSearch.setBounds(432, 103, 97, 23);
+		btnSearch.setBounds(458, 103, 97, 23);
 		getContentPane().add(btnSearch);
-		
+
 		btnex.addActionListener(this);
 		input.addActionListener(this);
 		btnSearch.addActionListener(this);
@@ -84,29 +83,30 @@ public class BookPublish extends JInternalFrame implements ActionListener {
 	public void dbcon() {
 		try {
 			Class.forName(driver);
-			con=DriverManager.getConnection(url,user,password);
+			con = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void to() {
 		try {
-			pstmttosc=con.prepareStatement(sqlTotal,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			pstmtto=con.prepareStatement(sqlTotal);
-			
-			ResultSet rsscroll=pstmttosc.executeQuery();
-			ResultSet rs=pstmtto.executeQuery();
-			
-			if(model==null) model=new Bookmodel();
+			pstmttosc = con.prepareStatement(sqlTotal, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			pstmtto = con.prepareStatement(sqlTotal);
+
+			ResultSet rsscroll = pstmttosc.executeQuery();
+			ResultSet rs = pstmtto.executeQuery();
+
+			if (model == null)
+				model = new Bookmodel();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
 			table.updateUI();
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				pstmtto.close();
 				pstmttosc.close();
@@ -116,7 +116,7 @@ public class BookPublish extends JInternalFrame implements ActionListener {
 			}
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(input)) {
@@ -128,7 +128,7 @@ public class BookPublish extends JInternalFrame implements ActionListener {
 			Sear();
 			clear();
 		}
-		
+
 	}
 	
 	public void Sear() {
@@ -173,8 +173,9 @@ public class BookPublish extends JInternalFrame implements ActionListener {
         setVisible(false);
         dispose();
 	}
-	
+
 	public void clear() {
 		input.setText("");
 	}
+
 }
