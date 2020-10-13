@@ -33,7 +33,7 @@ public class MemberName extends JInternalFrame implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	Bookmodel model;
+	MemberModel model;
 
 	String sqlTotal = "select * from member1";
 	String sqlSearch = "select * from member1 where m_name like '%";
@@ -98,7 +98,7 @@ public class MemberName extends JInternalFrame implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new Bookmodel();
+				model = new MemberModel();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
@@ -144,7 +144,7 @@ public class MemberName extends JInternalFrame implements ActionListener {
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new Bookmodel();
+			if(model==null) model=new MemberModel();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

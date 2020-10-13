@@ -37,7 +37,7 @@ public class MemberUpdate extends JInternalFrame implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	Bookmodel model;
+	MemberModel model;
 
 	String sqlTotal = "select * from member1 order by m_code asc";
 	String sqlUpdaten = "update member1 set m_name=?  where m_code=?";	
@@ -157,7 +157,7 @@ public class MemberUpdate extends JInternalFrame implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new Bookmodel();
+				model = new MemberModel();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

@@ -23,13 +23,7 @@ public class selectall {
 			pst=con.prepareStatement(sql);
 			ResultSet rs=pst.executeQuery();
 			
-			while(rs.next()) {
-				System.out.print(rs.getString(1)+"  ");
-				System.out.print(rs.getString(2)+"  ");
-				System.out.print(rs.getString(3)+"  ");
-				System.out.print(rs.getString(4)+"  ");
-				System.out.println(rs.getString(5));
-			}
+			
 			
 		} catch (Exception e) {
 			

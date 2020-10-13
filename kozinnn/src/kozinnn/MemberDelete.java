@@ -38,7 +38,7 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	Bookmodel model;
+	MemberModel model;
 
 	String sqlTotal = "select * from member1 order by m_code asc";
 	String sqlDeletec = "delete from member1 where m_code=?";
@@ -133,7 +133,7 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new Bookmodel();
+				model = new MemberModel();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

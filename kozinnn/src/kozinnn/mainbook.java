@@ -37,6 +37,8 @@ public class mainbook implements ActionListener {
 	MemberUpdate Mupdate;
 	MemberCode Mcode;
 	MemberName Mname;
+	BookCheckOut Bcheck;
+	BookReturn Breturn;
 
 	static Connection conn = null;
 	static ResultSet rs = null;
@@ -94,7 +96,7 @@ public class mainbook implements ActionListener {
 		btex = new JMenuItem("\uC885\uB8CC");
 		mn.add(btex);
 		
-		JMenu mn1 = new JMenu("\uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
+		JMenu mn1 = new JMenu("\uCC45 \uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
 		menuBar.add(mn1);
 		
 		btin = new JMenuItem("\uCD94\uAC00");
@@ -176,9 +178,9 @@ public class mainbook implements ActionListener {
 		}else if(e.getSource().equals(MnameSe)) {
 			goMname();//회원 이름 검색
 		}else if(e.getSource().equals(btnReturn)) {
-			
+			goReturn();//책 반납
 		}else if(e.getSource().equals(btnCheckout)) {
-			
+			goCheckout();//책 대출
 		}else if(e.getSource().equals(addbtn)) {
 			goMInsert();//회원 추가
 		}else if(e.getSource().equals(delbtn)) {
@@ -326,6 +328,32 @@ public class mainbook implements ActionListener {
 		frame.getContentPane().add(Mupdate);
 		try {
 			Mupdate.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void goCheckout() {
+		Bcheck = new BookCheckOut();
+		Bcheck.pack();
+		Bcheck.setVisible(true);
+		Bcheck.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Bcheck);
+		try {
+			Bcheck.setSelected(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void goReturn() {
+		Breturn = new BookReturn();
+		Breturn.pack();
+		Breturn.setVisible(true);
+		Breturn.setBounds(20, 20, 800, 486);
+		frame.getContentPane().add(Breturn);
+		try {
+			Breturn.setSelected(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

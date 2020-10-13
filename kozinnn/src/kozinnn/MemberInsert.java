@@ -31,7 +31,7 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 	PreparedStatement pst=null;
 	PreparedStatement pstmtto, pstmttosc;
 	
-	Bookmodel model;
+	MemberModel model;
 	
 	String sqlInsert="insert into member1 values(no_seq2.nextval,?,?,?)";
 	String sqlTotal="select * from member1 order by m_code asc";
@@ -124,7 +124,7 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new Bookmodel();
+			if(model==null) model=new MemberModel();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
@@ -159,7 +159,6 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 		String name=tf.getText();
 		String phone=tf1.getText();
 		String address=tf2.getText();
-		
 		try {
 			
 			pst=con.prepareStatement(sqlInsert);
