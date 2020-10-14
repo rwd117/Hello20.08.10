@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,21 +21,24 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 
-public class Bookinsert extends JInternalFrame implements ActionListener{
+public class Bookinsert extends JInternalFrame implements ActionListener,Runnable{
 	
 	private JTextField tf;
 	private JTextField tf1;
 	private JTextField tf2;
 	private JTextField tf3;
 	private JTextField tf4;
-	private JTextField tf5;
 	private JTable table;
-	private JButton Btok,Btca,btngo; 
+	private JButton Btok,Btca,btngo,btngo2; 
 	
 	private final static int A = 0;
 	private final static int B = 1;
+	private final static int C = 2;
 	int cmd=A;
 	private boolean kfc=true;
+	private boolean mac=true;
+	int year,month,date;
+	String Date;
 	
 	String driver="oracle.jdbc.OracleDriver";
 	String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -47,10 +51,18 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 	
 	Bookmodel model;
 	
-	String sqlInsertt="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in) values(no_seq1.nextval,?,?,?,?,?)";
-	String sqlInsertf="insert into book values(?,?,?,?,?,?)";
+	String sqlInsertauto="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(no_seq1.nextval,?,?,?,?,?,2,2)";
+	//코드,양 자동입력 -- 버튼 둘다 비활성화
+	String sqlInsertamount="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(?,?,?,?,?,?,2,2)";
+	//양 자동입력,코드 수동입력
+	String sqlInsertcode="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(no_seq1.nextval,?,?,?,?,?,?,?)";
+	//코드 자동입력,양 수동입력
+	String sqlInsertto="insert into book values(?,?,?,?,?,?,?,?)";
+	//코드,양 수정
+	
 	String sqlTotal="select * from book order by b_code asc";
 	private JButton btn1;
+	private JTextField tf6;
 	
 	public Bookinsert() {
 		initialize();
@@ -84,10 +96,6 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		label_3.setBounds(39, 265, 88, 20);
 		this.getContentPane().add(label_3);
 		
-		JLabel label_4 = new JLabel("\uB4F1\uB85D \uB0A0\uC9DC");
-		label_4.setBounds(39, 322, 88, 20);
-		this.getContentPane().add(label_4);
-		
 		tf = new JTextField();
 		tf.setBounds(139, 57, 157, 21);
 		this.getContentPane().add(tf);
@@ -113,17 +121,12 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		tf4.setBounds(139, 265, 157, 21);
 		this.getContentPane().add(tf4);
 		
-		tf5 = new JTextField();
-		tf5.setColumns(10);
-		tf5.setBounds(139, 322, 157, 21);
-		this.getContentPane().add(tf5);
-		
 		Btok = new JButton("\uCD94\uAC00");
-		Btok.setBounds(72, 393, 116, 23);
+		Btok.setBounds(69, 424, 116, 23);
 		this.getContentPane().add(Btok);
 		
 		Btca = new JButton("\uCDE8\uC18C");
-		Btca.setBounds(213, 393, 116, 23);
+		Btca.setBounds(215, 424, 116, 23);
 		this.getContentPane().add(Btca);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -147,10 +150,28 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		lblNewLabel_1.setText("\uCF54\uB4DC \uC9C0\uC815 \uC6D0\uD560 \uC2DC \uD65C\uC131\uD654");
 		getContentPane().add(lblNewLabel_1);
 		
+		JLabel lblblb = new JLabel("\uCC45 \uC218\uB7C9");
+		lblblb.setBounds(39, 326, 88, 20);
+		getContentPane().add(lblblb);
+		
+		tf6 = new JTextField();
+		tf6.setText("");
+		tf6.setColumns(10);
+		tf6.setBounds(139, 326, 157, 21);
+		getContentPane().add(tf6);
+		
+		btngo2 = new JButton("\uD65C\uC131\uD654");
+		btngo2.setBounds(307, 325, 70, 23);
+		getContentPane().add(btngo2);
+		
+		Thread thr=new Thread(this);
+		thr.start();
+		
 		btn1.addActionListener(this);
 		Btok.addActionListener(this);
 		Btca.addActionListener(this);
 		btngo.addActionListener(this);
+		btngo2.addActionListener(this);
 	}
 	
 	public void dbcon() {
@@ -189,10 +210,25 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		}
 	}
 	
+	public void clear() {
+		tf.setText("");
+		tf1.setText("");
+		tf2.setText("");
+		tf3.setText("");
+		tf4.setText("");
+		tf6.setText("");
+		tf.setEnabled(false);
+		tf6.setEnabled(false);
+		kfc=true;
+		mac=true;
+		cmd=A;
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(Btok)) {
-			adbc();
+			adcd();
 			to();
 			clear();
 		}else if(e.getSource().equals(Btca)) {
@@ -200,95 +236,186 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
 		}else if(e.getSource().equals(btn1)){
 			subCloseWindow();
 		}else if(e.getSource().equals(btngo)) {
-			if(cmd!=B) {
-				tf.setEnabled(true);
-				cmd=B;
-				kfc=false;
-				return;
-			}
-			tf.setEnabled(false);
-			tf.setText("");
-			kfc=true;
-			cmd=A;
+			ab();
+		}else if(e.getSource().equals(btngo2)) {
+			ac();
 		}
-		
-	}
-	public void clear() {
-		tf.setText("");
-		tf1.setText("");
-		tf2.setText("");
-		tf3.setText("");
-		tf4.setText("");
-		tf5.setText("");
-		tf.setEnabled(false);
-		kfc=true;
-		
 	}
 	
-	public void adbc() {
-		//코드,종류,제목,작가이름,출판사,날짜
-		if(kfc==true) {
-			String number=tf1.getText();
-			String title=tf2.getText();
-			String name=tf3.getText();
-			String bhome=tf4.getText();
-			String day=tf5.getText();
-			
-			try {
-				
-				pst=con.prepareStatement(sqlInsertt);
-				pst.setString(1, number);
-				pst.setString(2, title);
-				pst.setString(3, name);
-				pst.setString(4, bhome);
-				pst.setString(5, day);
-				int res=pst.executeUpdate();
-				
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally {
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}else if(kfc==false) {
-			String code=tf.getText();
-			String number=tf1.getText();
-			String title=tf2.getText();
-			String name=tf3.getText();
-			String bhome=tf4.getText();
-			String day=tf5.getText();
-			
-			try {
-				
-				pst=con.prepareStatement(sqlInsertf);
-				pst.setInt(1, Integer.valueOf(code));
-				pst.setString(2, number);
-				pst.setString(3, title);
-				pst.setString(4, name);
-				pst.setString(5, bhome);
-				pst.setString(6, day);
-				int res=pst.executeUpdate();
-				
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally {
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+	public void ab() {
+		if(((cmd==A)||(cmd==C))&&(kfc==true)) {
+			tf.setEnabled(true);
+			cmd=B;
+			kfc=false;
+			return;
+		}else if((kfc==false)&&(mac==false)) {
+			tf.setEnabled(false);
+			tf.setText("");
+			cmd=C;
+			kfc=true;
+			return;
 		}
-		
-		
-		
+		tf.setEnabled(false);
+		tf.setText("");
+		kfc=true;
+		cmd=A;
+	}
+	
+	public void ac() {
+		if(((cmd==A)||(cmd==B))&&(mac==true)) {
+			tf6.setEnabled(true);
+			cmd=C;
+			mac=false;
+			return;
+		}else if((kfc==false)&&(mac==false)) {
+			tf6.setEnabled(false);
+			tf6.setText("");
+			cmd=B;
+			mac=true;
+			return;
+		}
+		tf6.setEnabled(false);
+		tf6.setText("");
+		mac=true;
+		cmd=A;
+	}
+	
+	public void adcd() {
+		//코드,종류,제목,작가이름,출판사,날짜,책 수량,true가 버튼 꺼진것.
+		if((kfc==true)&&(mac==true)) {//둘다 꺼짐 
+			a();
+		}else if((kfc==false)&&(mac==true)) {//코드만 활성화
+			b();
+		}else if((kfc==true)&&(mac==false)) {//양만 활성화
+			c();
+		}else if((kfc==false)&&(mac==false)) {//둘다 활성화
+			d();
+		}
 	}
 
+	public void a() {
+		String number=tf1.getText();
+		String title=tf2.getText();
+		String name=tf3.getText();
+		String bhome=tf4.getText();
+		
+		try {
+			
+			pst=con.prepareStatement(sqlInsertauto);
+			pst.setString(1, number);
+			pst.setString(2, title);
+			pst.setString(3, name);
+			pst.setString(4, bhome);
+			pst.setString(5, Date);
+			int res=pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void b() {
+		String code=tf.getText();
+		String number=tf1.getText();
+		String title=tf2.getText();
+		String name=tf3.getText();
+		String bhome=tf4.getText();
+		
+		try {
+			
+			pst=con.prepareStatement(sqlInsertamount);
+			pst.setInt(1, Integer.valueOf(code));
+			pst.setString(2, number);
+			pst.setString(3, title);
+			pst.setString(4, name);
+			pst.setString(5, bhome);
+			pst.setString(6, Date);
+			int res=pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void c() {
+		String number=tf1.getText();
+		String title=tf2.getText();
+		String name=tf3.getText();
+		String bhome=tf4.getText();
+		String amount=tf6.getText();
+		
+		try {
+			
+			pst=con.prepareStatement(sqlInsertcode);
+			pst.setString(1, number);
+			pst.setString(2, title);
+			pst.setString(3, name);
+			pst.setString(4, bhome);
+			pst.setString(5, Date);
+			pst.setInt(6, Integer.valueOf(amount));
+			pst.setInt(7, Integer.valueOf(amount));
+			
+			int res=pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void d() {
+		String code=tf.getText();
+		String number=tf1.getText();
+		String title=tf2.getText();
+		String name=tf3.getText();
+		String bhome=tf4.getText();
+		String amount=tf6.getText();
+		
+		try {
+			
+			pst=con.prepareStatement(sqlInsertto);
+			pst.setInt(1, Integer.valueOf(code));
+			pst.setString(2, number);
+			pst.setString(3, title);
+			pst.setString(4, name);
+			pst.setString(5, bhome);
+			pst.setString(6, Date);
+			pst.setInt(7, Integer.valueOf(amount));
+			pst.setInt(8, Integer.valueOf(amount));
+			int res=pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void subCloseWindow() {
        
 		try {
@@ -300,4 +427,22 @@ public class Bookinsert extends JInternalFrame implements ActionListener{
         setVisible(false);
         dispose();
     }
+	
+	public void run() {
+		while(true) {
+			Calendar now = Calendar.getInstance();
+	        year=now.get(Calendar.YEAR);
+			month=now.get(Calendar.MONTH)+1;
+			date=now.get(Calendar.DATE);
+			
+			Date=year+"/"+month+"/"+date;
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

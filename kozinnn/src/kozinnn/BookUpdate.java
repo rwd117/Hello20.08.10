@@ -51,7 +51,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 	String sqlUpdatet = "update book set b_title=?  where b_code=?";
 	String sqlUpdatena = "update book set b_name=?  where b_code=?";
 	String sqlUpdatej = "update book set b_ju=?  where b_code=?";
-	String sqlUpdatei=	"update book set b_in=?  where b_code=?";
+	String sqlUpdatei=	"update book set b_amount=?,b_amt=?  where b_code=?";
 
 	String sqlTotal = "select * from book order by b_code asc";
 	private JLabel label_4;
@@ -146,7 +146,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		btn4.setBounds(293, 295, 84, 23);
 		this.getContentPane().add(btn4);
 		
-		label_4 = new JLabel("\uB4F1\uB85D\uB0A0\uC9DC");
+		label_4 = new JLabel("\uCC45 \uC218\uB7C9");
 		label_4.setBounds(24, 337, 88, 20);
 		getContentPane().add(label_4);
 		
@@ -219,26 +219,7 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(Btok)) {
-			if (cmd == A) {
-				bpla();
-				to();
-			} else if (cmd == B) {
-				bplb();
-				to();
-			} else if (cmd == C) {
-				bplc();
-				to();
-			} else if (cmd == D) {
-				bpld();
-				to();
-			} else if (cmd == E) {
-				bple();
-				to();
-			} else if (cmd == F) {
-				bplf();
-				to();
-			}
-			set();
+			Go();
 		} else if (e.getSource().equals(Btca)) {
 			set();
 		} else if (e.getSource().equals(btn1)) {
@@ -287,6 +268,28 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		}
 	}
 
+	public void Go() {
+		if (cmd == A) {
+			bpla();
+			to();
+		} else if (cmd == B) {
+			bplb();
+			to();
+		} else if (cmd == C) {
+			bplc();
+			to();
+		} else if (cmd == D) {
+			bpld();
+			to();
+		} else if (cmd == E) {
+			bple();
+			to();
+		} else if (cmd == F) {
+			bplf();
+			to();
+		}
+		set();
+	}	
 
 	public void set() {
 		tf1.setEnabled(false);
@@ -300,8 +303,8 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 		tf3.setText("");
 		tf4.setText("");
 		tf5.setText("");
+		cmd=A;
 	}
-
 	
 	public void tb1() {
 		tf1.setEnabled(true);
@@ -447,13 +450,14 @@ public class BookUpdate extends JInternalFrame implements ActionListener {
 
 	public void bplf() {
 		String code = tf.getText();
-		String in= tf5.getText();
+		String amount= tf5.getText();
 		
 		try {
 
 			pst = con.prepareStatement(sqlUpdatei);
-			pst.setInt(2, Integer.valueOf(code));
-			pst.setString(1, in);
+			pst.setInt(3, Integer.valueOf(code));
+			pst.setInt(1, Integer.valueOf(amount));
+			pst.setInt(2, Integer.valueOf(amount));
 			int res = pst.executeUpdate();
 
 		} catch (Exception e) {
