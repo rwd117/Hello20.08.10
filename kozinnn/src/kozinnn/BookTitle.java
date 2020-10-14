@@ -34,7 +34,7 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 	
 	Bookmodel model;
 	
-	String sqlTotal="select * from book";
+	String sqlTotal="select * from book order by b_code";
 	String sqlSearch="select * from book where b_title like '%";
 	String sql;
 	private JButton btnSearch;

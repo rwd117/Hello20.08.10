@@ -35,7 +35,7 @@ public class MemberCode	extends JInternalFrame implements ActionListener  {
 	
 	MemberModel model;
 	
-	String sqlTotal="select * from member1";
+	String sqlTotal="select * from member1 order by m_code";
 	String sqlSearch="select * from member1 where m_code like '%";
 	String sql;
 	private JButton btnSearch;
