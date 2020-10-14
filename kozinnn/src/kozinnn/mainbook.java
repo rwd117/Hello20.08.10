@@ -25,7 +25,7 @@ public class mainbook implements ActionListener {
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 	String user = "system";
 	String pwd = "123456";
-	
+	  
 	Bookinsert Binsert;
 	BookUpdate Bupdate;
 	BookDelete Bdelete;
