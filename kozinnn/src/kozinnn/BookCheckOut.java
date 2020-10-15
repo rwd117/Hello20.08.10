@@ -43,11 +43,12 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 	
 	String sqlbamount= "select b_amount from book where b_code=?";
 	String sqlbamt= "select b_amt from book where b_code=?";
-	String sqlbupdate="update book set b_amount=? where b_code=?";
+	
+	String sqlbupdate="update book set b_amount=b_amount-1 where b_code=?";
 
 	String sqlms = "select m_name from member1 where m_code=?";
 	
-	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq3.nextval,?,?,?,?,'대출 중',?)";
+	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'대출 중',?)";
 	String sqlSearch="select * from checkout where c_curr='대출 중' order by c_code asc";
 	//?는  자동으로 설정,2,4는 입력 3,5는 select 해서 가져오기 6은 입력.7은 쓰레드로 입력.
 	//셀렉 해서 북에서 정보를 가져오고 그 정보값을 그 셀에 입력?
@@ -134,10 +135,7 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			Bookselect();
 			BookAmount();
 			BookAmt();
-			BookCal();
-			CheckInsert();
-			Sear();
-			clear();
+			BookTerm();
 		}
 	}
 	
@@ -198,7 +196,7 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			while(rstt.next()) {
 			bamount=rstt.getString(1);
 			}
-			System.out.println(bamount);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -232,19 +230,32 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 		}
 	}
 	
-	public void BookCal() {
+	public void BookTerm() {
 		amount=Integer.valueOf(bamount);
 		amt=Integer.valueOf(bamt);
 		if(amount==0) {
 			JOptionPane.showMessageDialog(null, "책이 없습니다");
+			Sear();
+			clear();
 			return;
+		}else if(amount!=0) {
+			BookCal();
+			CheckInsert();
+			Sear();
+			clear();
 		}
+		
+	}
+	
+	public void BookCal() {
+		
 		String book = tf2.getText();
-		System.out.println(amount);
 		try {
 			pst = con.prepareStatement(sqlbupdate);
-			pst.setInt(1, Integer.valueOf(amt)-1);
-			pst.setInt(2, Integer.valueOf(book));
+			
+			pst.setInt(1, Integer.valueOf(book));
+			
+			pst.executeUpdate();
 				
 		} catch (Exception e) {
 			e.printStackTrace();

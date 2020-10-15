@@ -1,6 +1,8 @@
 package kozinnn;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -15,12 +17,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class mainbook implements ActionListener {
-
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenuItem btin,btex,btup,btde,btsena,btsema,btnpublish,btnReturn,btnCheckout,addbtn,delbtn,updabtn;
 	private JMenuItem McodeSe,MnameSe;
-	
+
 	String driver = "oracle.jdbc.OracleDriver";
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 	String user = "system";
@@ -137,6 +138,9 @@ public class mainbook implements ActionListener {
 		
 		updabtn =new JMenuItem("\uD68C\uC6D0 \uC218\uC815");
 		mnNewMenu_1.add(updabtn);
+		
+		
+		
 		btex.addActionListener(this);
 		
 		btsena.addActionListener(this);
@@ -196,6 +200,7 @@ public class mainbook implements ActionListener {
 		Binsert.setVisible(true);
 		Binsert.setBounds(20, 20, 800, 486);
 		frame.getContentPane().add(Binsert);
+
 		try {
 			Binsert.setSelected(true);
 		} catch (Exception e) {
