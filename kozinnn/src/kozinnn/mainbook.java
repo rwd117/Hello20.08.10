@@ -41,9 +41,9 @@ public class mainbook implements ActionListener {
 	BookCheckOut Bcheck;
 	BookReturn Breturn;
 
-	static Connection conn = null;
-	static ResultSet rs = null;
-	static Statement stmt = null;
+	Connection conn = null;
+	ResultSet rs = null;
+	Statement stmt = null;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
