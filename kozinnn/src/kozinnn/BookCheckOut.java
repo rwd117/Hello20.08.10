@@ -18,41 +18,46 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class BookCheckOut extends JInternalFrame implements ActionListener,Runnable  {
+public class BookCheckOut extends JInternalFrame implements ActionListener, Runnable {
 
 	private JTable table;
 	private JTextField tf1;
 	private JTextField tf2;
 	private JButton btnCheck, btnex;
-	private String mname,bname,bamount,bamt;
-	private int year,month,date,amount,amt;
+	private String mname, bname, bamount, bamt, mamount, mamt;
+	private int year, month, date, amount, amt, amountt, amtt;
 	private String Date;
-	
+
 	private String driver = "oracle.jdbc.OracleDriver";
 	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
-	private	String user = "system";
+	private String user = "system";
 	private String password = "123456";
 
 	Connection con = null;
-	PreparedStatement pst= null;
+	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
-	ResultSet rst,rstt,rs;
+	ResultSet rst, rstt, rs;
 
 	CheckModel model;
 	String sqlbs = "select b_title from book where b_code=?";
+
+	String sqlmamount = "select m_amount from member1 where m_code=?";
+	String sqlmamt = "select m_amt from member1 where m_code=?";
 	
-	String sqlbamount= "select b_amount from book where b_code=?";
-	String sqlbamt= "select b_amt from book where b_code=?";
+	String sqlmupdate="update member1 set m_amount=m_amount-1 where m_code=?";
 	
-	String sqlbupdate="update book set b_amount=b_amount-1 where b_code=?";
+	String sqlbamount = "select b_amount from book where b_code=?";
+	String sqlbamt = "select b_amt from book where b_code=?";
+
+	String sqlbupdate = "update book set b_amount=b_amount-1 where b_code=?";
 
 	String sqlms = "select m_name from member1 where m_code=?";
-	
+
 	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'대출 중',?)";
-	String sqlSearch="select * from checkout where c_curr='대출 중' order by c_code asc";
-	//?는  자동으로 설정,2,4는 입력 3,5는 select 해서 가져오기 6은 입력.7은 쓰레드로 입력.
-	//셀렉 해서 북에서 정보를 가져오고 그 정보값을 그 셀에 입력?
-	
+	String sqlSearch = "select * from checkout where c_curr='대출 중' order by c_code asc";
+	// ?는 자동으로 설정,2,4는 입력 3,5는 select 해서 가져오기 6은 입력.7은 쓰레드로 입력.
+	// 셀렉 해서 북에서 정보를 가져오고 그 정보값을 그 셀에 입력?
+
 	public BookCheckOut() {
 		initialize();
 		dbcon();
@@ -102,10 +107,10 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 				"\uD68C\uC6D0 \uBC88\uD638, \uCC45 \uCF54\uB4DC \uBC18\uB4DC\uC2DC \uC785\uB825");
 		lblNewLabel_1.setBounds(130, 24, 212, 48);
 		this.getContentPane().add(lblNewLabel_1);
-		
-		Thread thr=new Thread(this);
+
+		Thread thr = new Thread(this);
 		thr.start();
-		
+
 		btnCheck.addActionListener(this);
 		btnex.addActionListener(this);
 	}
@@ -122,8 +127,8 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 	public void clear() {
 		tf1.setText("");
 		tf2.setText("");
-		rst=null;
-		rstt=null;
+		rst = null;
+		rstt = null;
 	}
 
 	@Override
@@ -135,22 +140,90 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			Bookselect();
 			BookAmount();
 			BookAmt();
-			BookTerm();
+			MemberAmount();
+			MemberAmt();
+			CheckTerm();
 		}
 	}
-	
+
 	public void Memberselect() {
 		// 1 회원 2 책
 		String member = tf1.getText();
-		
+
 		try {
 
 			pst = con.prepareStatement(sqlms);
 			pst.setInt(1, Integer.valueOf(member));
-			rst=pst.executeQuery();
-			while(rst.next()) {
-			mname=rst.getString(1);
+			rst = pst.executeQuery();
+			while (rst.next()) {
+				mname = rst.getString(1);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void MemberAmount() {
+		String member = tf1.getText();
+		try {
+			pst = con.prepareStatement(sqlmamount);
+			pst.setInt(1, Integer.valueOf(member));
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				mamount = rstt.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void MemberAmt() {
+		String member = tf1.getText();
+		try {
+			pst = con.prepareStatement(sqlmamt);
+			pst.setInt(1, Integer.valueOf(member));
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				mamt = rstt.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void MemberCal() {
+
+		String member = tf1.getText();
+		try {
+			pst = con.prepareStatement(sqlmupdate);
+
+			pst.setInt(1, Integer.valueOf(member));
+
+			pst.executeUpdate();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -166,14 +239,14 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 	public void Bookselect() {
 		// 1 회원 2 책
 		String book = tf2.getText();
-		
+
 		try {
 
 			pst = con.prepareStatement(sqlbs);
 			pst.setInt(1, Integer.valueOf(book));
-			rstt=pst.executeQuery();
-			while(rstt.next()) {
-			bname=rstt.getString(1);
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				bname = rstt.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,11 +265,11 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 		try {
 			pst = con.prepareStatement(sqlbamount);
 			pst.setInt(1, Integer.valueOf(book));
-			rstt=pst.executeQuery();
-			while(rstt.next()) {
-			bamount=rstt.getString(1);
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				bamount = rstt.getString(1);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -208,15 +281,15 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			}
 		}
 	}
-	
+
 	public void BookAmt() {
 		String book = tf2.getText();
 		try {
 			pst = con.prepareStatement(sqlbamt);
 			pst.setInt(1, Integer.valueOf(book));
-			rstt=pst.executeQuery();
-			while(rstt.next()) {
-			bamt=rstt.getString(1);
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				bamt = rstt.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -229,34 +302,43 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			}
 		}
 	}
-	
-	public void BookTerm() {
-		amount=Integer.valueOf(bamount);
-		amt=Integer.valueOf(bamt);
-		if(amount==0) {
+
+	public void CheckTerm() {
+		amount = Integer.valueOf(bamount);
+		amt = Integer.valueOf(bamt);
+		
+		amountt = Integer.valueOf(mamount);
+		amtt = Integer.valueOf(mamt);
+		if (amount == 0) {
 			JOptionPane.showMessageDialog(null, "책이 없습니다");
 			Sear();
 			clear();
 			return;
-		}else if(amount!=0) {
+		}else if (amountt == 0) {
+			JOptionPane.showMessageDialog(null, "빌릴 수 있는 권 수를 초과 했습니다.");
+			Sear();
+			clear();
+			return;
+		}else if (amount != 0 && amountt != 0) {
 			BookCal();
+			MemberCal();
 			CheckInsert();
 			Sear();
 			clear();
 		}
-		
+
 	}
-	
+
 	public void BookCal() {
-		
+
 		String book = tf2.getText();
 		try {
 			pst = con.prepareStatement(sqlbupdate);
-			
+
 			pst.setInt(1, Integer.valueOf(book));
-			
+
 			pst.executeUpdate();
-				
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -268,26 +350,26 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			}
 		}
 	}
-	
+
 	public void CheckInsert() {
-		//c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day
+		// c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day
 		try {
-			
-			String mcode=tf1.getText();
-			String bcode=tf2.getText();
-			
+
+			String mcode = tf1.getText();
+			String bcode = tf2.getText();
+
 			try {
-				pst=con.prepareStatement(sqlInsert);
+				pst = con.prepareStatement(sqlInsert);
 				pst.setInt(1, Integer.valueOf(mcode));
 				pst.setString(2, mname);
-				pst.setInt(3,Integer.valueOf(bcode));
+				pst.setInt(3, Integer.valueOf(bcode));
 				pst.setString(4, bname);
 				pst.setString(5, Date);
-				
-				int res=pst.executeUpdate();
-			}catch(Exception e){
+
+				pst.executeUpdate();
+			} catch (Exception e) {
 				e.printStackTrace();
-			}finally {
+			} finally {
 				try {
 					pst.close();
 				} catch (SQLException e) {
@@ -300,7 +382,7 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void subCloseWindow() {
 		try {
 
@@ -341,14 +423,14 @@ public class BookCheckOut extends JInternalFrame implements ActionListener,Runna
 	}
 
 	public void run() {
-		while(true) {
+		while (true) {
 			Calendar now = Calendar.getInstance();
-	        year=now.get(Calendar.YEAR);
-			month=now.get(Calendar.MONTH)+1;
-			date=now.get(Calendar.DATE);
-			
-			Date=year+"/"+month+"/"+date;
-			
+			year = now.get(Calendar.YEAR);
+			month = now.get(Calendar.MONTH) + 1;
+			date = now.get(Calendar.DATE);
+
+			Date = year + "/" + month + "/" + date;
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

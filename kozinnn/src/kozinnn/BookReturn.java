@@ -25,8 +25,8 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 	private JTable table;
 	private JTextField tf2;
 	private JButton btnReturn, btnex, btnSearch,btnmcode;
-	private String Date,bamount, bamt;
-	private int year, month, date, amount, amt;
+	private String Date,bamount, bamt,mamount, mamt;
+	private int year, month, date, amount, amt,amountt, amtt;
 	private final static int A=0;
 	private final static int B=0;
 	int cmd=0;
@@ -45,7 +45,12 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 
 	String sqlUpdate = "update checkout set	c_curr='반납',c_dday=? where c_bcode=? and c_mcode=?";
 	String sqlSearch = "select * from checkout where c_curr='반납' order by c_code asc";
-
+	
+	String sqlmamount = "select m_amount from member1 where m_code=?";
+	String sqlmamt = "select m_amt from member1 where m_code=?";
+	
+	String sqlmupdate="update member1 set m_amount=m_amount+1 where m_code=?";
+	
 	String sqlbamount = "select b_amount from book where b_code=?";
 	String sqlbamt = "select b_amt from book where b_code=?";
 
@@ -93,8 +98,8 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 		btnex.setBounds(33, 24, 40, 23);
 		this.getContentPane().add(btnex);
 
-		JLabel lblNewLabel_1 = new JLabel("\uAC80\uC0C9\uC740 \uCC45 \uCF54\uB4DC, \uBC18\uB0A9\uC740 \uD68C\uC6D0,\uCC45 \uCF54\uB4DC \uB458 \uB2E4");
-		lblNewLabel_1.setBounds(194, 24, 276, 34);
+		JLabel lblNewLabel_1 = new JLabel("\uAC80\uC0C9\uC740 \uCC45 \uCF54\uB4DC\uB9CC \uC785\uB825");
+		lblNewLabel_1.setBounds(259, 10, 156, 21);
 		this.getContentPane().add(lblNewLabel_1);
 
 		btnSearch = new JButton("\uAC80\uC0C9");
@@ -114,6 +119,10 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 		btnmcode = new JButton("\uD65C\uC131\uD654");
 		btnmcode.setBounds(493, 78, 97, 23);
 		getContentPane().add(btnmcode);
+		
+		JLabel label_2 = new JLabel("\uBC18\uB0A9\uC740 \uD68C\uC6D0\uCF54\uB4DC\uC640 \uCC45 \uCF54\uB4DC \uC785\uB825");
+		label_2.setBounds(235, 41, 235, 21);
+		getContentPane().add(label_2);
 
 		Thread thr = new Thread(this);
 		thr.start();
@@ -173,13 +182,59 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 		if (e.getSource().equals(btnex)) {
 			subCloseWindow();
 		} else if (e.getSource().equals(btnReturn)) {
+			MemberAmount();
+			MemberAmt();
 			BookAmount();
 			BookAmt();
-			BookTerm();
+			ReturnTerm();
 		} else if (e.getSource().equals(btnSearch)) {
 			Search();//대출 중인 책들을 나타내는 것.
 		} else if(e.getSource().equals(btnmcode)) {
 			BtnMcode();
+		}
+	}
+	
+	public void MemberAmount() {
+		String member = tf1.getText();
+		try {
+			pst = con.prepareStatement(sqlmamount);
+			pst.setInt(1, Integer.valueOf(member));
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				mamount = rstt.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void MemberAmt() {
+		String member = tf1.getText();
+		try {
+			pst = con.prepareStatement(sqlmamt);
+			pst.setInt(1, Integer.valueOf(member));
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				mamt = rstt.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -224,7 +279,28 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 			}
 		}
 	}
+	
+	public void MemberCal() {
+		String member = tf1.getText();
+		try {
+			pst = con.prepareStatement(sqlmupdate);
 
+			pst.setInt(1, Integer.valueOf(member));
+
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void BookCal() {
 
 		String book = tf2.getText();
@@ -247,15 +323,25 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 		}
 	}
 
-	public void BookTerm() {
+	public void ReturnTerm() {
+		amountt = Integer.valueOf(mamount);
+		amtt = Integer.valueOf(mamt);
+		
 		amount = Integer.valueOf(bamount);
 		amt = Integer.valueOf(bamt);
+		
 		if (amount == amt) {
 			JOptionPane.showMessageDialog(null, "책 수량 동일");
 			Search();
 			clear();
 			return;
-		} else if (amount<=amt) {
+		} else if(amountt == amtt) {
+			JOptionPane.showMessageDialog(null, "빌릴 수 있는 양 동일");
+			Search();
+			clear();
+			return;
+		} else if (amount<=amt && amountt<=amtt) {
+			MemberCal();
 			BookCal();
 			Return();
 			Search2();
@@ -367,7 +453,7 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 		setVisible(false);
 		dispose();
 	}
-
+	
 	public void run() {
 		while (true) {
 			Calendar now = Calendar.getInstance();

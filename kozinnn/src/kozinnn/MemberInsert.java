@@ -33,7 +33,7 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 	
 	MemberModel model;
 	
-	String sqlInsert="insert into member1 values(no_seq2.nextval,?,?,?)";
+	String sqlInsert="insert into member1 values(no_seq2.nextval,?,?,?,3,3)";
 	String sqlTotal="select * from member1 order by m_code asc";
 	private JTextField tf;
 	private JTextField tf1;
