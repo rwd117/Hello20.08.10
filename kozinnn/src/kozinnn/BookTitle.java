@@ -8,16 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 
-public class BookTitle extends JInternalFrame implements ActionListener {
+public class BookTitle extends JPanel implements ActionListener {
 
 	private JTextField input;
 	private JTable table;
@@ -46,21 +45,21 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 	}
 
 	private void initialize() {
-		this.getContentPane().setLayout(null);
-		this.setTitle("책 제목 검색");
+		this.setVisible(true);
+		this.setLayout(null);
 		
 		JLabel lbl = new JLabel("\uCC45 \uC81C\uBAA9");
 		lbl.setBounds(134, 99, 88, 30);
-		this.getContentPane().add(lbl);
+		this.add(lbl);
 		
 		input = new JTextField();
 		input.setBounds(250, 104, 170, 21);
-		this.getContentPane().add(input);
+		this.add(input);
 		input.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 152, 629, 296);
-		this.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -68,11 +67,11 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 		btnex = new JButton("");
 		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnex.setBounds(12, 23, 37, 23);
-		this.getContentPane().add(btnex);
+		this.add(btnex);
 		
 		btnSearch = new JButton("\uAC80\uC0C9");
 		btnSearch.setBounds(435, 103, 97, 23);
-		getContentPane().add(btnSearch);
+		this.add(btnSearch);
 		
 		btnex.addActionListener(this);
 		input.addActionListener(this);
@@ -162,15 +161,7 @@ public class BookTitle extends JInternalFrame implements ActionListener {
 	}
 
 	public void subCloseWindow() {
-	       
-		try {
-           
-        	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        setVisible(false);
-        dispose();
+		this.setVisible(false);
     }
 
 	public void clear() {

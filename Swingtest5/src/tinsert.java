@@ -1,5 +1,3 @@
-package kozinnn;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -17,8 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class Bookinsert extends JPanel implements ActionListener,Runnable{
-	
+
+public class tinsert extends JPanel implements ActionListener,Runnable{
 	private JTextField tf;
 	private JTextField tf1;
 	private JTextField tf2;
@@ -60,7 +58,7 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 	private JButton btn1;
 	private JTextField tf6;
 	
-	public Bookinsert() {
+	public tinsert() {
 		initialize();
 		dbcon();
 		to();
@@ -70,6 +68,7 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 	private void initialize() {
 		this.setVisible(true);
 		this.setLayout(null);
+		
 
 		JLabel lblNewLabel = new JLabel("\uCC45 \uCF54\uB4DC");
 		lblNewLabel.setBounds(39, 57, 88, 20);
@@ -229,7 +228,7 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 		}else if(e.getSource().equals(Btca)) {
 			clear();
 		}else if(e.getSource().equals(btn1)){
-			subCloseWindow();
+			close();
 		}else if(e.getSource().equals(btngo)) {
 			ab();
 		}else if(e.getSource().equals(btngo2)) {
@@ -411,10 +410,6 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 		}
 	}
 	
-	public void subCloseWindow() {
-		this.setVisible(false);
-    }
-	
 	public void run() {
 		while(true) {
 			Calendar now = Calendar.getInstance();
@@ -431,5 +426,8 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 			}
 		}
 	}
-
+	
+	public void close() {
+		this.setVisible(false);
+	}
 }

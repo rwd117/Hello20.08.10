@@ -1,6 +1,5 @@
 package kozinnn;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -9,16 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 
-public class MemberInsert extends JInternalFrame implements ActionListener {
+public class MemberInsert extends JPanel implements ActionListener {
 	//m_code,m_name,m_address,m_phone
 	private JButton btnIn,btnCa,btnEx;
 
@@ -48,47 +46,47 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 	}
 
 	private void initialize() {
-		this.setTitle("회원 등록");
-		this.getContentPane().setLayout(null);
+		this.setVisible(true);
+		this.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("\uC774\uB984");
 		lblNewLabel.setBounds(38, 46, 57, 15);
-		this.getContentPane().add(lblNewLabel);
+		this.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("\uC804\uD654\uBC88\uD638");
 		lblNewLabel_1.setBounds(233, 46, 57, 15);
-		this.getContentPane().add(lblNewLabel_1);
+		this.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("\uC8FC\uC18C");
 		lblNewLabel_2.setBounds(38, 99, 57, 15);
-		this.getContentPane().add(lblNewLabel_2);
+		this.add(lblNewLabel_2);
 		
 		tf = new JTextField();
 		tf.setBounds(105, 43, 104, 21);
-		this.getContentPane().add(tf);
+		this.add(tf);
 		tf.setColumns(10);
 		
 		tf1 = new JTextField();
 		tf1.setColumns(10);
 		tf1.setBounds(302, 43, 185, 21);
-		this.getContentPane().add(tf1);
+		this.add(tf1);
 		
 		tf2 = new JTextField();
 		tf2.setColumns(10);
 		tf2.setBounds(105, 96, 427, 21);
-		this.getContentPane().add(tf2);
+		this.add(tf2);
 		
 		btnIn = new JButton("\uCD94\uAC00");
 		btnIn.setBounds(146, 152, 97, 23);
-		this.getContentPane().add(btnIn);
+		this.add(btnIn);
 		
 		btnCa = new JButton("\uCDE8\uC18C");
 		btnCa.setBounds(390, 152, 97, 23);
-		this.getContentPane().add(btnCa);
+		this.add(btnCa);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 196, 674, 250);
-		this.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -96,11 +94,11 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 		btnEx = new JButton("");
 		btnEx.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnEx.setBounds(38, 10, 33, 23);
-		this.getContentPane().add(btnEx);
+		this.add(btnEx);
 		
 		JLabel lblNewLabel_3 = new JLabel("\uC774\uB984,\uC804\uD654 \uBC88\uD638 \uD544\uC218 \uC785\uB825");
 		lblNewLabel_3.setBounds(539, 21, 147, 65);
-		getContentPane().add(lblNewLabel_3);
+		this.add(lblNewLabel_3);
 		
 		btnEx.addActionListener(this);
 		btnIn.addActionListener(this);
@@ -186,14 +184,6 @@ public class MemberInsert extends JInternalFrame implements ActionListener {
 	}
 	
 	public void subCloseWindow() {
-	       
-		try {
-           
-        	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        setVisible(false);
-        dispose();
+		this.setVisible(false);
     }
 }

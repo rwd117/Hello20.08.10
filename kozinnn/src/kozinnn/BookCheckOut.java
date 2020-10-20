@@ -11,14 +11,14 @@ import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class BookCheckOut extends JInternalFrame implements ActionListener, Runnable {
+public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 
 	private JTable table;
 	private JTextField tf1;
@@ -66,47 +66,47 @@ public class BookCheckOut extends JInternalFrame implements ActionListener, Runn
 	}
 
 	private void initialize() {
-		this.getContentPane().setLayout(null);
-		this.setTitle("√• ¥Î√‚");
-
+		this.setVisible(true);
+		this.setLayout(null);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 185, 651, 254);
-		this.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
 		JLabel lblNewLabel = new JLabel("\uD68C\uC6D0 \uBC88\uD638");
 		lblNewLabel.setBounds(33, 73, 57, 15);
-		this.getContentPane().add(lblNewLabel);
+		this.add(lblNewLabel);
 
 		JLabel label = new JLabel("\uCC45 \uCF54\uB4DC");
 		label.setBounds(33, 134, 57, 15);
-		this.getContentPane().add(label);
+		this.add(label);
 
 		tf1 = new JTextField();
 		tf1.setBounds(130, 73, 178, 21);
-		this.getContentPane().add(tf1);
+		this.add(tf1);
 		tf1.setColumns(10);
 
 		tf2 = new JTextField();
 		tf2.setBounds(130, 131, 178, 21);
-		this.getContentPane().add(tf2);
+		this.add(tf2);
 		tf2.setColumns(10);
 
 		btnCheck = new JButton("\uB300\uCD9C");
 		btnCheck.setBounds(371, 99, 97, 23);
-		this.getContentPane().add(btnCheck);
+		this.add(btnCheck);
 
 		btnex = new JButton("");
 		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnex.setBounds(33, 24, 40, 23);
-		this.getContentPane().add(btnex);
+		this.add(btnex);
 
 		JLabel lblNewLabel_1 = new JLabel(
 				"\uD68C\uC6D0 \uBC88\uD638, \uCC45 \uCF54\uB4DC \uBC18\uB4DC\uC2DC \uC785\uB825");
 		lblNewLabel_1.setBounds(130, 24, 212, 48);
-		this.getContentPane().add(lblNewLabel_1);
+		this.add(lblNewLabel_1);
 
 		Thread thr = new Thread(this);
 		thr.start();
@@ -384,14 +384,7 @@ public class BookCheckOut extends JInternalFrame implements ActionListener, Runn
 	}
 
 	public void subCloseWindow() {
-		try {
-
-			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setVisible(false);
-		dispose();
+		this.setVisible(false);
 	}
 
 	public void Sear() {

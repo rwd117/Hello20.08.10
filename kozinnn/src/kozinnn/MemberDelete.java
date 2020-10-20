@@ -1,6 +1,5 @@
 package kozinnn;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -11,14 +10,13 @@ import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class MemberDelete extends JInternalFrame implements ActionListener {
+public class MemberDelete extends JPanel implements ActionListener {
 	private JButton btnDe, btnCa, btnEx, btn, btn1;
 	private JTextField tf;
 	private JTextField tf1;
@@ -54,38 +52,38 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 	}
 
 	private void initialize() {
-		this.setTitle("회원 삭제");
-		this.getContentPane().setLayout(null);
-
+		this.setVisible(true);
+		this.setLayout(null);
+		
 		JLabel lblNewLabel = new JLabel("\uD68C\uC6D0\uBC88\uD638");
 		lblNewLabel.setBounds(146, 79, 57, 15);
-		this.getContentPane().add(lblNewLabel);
+		this.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("\uC774\uB984");
 		lblNewLabel_1.setBounds(146, 110, 57, 15);
-		this.getContentPane().add(lblNewLabel_1);
+		this.add(lblNewLabel_1);
 
 		tf = new JTextField();
 		tf.setBounds(233, 76, 104, 21);
-		this.getContentPane().add(tf);
+		this.add(tf);
 		tf.setColumns(10);
 
 		tf1 = new JTextField();
 		tf1.setColumns(10);
 		tf1.setBounds(233, 107, 104, 21);
-		this.getContentPane().add(tf1);
+		this.add(tf1);
 
 		btnDe = new JButton("\uC0AD\uC81C");
 		btnDe.setBounds(146, 152, 97, 23);
-		this.getContentPane().add(btnDe);
+		this.add(btnDe);
 
 		btnCa = new JButton("\uCDE8\uC18C");
 		btnCa.setBounds(390, 152, 97, 23);
-		this.getContentPane().add(btnCa);
+		this.add(btnCa);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 196, 674, 250);
-		this.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -93,19 +91,19 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 		btnEx = new JButton("");
 		btnEx.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnEx.setBounds(38, 10, 33, 23);
-		this.getContentPane().add(btnEx);
+		this.add(btnEx);
 
 		btn = new JButton("\uD65C\uC131\uD654");
 		btn.setBounds(390, 75, 97, 23);
-		getContentPane().add(btn);
+		this.add(btn);
 
 		btn1 = new JButton("\uD65C\uC131\uD654");
 		btn1.setBounds(390, 106, 97, 23);
-		getContentPane().add(btn1);
+		this.add(btn1);
 		
 		lbll = new JLabel("\uD65C\uC131\uD654 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uC8FC\uC138\uC694. \uC911\uBCF5 \uBD88\uAC00");
 		lbll.setBounds(174, 10, 341, 34);
-		getContentPane().add(lbll);
+		this.add(lbll);
 
 		btn.addActionListener(this);
 		btn1.addActionListener(this);
@@ -203,10 +201,8 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 	public void goDelete() {
 		if (cmd == B) {
 			cmdB();
-			
 		} else if (cmd == C) {
 			cmdC();
-			
 		}
 	}
 	
@@ -216,7 +212,7 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 
 			pst = con.prepareStatement(sqlDeletec);
 			pst.setInt(1, Integer.valueOf(code));
-			int res = pst.executeUpdate();
+			pst.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -235,7 +231,7 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 		try {
 			pst = con.prepareStatement(sqlDeleten);
 			pst.setString(1, name);
-			int res = pst.executeUpdate();
+			pst.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -250,14 +246,6 @@ public class MemberDelete extends JInternalFrame implements ActionListener {
 	}
 
 	public void subCloseWindow() {
-
-		try {
-
-			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setVisible(false);
-		dispose();
+		this.setVisible(false);
 	}
 }

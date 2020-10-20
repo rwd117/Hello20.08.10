@@ -1,10 +1,13 @@
 package kozinnn;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,13 +24,16 @@ public class mainbook implements ActionListener {
 	private JMenuBar menuBar;
 	private JMenuItem btin,btex,btup,btde,btsena,btsema,btnpublish,btnReturn,btnCheckout,addbtn,delbtn,updabtn;
 	private JMenuItem McodeSe,MnameSe;
+	JPanel pan;
+	Dimension dim;
+	Container container;
 
 	String driver = "oracle.jdbc.OracleDriver";
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 	String user = "system";
 	String pwd = "123456";
 	  
-	Bookinsert Binsert;
+/*	Bookinsert Binsert;
 	BookUpdate Bupdate;
 	BookDelete Bdelete;
 	BookTitle Btitle;
@@ -39,7 +45,7 @@ public class mainbook implements ActionListener {
 	MemberCode Mcode;
 	MemberName Mname;
 	BookCheckOut Bcheck;
-	BookReturn Breturn;
+	BookReturn Breturn;*/
 
 	Connection conn = null;
 	ResultSet rs = null;
@@ -74,13 +80,27 @@ public class mainbook implements ActionListener {
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 600);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = screenSize.width / 2;
+		int height = screenSize.height / 2;
+		int x = screenSize.width / 4;
+		int y = screenSize.height / 4;
+		frame.setBounds(x, y, width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frame.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent componentEvent) {
+				if(pan != null) {
+					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());	
+				}
+			}
+		});
 
+		container = frame.getContentPane();
+		container.setLayout(null);
+		
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 361, 21);
-		frame.getContentPane().add(menuBar);
+		frame.setJMenuBar(menuBar);
 		
 		JMenu mn = new JMenu("\uC2DC\uC2A4\uD15C");
 		menuBar.add(mn);
@@ -161,40 +181,56 @@ public class mainbook implements ActionListener {
 		updabtn.addActionListener(this);
 	}
 	
+	public void clear() {
+		container.removeAll();
+		container.setVisible(false);
+		container.setVisible(true);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		clear();
 		if(e.getSource().equals(btex)) {
 			System.exit(0);
 		}else if(e.getSource().equals(btin)) {
-			goInsert();//책 추가
+			pan=new Bookinsert();
+			//goInsert();//책 추가
 		}else if(e.getSource().equals(btup)) {
-			goUpdate();//책 수정
+			pan=new BookUpdate();
+			//goUpdate();//책 수정
 		}else if(e.getSource().equals(btde)) {
-			goDelete();//책 삭제
+			pan=new BookDelete();
+			//goDelete();//책 삭제
 		}else if(e.getSource().equals(btsena)) {
-			goTitle();//책 제목 검색
+			pan=new BookTitle();//책 제목 검색
 		}else if(e.getSource().equals(btsema)) {
-			goMan();//작가 검색
+			pan=new BookMan();
+			//goMan();//작가 검색
 		}else if(e.getSource().equals(btnpublish)) {
-			goPublish();//출판사 검색
+			pan=new BookPublish();//출판사 검색
 		}else if(e.getSource().equals(McodeSe)) {
-			goMcode();//회원 번호 검색
+			pan=new MemberCode();//회원 번호 검색
 		}else if(e.getSource().equals(MnameSe)) {
-			goMname();//회원 이름 검색
+			pan=new MemberName();
+			//goMname();//회원 이름 검색
 		}else if(e.getSource().equals(btnReturn)) {
-			goReturn();//책 반납
+			pan=new BookReturn();//책 반납
 		}else if(e.getSource().equals(btnCheckout)) {
-			goCheckout();//책 대출
+			pan=new BookCheckOut();
+			//goCheckout();//책 대출
 		}else if(e.getSource().equals(addbtn)) {
-			goMInsert();//회원 추가
+			pan=new MemberInsert();//회원 추가
 		}else if(e.getSource().equals(delbtn)) {
-			goMDelete();//회원 삭제
+			pan=new MemberDelete();//회원 삭제
 		}else if(e.getSource().equals(updabtn)) {
-			goMUpdate();//회원 수정
+			pan=new MemberUpdate();
+			//goMUpdate();//회원 수정
 		}
+		pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		frame.getContentPane().add(pan);
 	}
 	
-	public void goInsert() {
+	/*public void goInsert() {
 		Binsert = new Bookinsert();
 		Binsert.pack();
 		Binsert.setVisible(true);
@@ -207,8 +243,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
-	public void goUpdate() {
+	*/
+	/*public void goUpdate() {
 		Bupdate = new BookUpdate();
 		Bupdate.pack();
 		Bupdate.setVisible(true);
@@ -219,9 +255,9 @@ public class mainbook implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	public void goDelete() {
+	/*public void goDelete() {
 		Bdelete = new BookDelete();
 		Bdelete.pack();
 		Bdelete.setVisible(true);
@@ -233,8 +269,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	public void goTitle() {
+*/
+	/*public void goTitle() {
 		Btitle = new BookTitle();
 		Btitle.pack();
 		Btitle.setVisible(true);
@@ -245,9 +281,9 @@ public class mainbook implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
-	public void goMan() {
+	/*public void goMan() {
 		Bman = new BookMan();
 		Bman.pack();
 		Bman.setVisible(true);
@@ -259,8 +295,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	public void goPublish() {
+*/
+	/*public void goPublish() {
 		Bpublish = new BookPublish();
 		Bpublish.pack();
 		Bpublish.setVisible(true);
@@ -272,8 +308,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}	
-	
-	public void goMcode() {
+	*/
+	/*public void goMcode() {
 		Mcode = new MemberCode();
 		Mcode.pack();
 		Mcode.setVisible(true);
@@ -284,9 +320,9 @@ public class mainbook implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	public void goMname() {
+	/*public void goMname() {
 		Mname = new MemberName();
 		Mname.pack();
 		Mname.setVisible(true);
@@ -297,9 +333,9 @@ public class mainbook implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
-	public void goMInsert() {
+	/*public void goMInsert() {
 		Minsert = new MemberInsert();
 		Minsert.pack();
 		Minsert.setVisible(true);
@@ -311,8 +347,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	public void goMDelete() {
+*/
+	/*public void goMDelete() {
 		Mdelete = new MemberDelete();
 		Mdelete.pack();
 		Mdelete.setVisible(true);
@@ -323,9 +359,9 @@ public class mainbook implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	public void goMUpdate() {
+	/*public void goMUpdate() {
 		Mupdate = new MemberUpdate();
 		Mupdate.pack();
 		Mupdate.setVisible(true);
@@ -337,8 +373,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
-	public void goCheckout() {
+	*/
+	/*public void goCheckout() {
 		Bcheck = new BookCheckOut();
 		Bcheck.pack();
 		Bcheck.setVisible(true);
@@ -350,8 +386,8 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	public void goReturn() {
+*/
+	/*public void goReturn() {
 		Breturn = new BookReturn();
 		Breturn.pack();
 		Breturn.setVisible(true);
@@ -362,6 +398,6 @@ public class mainbook implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

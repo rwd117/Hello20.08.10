@@ -1,6 +1,5 @@
 package kozinnn;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -12,15 +11,14 @@ import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class BookReturn extends JInternalFrame implements ActionListener, Runnable {
+public class BookReturn extends JPanel implements ActionListener, Runnable {
 
 	private JTable table;
 	private JTextField tf2;
@@ -70,59 +68,59 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 	}
 
 	private void initialize() {
-		this.getContentPane().setLayout(null);
-		this.setTitle("Ã¥ ¹Ý³³");
+		this.setVisible(true);
+		this.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 185, 651, 254);
-		this.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
 		JLabel label = new JLabel("\uCC45 \uCF54\uB4DC");
 		label.setBounds(127, 124, 57, 15);
-		this.getContentPane().add(label);
+		this.add(label);
 
 		tf2 = new JTextField();
 		tf2.setBounds(196, 121, 274, 21);
-		this.getContentPane().add(tf2);
+		this.add(tf2);
 		tf2.setColumns(10);
 
 		btnReturn = new JButton("\uBC18\uB0A9");
 		btnReturn.setBounds(373, 152, 97, 23);
-		this.getContentPane().add(btnReturn);
+		this.add(btnReturn);
 
 		btnex = new JButton("");
 		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnex.setBounds(33, 24, 40, 23);
-		this.getContentPane().add(btnex);
+		this.add(btnex);
 
 		JLabel lblNewLabel_1 = new JLabel("\uAC80\uC0C9\uC740 \uCC45 \uCF54\uB4DC\uB9CC \uC785\uB825");
 		lblNewLabel_1.setBounds(259, 10, 156, 21);
-		this.getContentPane().add(lblNewLabel_1);
+		this.add(lblNewLabel_1);
 
 		btnSearch = new JButton("\uAC80\uC0C9");
 		btnSearch.setBounds(197, 152, 97, 23);
-		getContentPane().add(btnSearch);
+		this.add(btnSearch);
 		
 		JLabel label_1 = new JLabel("\uD68C\uC6D0 \uCF54\uB4DC");
 		label_1.setBounds(127, 82, 57, 15);
-		getContentPane().add(label_1);
+		this.add(label_1);
 		
 		tf1 = new JTextField();
 		tf1.setText("");
 		tf1.setColumns(10);
 		tf1.setBounds(196, 79, 274, 21);
-		getContentPane().add(tf1);
+		this.add(tf1);
 		
 		btnmcode = new JButton("\uD65C\uC131\uD654");
 		btnmcode.setBounds(493, 78, 97, 23);
-		getContentPane().add(btnmcode);
+		this.add(btnmcode);
 		
 		JLabel label_2 = new JLabel("\uBC18\uB0A9\uC740 \uD68C\uC6D0\uCF54\uB4DC\uC640 \uCC45 \uCF54\uB4DC \uC785\uB825");
 		label_2.setBounds(235, 41, 235, 21);
-		getContentPane().add(label_2);
+		this.add(label_2);
 
 		Thread thr = new Thread(this);
 		thr.start();
@@ -444,14 +442,7 @@ public class BookReturn extends JInternalFrame implements ActionListener, Runnab
 	}
 	
 	public void subCloseWindow() {
-		try {
-
-			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setVisible(false);
-		dispose();
+		this.setVisible(false);
 	}
 	
 	public void run() {

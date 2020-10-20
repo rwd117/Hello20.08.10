@@ -1,6 +1,5 @@
 package kozinnn;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -11,14 +10,13 @@ import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class MemberName extends JInternalFrame implements ActionListener {
+public class MemberName extends JPanel implements ActionListener {
 
 	private JTextField input;
 	private JTable table;
@@ -47,21 +45,21 @@ public class MemberName extends JInternalFrame implements ActionListener {
 	}
 
 	private void initialize() {
-		this.getContentPane().setLayout(null);
-		this.setTitle("회원 이름 검색");
-
+		this.setVisible(true);
+		this.setLayout(null);
+		
 		JLabel lbl = new JLabel("\uD68C\uC6D0 \uC774\uB984");
 		lbl.setBounds(134, 99, 88, 30);
-		this.getContentPane().add(lbl);
+		this.add(lbl);
 
 		input = new JTextField();
 		input.setBounds(250, 104, 170, 21);
-		this.getContentPane().add(input);
+		this.add(input);
 		input.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 152, 629, 296);
-		this.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -69,11 +67,11 @@ public class MemberName extends JInternalFrame implements ActionListener {
 		btnex = new JButton("");
 		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnex.setBounds(12, 23, 37, 23);
-		this.getContentPane().add(btnex);
+		this.add(btnex);
 
 		btnSearch = new JButton("\uAC80\uC0C9");
 		btnSearch.setBounds(458, 103, 97, 23);
-		getContentPane().add(btnSearch);
+		this.add(btnSearch);
 
 		btnex.addActionListener(this);
 		input.addActionListener(this);
@@ -133,7 +131,7 @@ public class MemberName extends JInternalFrame implements ActionListener {
 	
 	public void Sear() {
 		String search=input.getText();	
-		sql=sqlSearch+search+"%'";
+		sql=sqlSearch+search+"%'order by m_code";
 		
 		try {
 			pst=con.prepareStatement(sql);
@@ -164,14 +162,7 @@ public class MemberName extends JInternalFrame implements ActionListener {
 	}
 
 	public void subCloseWindow() {
-		try {
-	           
-        	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        setVisible(false);
-        dispose();
+		this.setVisible(false);
 	}
 
 	public void clear() {
