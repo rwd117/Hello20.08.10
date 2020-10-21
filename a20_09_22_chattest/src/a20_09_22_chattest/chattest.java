@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class chattest implements ActionListener{
+public class chattest implements ActionListener,Runnable{
    
 	private JFrame frame;
 	private JTextField name;
@@ -84,12 +84,15 @@ public class chattest implements ActionListener{
 		
 	}
 
-	public void st() {
-	try {
+	public void run() {
+		out.println("LOGIN|"+mySocket);
+		try {
+			while(true) {
 			String msg = in.readLine();
-			if (!msg.equals("")&&!msg.equals(null)) 
+			if (!msg.equals("")&&!msg.equals(null)) { 
 			memo.append(msg + "\n");
-			
+			}
+		}
 	} catch (Exception e) {
 		memo.append(e.toString() + "\n");
 		}		
@@ -99,7 +102,6 @@ public class chattest implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			
 		if (e.getSource() == input) {
-			st();
 			String data = input.getText();
 			input.setText("");
 			out.println("TALK|" + name.getText() + ":" + data);

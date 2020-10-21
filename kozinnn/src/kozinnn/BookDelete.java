@@ -44,7 +44,7 @@ public class BookDelete  extends JPanel implements ActionListener{
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	Bookmodel model;
+	Model model;
 	
 	String sqlTotal = "select * from book order by b_code asc";
 	String sqlDeletec="delete from book where b_code=?";
@@ -80,7 +80,7 @@ public class BookDelete  extends JPanel implements ActionListener{
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new Bookmodel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

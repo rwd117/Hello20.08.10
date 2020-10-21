@@ -5,7 +5,7 @@ import java.sql.ResultSetMetaData;
 
 import javax.swing.table.AbstractTableModel;
 
-public class CheckModel extends AbstractTableModel {
+public class Model extends AbstractTableModel {
 	Object [][]data;
 	String []columnName;
 	

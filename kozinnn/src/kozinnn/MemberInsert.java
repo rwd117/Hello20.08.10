@@ -29,7 +29,7 @@ public class MemberInsert extends JPanel implements ActionListener {
 	PreparedStatement pst=null;
 	PreparedStatement pstmtto, pstmttosc;
 	
-	MemberModel model;
+	Model model;
 	
 	String sqlInsert="insert into member1 values(no_seq2.nextval,?,?,?,3,3)";
 	String sqlTotal="select * from member1 order by m_code asc";
@@ -122,7 +122,7 @@ public class MemberInsert extends JPanel implements ActionListener {
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new MemberModel();
+			if(model==null) model=new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

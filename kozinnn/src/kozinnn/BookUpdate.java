@@ -45,7 +45,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	Bookmodel model;
+	Model model;
 	// b_code,b_number,b_title,b_name,b_ju,b_in
 	String sqlUpdaten = "update book set b_number=?  where b_code=?";
 	String sqlUpdatet = "update book set b_title=?  where b_code=?";
@@ -197,7 +197,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new Bookmodel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

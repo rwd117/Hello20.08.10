@@ -36,7 +36,7 @@ public class MemberDelete extends JPanel implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	MemberModel model;
+	Model model;
 
 	String sqlTotal = "select * from member1 order by m_code asc";
 	String sqlDeletec = "delete from member1 where m_code=?";
@@ -131,7 +131,7 @@ public class MemberDelete extends JPanel implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new MemberModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

@@ -45,7 +45,7 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 	PreparedStatement pst=null;
 	PreparedStatement pstmtto, pstmttosc;
 	
-	Bookmodel model;
+	Model model;
 	
 	String sqlInsertauto="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(no_seq1.nextval,?,?,?,?,?,2,2)";
 	//코드,양 자동입력 -- 버튼 둘다 비활성화
@@ -186,7 +186,7 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new Bookmodel();
+			if(model==null) model=new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

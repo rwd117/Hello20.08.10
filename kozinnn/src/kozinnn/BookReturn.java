@@ -39,7 +39,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 	PreparedStatement pstmtto, pstmttosc;
 	ResultSet rst, rstt, rs;
 
-	CheckModel model;
+	Model model;
 
 	String sqlUpdate = "update checkout set	c_curr='¹Ý³³',c_dday=? where c_bcode=? and c_mcode=?";
 	String sqlSearch = "select * from checkout where c_curr='¹Ý³³' order by c_code asc";
@@ -150,7 +150,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new CheckModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
@@ -383,7 +383,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new CheckModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
@@ -412,7 +412,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new CheckModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

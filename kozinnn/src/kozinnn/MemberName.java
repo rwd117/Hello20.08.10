@@ -31,7 +31,7 @@ public class MemberName extends JPanel implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	MemberModel model;
+	Model model;
 
 	String sqlTotal = "select * from member1 order by m_code";
 	String sqlSearch = "select * from member1 where m_name like '%";
@@ -96,7 +96,7 @@ public class MemberName extends JPanel implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new MemberModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
@@ -142,7 +142,7 @@ public class MemberName extends JPanel implements ActionListener {
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new MemberModel();
+			if(model==null) model=new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

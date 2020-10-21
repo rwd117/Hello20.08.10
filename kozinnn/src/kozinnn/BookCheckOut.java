@@ -38,7 +38,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	PreparedStatement pstmtto, pstmttosc;
 	ResultSet rst, rstt, rs;
 
-	CheckModel model;
+	Model model;
 	String sqlbs = "select b_title from book where b_code=?";
 
 	String sqlmamount = "select m_amount from member1 where m_code=?";
@@ -396,7 +396,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new CheckModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

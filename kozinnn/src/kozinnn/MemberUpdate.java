@@ -35,7 +35,7 @@ public class MemberUpdate extends JPanel implements ActionListener {
 	PreparedStatement pst = null;
 	PreparedStatement pstmtto, pstmttosc;
 
-	MemberModel model;
+	Model model;
 
 	String sqlTotal = "select * from member1 order by m_code asc";
 	String sqlUpdaten = "update member1 set m_name=?  where m_code=?";	
@@ -155,7 +155,7 @@ public class MemberUpdate extends JPanel implements ActionListener {
 			ResultSet rs = pstmtto.executeQuery();
 
 			if (model == null)
-				model = new MemberModel();
+				model = new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);

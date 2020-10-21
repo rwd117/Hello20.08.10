@@ -31,7 +31,7 @@ public class BookTitle extends JPanel implements ActionListener {
 	PreparedStatement pst=null;
 	PreparedStatement pstmtto, pstmttosc;
 	
-	Bookmodel model;
+	Model model;
 	
 	String sqlTotal="select * from book order by b_code";
 	String sqlSearch="select * from book where b_title like '%";
@@ -95,7 +95,7 @@ public class BookTitle extends JPanel implements ActionListener {
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new Bookmodel();
+			if(model==null) model=new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
@@ -141,7 +141,7 @@ public class BookTitle extends JPanel implements ActionListener {
 			ResultSet rsscroll=pstmttosc.executeQuery();
 			ResultSet rs=pstmtto.executeQuery();
 			
-			if(model==null) model=new Bookmodel();
+			if(model==null) model=new Model();
 			model.getRowCount(rsscroll);
 			model.setData(rs);
 			table.setModel(model);
