@@ -29,7 +29,7 @@ public class mainbook implements ActionListener {
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenuItem btin, btex, btup, btde, btsena, btsema, btnpublish;
-	private JMenuItem btnReturn, btnCheckout, delbtn, updabtn;
+	private JMenuItem btnReturn, btnCheckout, delbtn;
 	private JMenuItem McodeSe, MnameSe;
 	private JMenu mn, mn1, mn2, mn3, mn4;
 	private JPanel pan, panel;
@@ -199,11 +199,7 @@ public class mainbook implements ActionListener {
 
 		delbtn = new JMenuItem("\uD68C\uC6D0 \uC0AD\uC81C");
 		mn2.add(delbtn);
-
-		updabtn = new JMenuItem("\uD68C\uC6D0 \uC218\uC815");
-		mn2.add(updabtn);
 		delbtn.addActionListener(this);
-		updabtn.addActionListener(this);
 
 		mn3 = new JMenu("\uCC45 \uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
 		menuBar.add(mn3);
@@ -280,6 +276,7 @@ public class mainbook implements ActionListener {
 				Sp.setBounds(100, 100, 450, 300);
 			}
 		} else if (A == false) {
+			clear();
 			if (e.getSource().equals(btex)) {
 				System.exit(0);
 			} else if (e.getSource().equals(btin)) {
@@ -310,9 +307,9 @@ public class mainbook implements ActionListener {
 				// goCheckout();//책 대출
 			} else if (e.getSource().equals(delbtn)) {
 				pan = new MemberDelete();// 회원 삭제
-			} else if (e.getSource().equals(updabtn)) {
+			} /*else if (e.getSource().equals(updabtn)) {
 				pan = new MemberUpdate();// goMUpdate();//회원 수정
-			}
+			}*/
 			pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 			frame.getContentPane().add(pan);
 		}
@@ -477,7 +474,7 @@ public class mainbook implements ActionListener {
 			return;
 		} else {
 			Search();
-			SearchCheck();
+			if(count==1) SearchCheck();
 			Search2();
 			Search2Check();
 		}

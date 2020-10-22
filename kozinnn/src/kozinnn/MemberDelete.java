@@ -17,9 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class MemberDelete extends JPanel implements ActionListener {
-	private JButton btnDe, btnCa, btnEx, btn, btn1;
+	private JButton btnDe, btnCa, btnEx, btn;
 	private JTextField tf;
-	private JTextField tf1;
 	private JTable table;
 
 	private final static int A = 0;
@@ -59,19 +58,10 @@ public class MemberDelete extends JPanel implements ActionListener {
 		lblNewLabel.setBounds(146, 79, 57, 15);
 		this.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("\uC774\uB984");
-		lblNewLabel_1.setBounds(146, 110, 57, 15);
-		this.add(lblNewLabel_1);
-
 		tf = new JTextField();
 		tf.setBounds(233, 76, 104, 21);
 		this.add(tf);
 		tf.setColumns(10);
-
-		tf1 = new JTextField();
-		tf1.setColumns(10);
-		tf1.setBounds(233, 107, 104, 21);
-		this.add(tf1);
 
 		btnDe = new JButton("\uC0AD\uC81C");
 		btnDe.setBounds(146, 152, 97, 23);
@@ -96,17 +86,12 @@ public class MemberDelete extends JPanel implements ActionListener {
 		btn = new JButton("\uD65C\uC131\uD654");
 		btn.setBounds(390, 75, 97, 23);
 		this.add(btn);
-
-		btn1 = new JButton("\uD65C\uC131\uD654");
-		btn1.setBounds(390, 106, 97, 23);
-		this.add(btn1);
 		
-		lbll = new JLabel("\uD65C\uC131\uD654 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uC8FC\uC138\uC694. \uC911\uBCF5 \uBD88\uAC00");
-		lbll.setBounds(174, 10, 341, 34);
+		lbll = new JLabel("\uD65C\uC131\uD654 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uC8FC\uC138\uC694.");
+		lbll.setBounds(174, 10, 214, 34);
 		this.add(lbll);
 
 		btn.addActionListener(this);
-		btn1.addActionListener(this);
 
 		btnEx.addActionListener(this);
 		btnDe.addActionListener(this);
@@ -152,9 +137,7 @@ public class MemberDelete extends JPanel implements ActionListener {
 
 	public void set() {
 		tf.setEnabled(false);
-		tf1.setEnabled(false);
 		tf.setText("");
-		tf1.setText("");
 		cmd=A;
 	}
 
@@ -168,14 +151,7 @@ public class MemberDelete extends JPanel implements ActionListener {
 			}
 			cmd = A;
 			set();
-		} else if (e.getSource().equals(btn1)) {
-			if (cmd != C) {
-				ta2();
-				cmd = C;
-				return;
-			}
-			cmd = A;
-			set();
+		
 		} else if (e.getSource().equals(btnEx)) {
 			subCloseWindow();
 		} else if (e.getSource().equals(btnDe)) {
@@ -189,22 +165,20 @@ public class MemberDelete extends JPanel implements ActionListener {
 	
 	public void ta1() {
 		tf.setEnabled(true);
-		tf1.setEnabled(false);
+		
 		
 	}
 	
 	public void ta2() {
 		tf.setEnabled(false);
-		tf1.setEnabled(true);
+		
 	}
 	
 	public void goDelete() {
 		if (cmd == B) {
 			cmdB();
-		} else if (cmd == C) {
-			cmdC();
+		} 
 		}
-	}
 	
 	public void cmdB() {
 		String code = tf.getText();
@@ -212,25 +186,6 @@ public class MemberDelete extends JPanel implements ActionListener {
 
 			pst = con.prepareStatement(sqlDeletec);
 			pst.setInt(1, Integer.valueOf(code));
-			pst.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pst.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void cmdC() {
-		String name = tf1.getText();
-		try {
-			pst = con.prepareStatement(sqlDeleten);
-			pst.setString(1, name);
 			pst.executeUpdate();
 
 		} catch (Exception e) {
