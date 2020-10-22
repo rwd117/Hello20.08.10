@@ -37,7 +37,7 @@ public class mainbook implements ActionListener {
 	private JTextField tf;
 	private JTextField tf1;
 	private String mCode, mCodec, mPwd, mpd;
-	private int mcode, mcodec, count = 0,cnt=0;
+	private int mcode, mcodec, count = 0, cnt = 0;
 	private boolean A = true;
 
 	SearchCodeframe Sch;
@@ -87,31 +87,13 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	private void initialize() {
-		frame = new JFrame();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = screenSize.width / 2;
-		int height = screenSize.height / 2;
-		int x = screenSize.width / 4;
-		int y = screenSize.height / 4;
-		frame.setBounds(x, y, 833, 540);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.addComponentListener(new ComponentAdapter() {
-			public void componentResized(ComponentEvent componentEvent) {
-				if (pan != null) {
-					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-				}
-			}
-		});
+	
+	public void stru() {
 
 		panel = new JPanel();
 		panel.setBounds(12, 10, 833, 540);
 		frame.getContentPane().add(panel);
 		panel.setVisible(true);
-
-		container = frame.getContentPane();
-		container.setLayout(null);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("\uB85C\uADF8\uC778 \uD654\uBA74");
@@ -156,6 +138,27 @@ public class mainbook implements ActionListener {
 		btnPwd.setBounds(555, 272, 126, 23);
 		panel.add(btnPwd);
 
+	}
+	
+	private void initialize() {
+		frame = new JFrame();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = screenSize.width / 2;
+		int height = screenSize.height / 2;
+		int x = screenSize.width / 4;
+		int y = screenSize.height / 4;
+		frame.setBounds(x, y, 833, 540);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent componentEvent) {
+				if (pan != null) {
+					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+				}
+			}
+		});
+		container = frame.getContentPane();
+		container.setLayout(null);
+		
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 361, 21);
 		frame.setJMenuBar(menuBar);
@@ -164,11 +167,11 @@ public class mainbook implements ActionListener {
 		mn = new JMenu("\uC2DC\uC2A4\uD15C");
 		menuBar.add(mn);
 
-		btex = new JMenuItem("\uC885\uB8CC");
-		mn.add(btex);
-
 		btnLog = new JMenuItem("\uB85C\uADF8\uC544\uC6C3");
 		mn.add(btnLog);
+
+		btex = new JMenuItem("\uC885\uB8CC");
+		mn.add(btex);
 
 		mn1 = new JMenu("\uAC80\uC0C9");
 		menuBar.add(mn1);
@@ -187,13 +190,7 @@ public class mainbook implements ActionListener {
 
 		MnameSe = new JMenuItem("\uD68C\uC6D0 \uC774\uB984 \uAC80\uC0C9");
 		mn1.add(MnameSe);
-
-		btsena.addActionListener(this);
-		btsema.addActionListener(this);
-		btnpublish.addActionListener(this);
-		McodeSe.addActionListener(this);
-		MnameSe.addActionListener(this);
-
+		
 		mn2 = new JMenu("\uD68C\uC6D0 \uAD00\uB9AC");
 		menuBar.add(mn2);
 
@@ -221,6 +218,15 @@ public class mainbook implements ActionListener {
 
 		btnReturn = new JMenuItem("\uBC18\uB0A9");
 		mn4.add(btnReturn);
+		
+		stru();
+		
+		btex.addActionListener(this);
+		btsena.addActionListener(this);
+		btsema.addActionListener(this);
+		btnpublish.addActionListener(this);
+		McodeSe.addActionListener(this);
+		MnameSe.addActionListener(this);
 
 		btnCheckout.addActionListener(this);
 		btnReturn.addActionListener(this);
@@ -230,9 +236,7 @@ public class mainbook implements ActionListener {
 		btnNew.addActionListener(this);
 		btnCode.addActionListener(this);
 		btnPwd.addActionListener(this);
-		/*btnLog.addActionListener(this);*/
-
-		btex.addActionListener(this);
+		btnLog.addActionListener(this); 
 
 		btin.addActionListener(this);
 		btup.addActionListener(this);
@@ -259,7 +263,8 @@ public class mainbook implements ActionListener {
 		if (A == true) {
 			if (e.getSource().equals(btnGo)) {
 				Check();
-				if (count == 2&& cnt==2)Term();
+				if (count == 2 && cnt == 2)
+					Term();
 			} else if (e.getSource().equals(btnCan)) {
 				clearLogin();
 			} else if (e.getSource().equals(btnNew)) {
@@ -307,9 +312,14 @@ public class mainbook implements ActionListener {
 				// goCheckout();//책 대출
 			} else if (e.getSource().equals(delbtn)) {
 				pan = new MemberDelete();// 회원 삭제
-			} /*else if (e.getSource().equals(updabtn)) {
-				pan = new MemberUpdate();// goMUpdate();//회원 수정
-			}*/
+			} if(e.getSource().equals(btnLog)) {
+				clear();
+				clearLogin();
+				frame.revalidate();
+				frame.repaint();
+				menuBar.setVisible(false);
+				return;
+			}
 			pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 			frame.getContentPane().add(pan);
 		}
@@ -329,7 +339,7 @@ public class mainbook implements ActionListener {
 			if (count != 1) {
 				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
 				count = 0;
-				cnt=0;
+				cnt = 0;
 				return;
 			}
 		} catch (Exception e) {
@@ -378,12 +388,12 @@ public class mainbook implements ActionListener {
 			pst.setInt(2, Integer.valueOf(Code));
 			rst = pst.executeQuery();
 			while (rst.next()) {
-				cnt=cnt+1;
+				cnt = cnt + 1;
 				mPwd = rst.getString(1);
 			}
 			if (cnt != 1) {
 				JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력했습니다.");
-				count=0;
+				count = 0;
 				cnt = 0;
 				return;
 			}
@@ -408,7 +418,7 @@ public class mainbook implements ActionListener {
 			rsttt = pst.executeQuery();
 			while (rsttt.next()) {
 				mpd = rsttt.getString(1);
-				cnt=cnt+1;
+				cnt = cnt + 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -429,11 +439,11 @@ public class mainbook implements ActionListener {
 
 		String a = mpd;
 		String b = mPwd;
-		
+
 		if ((mcodec == mcode) && (a.equals(b))) {
 			panel.setVisible(false);
 			count = 0;
-			cnt=0;
+			cnt = 0;
 			A = false;
 			if (mcodec == 1) {
 				menuBar.setVisible(true);
@@ -450,12 +460,12 @@ public class mainbook implements ActionListener {
 			if ((mcodec != mcode)) {
 				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
 				count = 0;
-				cnt=0;
+				cnt = 0;
 				return;
 			} else {
 				JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력했습니다.");
 				count = 0;
-				cnt=0;
+				cnt = 0;
 				return;
 			}
 		}
@@ -474,7 +484,8 @@ public class mainbook implements ActionListener {
 			return;
 		} else {
 			Search();
-			if(count==1) SearchCheck();
+			if (count == 1)
+				SearchCheck();
 			Search2();
 			Search2Check();
 		}

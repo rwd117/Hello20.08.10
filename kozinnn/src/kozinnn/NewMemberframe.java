@@ -171,7 +171,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 			InsertGo2();
 			CodeCheck();
 			icode=Integer.valueOf(scode);
-			JOptionPane.showMessageDialog(null, "회원가입 완료. 고객님의 회원 코드는"+icode+"입니다.잊지 말아주세요.");
+			JOptionPane.showMessageDialog(null, "회원가입 완료. 고객님의 회원 코드는  "+icode+" 입니다.잊지 말아주세요.");
 			dispose();
 		}else {
 			InsertGo();
