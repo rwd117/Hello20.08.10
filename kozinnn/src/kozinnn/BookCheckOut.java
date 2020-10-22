@@ -304,9 +304,6 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	}
 
 	public void CheckTerm() {
-		amount = Integer.valueOf(bamount);
-		amt = Integer.valueOf(bamt);
-		
 		amountt = Integer.valueOf(mamount);
 		amtt = Integer.valueOf(mamt);
 		if (amount == 0) {

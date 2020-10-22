@@ -10,47 +10,56 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class mainbook implements ActionListener {
 	private JFrame frame;
 	private JMenuBar menuBar;
-	private JMenuItem btin,btex,btup,btde,btsena,btsema,btnpublish,btnReturn,btnCheckout,addbtn,delbtn,updabtn;
-	private JMenuItem McodeSe,MnameSe;
-	JPanel pan;
-	Dimension dim;
-	Container container;
+	private JMenuItem btin, btex, btup, btde, btsena, btsema, btnpublish;
+	private JMenuItem btnReturn, btnCheckout, delbtn, updabtn;
+	private JMenuItem McodeSe, MnameSe;
+	private JMenu mn, mn1, mn2, mn3, mn4;
+	private JPanel pan, panel;
+	private JButton btnGo, btnCan, btnNew, btnCode, btnPwd;
+	private JTextField tf;
+	private JTextField tf1;
+	private String mCode, mCodec, mPwd, mpd;
+	private int mcode, mcodec, count = 0;
+	private boolean A = true;
 
-	String driver = "oracle.jdbc.OracleDriver";
-	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
-	String user = "system";
-	String pwd = "123456";
-	  
-/*	Bookinsert Binsert;
-	BookUpdate Bupdate;
-	BookDelete Bdelete;
-	BookTitle Btitle;
-	BookMan Bman;
-	BookPublish Bpublish;
-	MemberInsert Minsert;
-	MemberDelete Mdelete;
-	MemberUpdate Mupdate;
-	MemberCode Mcode;
-	MemberName Mname;
-	BookCheckOut Bcheck;
-	BookReturn Breturn;*/
+	SearchCodeframe Sch;
+	SearchPwdframe Sp;
+	NewMemberframe nmf;
 
-	Connection conn = null;
-	ResultSet rs = null;
-	Statement stmt = null;
-	
+	private Dimension dim;
+	private Container container;
+
+	private String driver = "oracle.jdbc.OracleDriver";
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String user = "system";
+	private String pwd = "123456";
+
+	private String sql = "select m_code from member1 where m_code=?";
+	private String sql2 = "select m_pwd from member1 where m_pwd=? and m_code=?";
+
+	Connection con;
+	PreparedStatement pst;
+
+	ResultSet rs, rst, rstt, rsttt;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,16 +77,16 @@ public class mainbook implements ActionListener {
 		initialize();
 		dbcon();
 	}
-	
+
 	public void dbcon() {
 		try {
 			Class.forName(driver);
-			conn=DriverManager.getConnection(url,user,pwd);
+			con = DriverManager.getConnection(url, user, pwd);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void initialize() {
 		frame = new JFrame();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -85,319 +94,365 @@ public class mainbook implements ActionListener {
 		int height = screenSize.height / 2;
 		int x = screenSize.width / 4;
 		int y = screenSize.height / 4;
-		frame.setBounds(x, y, width, height);
+		frame.setBounds(x, y, 833, 540);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent componentEvent) {
-				if(pan != null) {
-					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());	
+				if (pan != null) {
+					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 				}
 			}
 		});
 
+		panel = new JPanel();
+		panel.setBounds(12, 10, 833, 540);
+		frame.getContentPane().add(panel);
+		panel.setVisible(true);
+
 		container = frame.getContentPane();
 		container.setLayout(null);
-		
+		panel.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("\uB85C\uADF8\uC778 \uD654\uBA74");
+		lblNewLabel.setBounds(345, 118, 102, 23);
+		panel.add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("\uD68C\uC6D0 \uCF54\uB4DC");
+		lblNewLabel_1.setBounds(220, 190, 64, 15);
+		panel.add(lblNewLabel_1);
+
+		JLabel label = new JLabel("\uBE44\uBC00\uBC88\uD638");
+		label.setBounds(220, 248, 64, 15);
+		panel.add(label);
+
+		btnGo = new JButton("\uC811\uC18D");
+		btnGo.setBounds(247, 313, 95, 23);
+		panel.add(btnGo);
+
+		btnCan = new JButton("\uCDE8\uC18C");
+		btnCan.setBounds(432, 313, 85, 23);
+		panel.add(btnCan);
+
+		tf = new JTextField();
+		tf.setBounds(330, 187, 147, 21);
+		panel.add(tf);
+		tf.setColumns(10);
+
+		tf1 = new JTextField();
+		tf1.setColumns(10);
+		tf1.setBounds(330, 245, 147, 21);
+		panel.add(tf1);
+
+		btnNew = new JButton("\uD68C\uC6D0\uAC00\uC785");
+		btnNew.setBounds(555, 166, 109, 23);
+		panel.add(btnNew);
+
+		btnCode = new JButton("\uCF54\uB4DC \uCC3E\uAE30");
+		btnCode.setBounds(555, 215, 109, 23);
+		panel.add(btnCode);
+
+		btnPwd = new JButton("\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30");
+		btnPwd.setBounds(555, 272, 126, 23);
+		panel.add(btnPwd);
+
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 361, 21);
 		frame.setJMenuBar(menuBar);
-		
-		JMenu mn = new JMenu("\uC2DC\uC2A4\uD15C");
+		menuBar.setVisible(false);
+
+		mn = new JMenu("\uC2DC\uC2A4\uD15C");
 		menuBar.add(mn);
-		
-		JMenu mnNewMenu = new JMenu("\uB300\uCD9C/\uBC18\uB0A9");
-		menuBar.add(mnNewMenu);
-		
-		btnCheckout = new JMenuItem("\uB300\uCD9C");
-		mnNewMenu.add(btnCheckout);
-		
-		btnReturn = new JMenuItem("\uBC18\uB0A9");
-		mnNewMenu.add(btnReturn);
-		
+
 		btex = new JMenuItem("\uC885\uB8CC");
 		mn.add(btex);
-		
-		JMenu mn1 = new JMenu("\uCC45 \uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
+
+		mn1 = new JMenu("\uAC80\uC0C9");
 		menuBar.add(mn1);
-		
-		btin = new JMenuItem("\uCD94\uAC00");
-		mn1.add(btin);
-		
-		btup = new JMenuItem("\uC218\uC815");
-		mn1.add(btup);
-		
-		btde = new JMenuItem("\uC0AD\uC81C");
-		mn1.add(btde);
-		
-		JMenu mn2 = new JMenu("\uAC80\uC0C9");
-		menuBar.add(mn2);
-		
+
 		btsena = new JMenuItem("\uCC45 \uC81C\uBAA9 \uAC80\uC0C9");
-		mn2.add(btsena);
-		
+		mn1.add(btsena);
+
 		btsema = new JMenuItem("\uC791\uAC00 \uAC80\uC0C9");
-		mn2.add(btsema);
-		
-		btnpublish =new JMenuItem("출판사 검색");
-		mn2.add(btnpublish);
-		
+		mn1.add(btsema);
+
+		btnpublish = new JMenuItem("출판사 검색");
+		mn1.add(btnpublish);
+
 		McodeSe = new JMenuItem("\uD68C\uC6D0 \uBC88\uD638 \uAC80\uC0C9");
-		mn2.add(McodeSe);
-		
+		mn1.add(McodeSe);
+
 		MnameSe = new JMenuItem("\uD68C\uC6D0 \uC774\uB984 \uAC80\uC0C9");
-		mn2.add(MnameSe);
-		
-		JMenu mnNewMenu_1 = new JMenu("\uD68C\uC6D0 \uAD00\uB9AC");
-		menuBar.add(mnNewMenu_1);
-		
-		addbtn = new JMenuItem("\uD68C\uC6D0 \uB4F1\uB85D");
-		mnNewMenu_1.add(addbtn);
-		
-		delbtn = new JMenuItem("\uD68C\uC6D0 \uC0AD\uC81C");
-		mnNewMenu_1.add(delbtn);
-		
-		updabtn =new JMenuItem("\uD68C\uC6D0 \uC218\uC815");
-		mnNewMenu_1.add(updabtn);
-		
-		
-		
-		btex.addActionListener(this);
-		
+		mn1.add(MnameSe);
+
 		btsena.addActionListener(this);
 		btsema.addActionListener(this);
 		btnpublish.addActionListener(this);
 		McodeSe.addActionListener(this);
 		MnameSe.addActionListener(this);
-		
+
+		mn2 = new JMenu("\uD68C\uC6D0 \uAD00\uB9AC");
+		menuBar.add(mn2);
+
+		delbtn = new JMenuItem("\uD68C\uC6D0 \uC0AD\uC81C");
+		mn2.add(delbtn);
+
+		updabtn = new JMenuItem("\uD68C\uC6D0 \uC218\uC815");
+		mn2.add(updabtn);
+		delbtn.addActionListener(this);
+		updabtn.addActionListener(this);
+
+		mn3 = new JMenu("\uCC45 \uCD94\uAC00/\uC218\uC815/\uC0AD\uC81C");
+		menuBar.add(mn3);
+
+		btin = new JMenuItem("\uCD94\uAC00");
+		mn3.add(btin);
+
+		btup = new JMenuItem("\uC218\uC815");
+		mn3.add(btup);
+
+		btde = new JMenuItem("\uC0AD\uC81C");
+		mn3.add(btde);
+
+		mn4 = new JMenu("\uB300\uCD9C/\uBC18\uB0A9");
+		menuBar.add(mn4);
+
+		btnCheckout = new JMenuItem("\uB300\uCD9C");
+		mn4.add(btnCheckout);
+
+		btnReturn = new JMenuItem("\uBC18\uB0A9");
+		mn4.add(btnReturn);
+
+		btnCheckout.addActionListener(this);
+		btnReturn.addActionListener(this);
+
+		btnGo.addActionListener(this);
+		btnCan.addActionListener(this);
+		btnNew.addActionListener(this);
+		btnCode.addActionListener(this);
+		btnPwd.addActionListener(this);
+
+		btex.addActionListener(this);
+
 		btin.addActionListener(this);
 		btup.addActionListener(this);
 		btde.addActionListener(this);
-		
-		btnCheckout.addActionListener(this);
-		btnReturn.addActionListener(this);
-		
-		addbtn.addActionListener(this);
-		delbtn.addActionListener(this);
-		updabtn.addActionListener(this);
 	}
-	
+
 	public void clear() {
 		container.removeAll();
 		container.setVisible(false);
 		container.setVisible(true);
 	}
-	
+
+	public void clearLogin() {
+		rs = null;
+		rst = null;
+		rstt = null;
+		rsttt = null;
+		tf.setText("");
+		tf1.setText("");
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		clear();
-		if(e.getSource().equals(btex)) {
-			System.exit(0);
-		}else if(e.getSource().equals(btin)) {
-			pan=new Bookinsert();
-			//goInsert();//책 추가
-		}else if(e.getSource().equals(btup)) {
-			pan=new BookUpdate();
-			//goUpdate();//책 수정
-		}else if(e.getSource().equals(btde)) {
-			pan=new BookDelete();
-			//goDelete();//책 삭제
-		}else if(e.getSource().equals(btsena)) {
-			pan=new BookTitle();//책 제목 검색
-		}else if(e.getSource().equals(btsema)) {
-			pan=new BookMan();
-			//goMan();//작가 검색
-		}else if(e.getSource().equals(btnpublish)) {
-			pan=new BookPublish();//출판사 검색
-		}else if(e.getSource().equals(McodeSe)) {
-			pan=new MemberCode();//회원 번호 검색
-		}else if(e.getSource().equals(MnameSe)) {
-			pan=new MemberName();
-			//goMname();//회원 이름 검색
-		}else if(e.getSource().equals(btnReturn)) {
-			pan=new BookReturn();//책 반납
-		}else if(e.getSource().equals(btnCheckout)) {
-			pan=new BookCheckOut();
-			//goCheckout();//책 대출
-		}else if(e.getSource().equals(addbtn)) {
-			pan=new MemberInsert();//회원 추가
-		}else if(e.getSource().equals(delbtn)) {
-			pan=new MemberDelete();//회원 삭제
-		}else if(e.getSource().equals(updabtn)) {
-			pan=new MemberUpdate();
-			//goMUpdate();//회원 수정
+		if (A == true) {
+			if (e.getSource().equals(btnGo)) {
+				Search();
+				SearchCheck();
+				Search2();
+				Search2Check();
+				if (count == 2)	Term();
+			} else if (e.getSource().equals(btnCan)) {
+				clearLogin();
+			} else if (e.getSource().equals(btnNew)) {
+				nmf = new NewMemberframe();
+				nmf.setVisible(true);
+				nmf.setBounds(100, 100, 500, 500);
+			} else if (e.getSource().equals(btnCode)) {
+				Sch = new SearchCodeframe();
+				Sch.setVisible(true);
+				;
+				Sch.setBounds(100, 100, 450, 300);
+			} else if (e.getSource().equals(btnPwd)) {
+				Sp = new SearchPwdframe();
+				Sp.setVisible(true);
+				;
+				Sp.setBounds(100, 100, 450, 300);
+			}
+		} else if (A == false) {
+			clear();
+			if (e.getSource().equals(btex)) {
+				System.exit(0);
+			} else if (e.getSource().equals(btin)) {
+				pan = new Bookinsert();
+				// goInsert();//책 추가
+			} else if (e.getSource().equals(btup)) {
+				pan = new BookUpdate();
+				// goUpdate();//책 수정
+			} else if (e.getSource().equals(btde)) {
+				pan = new BookDelete();
+				// goDelete();//책 삭제
+			} else if (e.getSource().equals(btsena)) {
+				pan = new BookTitle();// 책 제목 검색
+			} else if (e.getSource().equals(btsema)) {
+				pan = new BookMan();
+				// goMan();//작가 검색
+			} else if (e.getSource().equals(btnpublish)) {
+				pan = new BookPublish();// 출판사 검색
+			} else if (e.getSource().equals(McodeSe)) {
+				pan = new MemberCode();// 회원 번호 검색
+			} else if (e.getSource().equals(MnameSe)) {
+				pan = new MemberName();
+				// goMname();//회원 이름 검색
+			} else if (e.getSource().equals(btnReturn)) {
+				pan = new BookReturn();// 책 반납
+			} else if (e.getSource().equals(btnCheckout)) {
+				pan = new BookCheckOut();
+				// goCheckout();//책 대출
+			} else if (e.getSource().equals(delbtn)) {
+				pan = new MemberDelete();// 회원 삭제
+			} else if (e.getSource().equals(updabtn)) {
+				pan = new MemberUpdate();
+				// goMUpdate();//회원 수정
+			}
+			pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+			frame.getContentPane().add(pan);
 		}
-		pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		frame.getContentPane().add(pan);
-	}
-	
-	/*public void goInsert() {
-		Binsert = new Bookinsert();
-		Binsert.pack();
-		Binsert.setVisible(true);
-		Binsert.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Binsert);
 
-		try {
-			Binsert.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
-	*/
-	/*public void goUpdate() {
-		Bupdate = new BookUpdate();
-		Bupdate.pack();
-		Bupdate.setVisible(true);
-		Bupdate.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Bupdate);
-		try {
-			Bupdate.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-	
-	/*public void goDelete() {
-		Bdelete = new BookDelete();
-		Bdelete.pack();
-		Bdelete.setVisible(true);
-		Bdelete.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Bdelete);
-		try {
-			Bdelete.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
-	/*public void goTitle() {
-		Btitle = new BookTitle();
-		Btitle.pack();
-		Btitle.setVisible(true);
-		Btitle.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Btitle);
-		try {
-			Btitle.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
-	/*public void goMan() {
-		Bman = new BookMan();
-		Bman.pack();
-		Bman.setVisible(true);
-		Bman.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Bman);
+	public void Search() {
+		String Code = tf.getText();
+		System.out.println(Code);
 		try {
-			Bman.setSelected(true);
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, Integer.valueOf(Code));
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				count = count + 1;
+				mCode = rs.getString(1);
+			}
+			if (count != 1) {
+				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
+				count = 0;
+				return;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-*/
-	/*public void goPublish() {
-		Bpublish = new BookPublish();
-		Bpublish.pack();
-		Bpublish.setVisible(true);
-		Bpublish.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Bpublish);
-		try {
-			Bpublish.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}	
-	*/
-	/*public void goMcode() {
-		Mcode = new MemberCode();
-		Mcode.pack();
-		Mcode.setVisible(true);
-		Mcode.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Mcode);
-		try {
-			Mcode.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-	
-	/*public void goMname() {
-		Mname = new MemberName();
-		Mname.pack();
-		Mname.setVisible(true);
-		Mname.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Mname);
-		try {
-			Mname.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
-	/*public void goMInsert() {
-		Minsert = new MemberInsert();
-		Minsert.pack();
-		Minsert.setVisible(true);
-		Minsert.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Minsert);
-		try {
-			Minsert.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
-	/*public void goMDelete() {
-		Mdelete = new MemberDelete();
-		Mdelete.pack();
-		Mdelete.setVisible(true);
-		Mdelete.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Mdelete);
-		try {
-			Mdelete.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-	
-	/*public void goMUpdate() {
-		Mupdate = new MemberUpdate();
-		Mupdate.pack();
-		Mupdate.setVisible(true);
-		Mupdate.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Mupdate);
-		try {
-			Mupdate.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
-	/*public void goCheckout() {
-		Bcheck = new BookCheckOut();
-		Bcheck.pack();
-		Bcheck.setVisible(true);
-		Bcheck.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Bcheck);
-		try {
-			Bcheck.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
-	/*public void goReturn() {
-		Breturn = new BookReturn();
-		Breturn.pack();
-		Breturn.setVisible(true);
-		Breturn.setBounds(20, 20, 800, 486);
-		frame.getContentPane().add(Breturn);
-		try {
-			Breturn.setSelected(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
+	public void SearchCheck() {
 
+		mcode = Integer.valueOf(mCode);
+		System.out.println(mcode);
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, mcode);
+			rstt = pst.executeQuery();
+			while (rstt.next()) {
+				count = count + 1;
+				mCodec = rstt.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void Search2() {// mPwd 결과값 저장
+		String Pwd = tf1.getText();
+		String Code = tf.getText();
+		try {
+			pst = con.prepareStatement(sql2);
+			pst.setString(1, Pwd);
+			pst.setInt(2, Integer.valueOf(Code));
+			rst = pst.executeQuery();
+			while (rst.next()) {
+				mPwd = rst.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void Search2Check() {// mpd에 저장
+		String Code = tf.getText();
+		try {
+			pst = con.prepareStatement(sql2);
+			pst.setString(1, mPwd);
+			pst.setInt(2, Integer.valueOf(Code));
+			rsttt = pst.executeQuery();
+			while (rsttt.next()) {
+				mpd = rsttt.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void Term() {//
+		// mCode->mcode, mCodec->mcodec,
+		mcodec = Integer.valueOf(mCodec);
+
+		String a = mpd;
+		String b = mPwd;
+
+		if ((mcodec == mcode) && (a.equals(b))) {
+			panel.setVisible(false);
+			count = 0;
+			A = false;
+			if (mcodec == 1) {
+				menuBar.setVisible(true);
+			} else if (mcodec != 1) {
+				menuBar.setVisible(true);
+				mn2.setVisible(false);
+				mn3.setVisible(false);
+				mn4.setVisible(false);
+				McodeSe.setVisible(false);
+				MnameSe.setVisible(false);
+			}
+		} else if ((mcodec != mcode) || (!a.equals(b))) {
+			System.out.println("?");
+			if ((mcodec != mcode)) {
+				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
+				count = 0;
+				return;
+			} else {
+				JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력했습니다.");
+				count = 0;
+				return;
+			}
+		}
+
+	}
 }
