@@ -118,7 +118,7 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	
 	public void Result() {
 		if(code==null) {
-			JOptionPane.showMessageDialog(null, "이름 혹은 메일을 확인 해주세요");
+			JOptionPane.showMessageDialog(null, "이름 혹은 전화번호를 확인 해주세요");
 			return;
 		}else {
 			JOptionPane.showMessageDialog(null, "회원님의 코드 번호는"+code+"입니다.");
