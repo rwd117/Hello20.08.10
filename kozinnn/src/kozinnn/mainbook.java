@@ -37,7 +37,7 @@ public class mainbook implements ActionListener {
 	private JTextField tf;
 	private JTextField tf1;
 	private String mCode, mCodec, mPwd, mpd;
-	private int mcode, mcodec, count = 0;
+	private int mcode, mcodec, count = 0,cnt=0;
 	private boolean A = true;
 
 	SearchCodeframe Sch;
@@ -59,6 +59,7 @@ public class mainbook implements ActionListener {
 	PreparedStatement pst;
 
 	ResultSet rs, rst, rstt, rsttt;
+	private JMenuItem btnLog;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -166,6 +167,9 @@ public class mainbook implements ActionListener {
 		btex = new JMenuItem("\uC885\uB8CC");
 		mn.add(btex);
 
+		btnLog = new JMenuItem("\uB85C\uADF8\uC544\uC6C3");
+		mn.add(btnLog);
+
 		mn1 = new JMenu("\uAC80\uC0C9");
 		menuBar.add(mn1);
 
@@ -230,6 +234,7 @@ public class mainbook implements ActionListener {
 		btnNew.addActionListener(this);
 		btnCode.addActionListener(this);
 		btnPwd.addActionListener(this);
+		/*btnLog.addActionListener(this);*/
 
 		btex.addActionListener(this);
 
@@ -257,11 +262,8 @@ public class mainbook implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (A == true) {
 			if (e.getSource().equals(btnGo)) {
-				Search();
-				SearchCheck();
-				Search2();
-				Search2Check();
-				if (count == 2)	Term();
+				Check();
+				if (count == 2&& cnt==2)Term();
 			} else if (e.getSource().equals(btnCan)) {
 				clearLogin();
 			} else if (e.getSource().equals(btnNew)) {
@@ -271,16 +273,13 @@ public class mainbook implements ActionListener {
 			} else if (e.getSource().equals(btnCode)) {
 				Sch = new SearchCodeframe();
 				Sch.setVisible(true);
-				;
 				Sch.setBounds(100, 100, 450, 300);
 			} else if (e.getSource().equals(btnPwd)) {
 				Sp = new SearchPwdframe();
 				Sp.setVisible(true);
-				;
 				Sp.setBounds(100, 100, 450, 300);
 			}
 		} else if (A == false) {
-			clear();
 			if (e.getSource().equals(btex)) {
 				System.exit(0);
 			} else if (e.getSource().equals(btin)) {
@@ -312,13 +311,11 @@ public class mainbook implements ActionListener {
 			} else if (e.getSource().equals(delbtn)) {
 				pan = new MemberDelete();// 회원 삭제
 			} else if (e.getSource().equals(updabtn)) {
-				pan = new MemberUpdate();
-				// goMUpdate();//회원 수정
+				pan = new MemberUpdate();// goMUpdate();//회원 수정
 			}
 			pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 			frame.getContentPane().add(pan);
 		}
-
 	}
 
 	public void Search() {
@@ -335,6 +332,7 @@ public class mainbook implements ActionListener {
 			if (count != 1) {
 				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
 				count = 0;
+				cnt=0;
 				return;
 			}
 		} catch (Exception e) {
@@ -383,7 +381,14 @@ public class mainbook implements ActionListener {
 			pst.setInt(2, Integer.valueOf(Code));
 			rst = pst.executeQuery();
 			while (rst.next()) {
+				cnt=cnt+1;
 				mPwd = rst.getString(1);
+			}
+			if (cnt != 1) {
+				JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력했습니다.");
+				count=0;
+				cnt = 0;
+				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -406,6 +411,7 @@ public class mainbook implements ActionListener {
 			rsttt = pst.executeQuery();
 			while (rsttt.next()) {
 				mpd = rsttt.getString(1);
+				cnt=cnt+1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -426,10 +432,11 @@ public class mainbook implements ActionListener {
 
 		String a = mpd;
 		String b = mPwd;
-
+		
 		if ((mcodec == mcode) && (a.equals(b))) {
 			panel.setVisible(false);
 			count = 0;
+			cnt=0;
 			A = false;
 			if (mcodec == 1) {
 				menuBar.setVisible(true);
@@ -446,13 +453,33 @@ public class mainbook implements ActionListener {
 			if ((mcodec != mcode)) {
 				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
 				count = 0;
+				cnt=0;
 				return;
 			} else {
 				JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력했습니다.");
 				count = 0;
+				cnt=0;
 				return;
 			}
 		}
 
+	}
+
+	public void Check() {
+		if (tf.getText().equals("") && tf1.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "코드와 비밀번호를 입력해주세요");
+			return;
+		} else if (tf.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "코드를 입력 해 주세요");
+			return;
+		} else if (tf1.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "비밀번호를 입력 해 주세요");
+			return;
+		} else {
+			Search();
+			SearchCheck();
+			Search2();
+			Search2Check();
+		}
 	}
 }
