@@ -77,8 +77,9 @@ public class mainbook implements ActionListener {
 	public mainbook() {
 		initialize();
 		dbcon();
+		
 	}
-
+	
 	public void dbcon() {
 		try {
 			Class.forName(driver);
@@ -87,8 +88,25 @@ public class mainbook implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
-	public void stru() {
+
+	private void initialize() {
+		frame = new JFrame();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = screenSize.width / 2;
+		int height = screenSize.height / 2;
+		int x = screenSize.width / 4;
+		int y = screenSize.height / 4;
+		frame.setBounds(x, y, 833, 540);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent componentEvent) {
+				if (pan != null) {
+					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+				}
+			}
+		});
+		container = frame.getContentPane();
+		container.setLayout(null);
 
 		panel = new JPanel();
 		panel.setBounds(12, 10, 833, 540);
@@ -138,27 +156,6 @@ public class mainbook implements ActionListener {
 		btnPwd.setBounds(555, 272, 126, 23);
 		panel.add(btnPwd);
 
-	}
-	
-	private void initialize() {
-		frame = new JFrame();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = screenSize.width / 2;
-		int height = screenSize.height / 2;
-		int x = screenSize.width / 4;
-		int y = screenSize.height / 4;
-		frame.setBounds(x, y, 833, 540);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.addComponentListener(new ComponentAdapter() {
-			public void componentResized(ComponentEvent componentEvent) {
-				if (pan != null) {
-					pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-				}
-			}
-		});
-		container = frame.getContentPane();
-		container.setLayout(null);
-		
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 361, 21);
 		frame.setJMenuBar(menuBar);
@@ -190,7 +187,7 @@ public class mainbook implements ActionListener {
 
 		MnameSe = new JMenuItem("\uD68C\uC6D0 \uC774\uB984 \uAC80\uC0C9");
 		mn1.add(MnameSe);
-		
+
 		mn2 = new JMenu("\uD68C\uC6D0 \uAD00\uB9AC");
 		menuBar.add(mn2);
 
@@ -218,9 +215,7 @@ public class mainbook implements ActionListener {
 
 		btnReturn = new JMenuItem("\uBC18\uB0A9");
 		mn4.add(btnReturn);
-		
-		stru();
-		
+
 		btex.addActionListener(this);
 		btsena.addActionListener(this);
 		btsema.addActionListener(this);
@@ -236,7 +231,7 @@ public class mainbook implements ActionListener {
 		btnNew.addActionListener(this);
 		btnCode.addActionListener(this);
 		btnPwd.addActionListener(this);
-		btnLog.addActionListener(this); 
+		btnLog.addActionListener(this);
 
 		btin.addActionListener(this);
 		btup.addActionListener(this);
@@ -248,7 +243,7 @@ public class mainbook implements ActionListener {
 		container.setVisible(false);
 		container.setVisible(true);
 	}
-
+	
 	public void clearLogin() {
 		rs = null;
 		rst = null;
@@ -257,7 +252,7 @@ public class mainbook implements ActionListener {
 		tf.setText("");
 		tf1.setText("");
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (A == true) {
@@ -280,7 +275,7 @@ public class mainbook implements ActionListener {
 				Sp.setVisible(true);
 				Sp.setBounds(100, 100, 450, 300);
 			}
-		} else if (A == false) {
+		} else if ((A == false)&&(!e.getSource().equals(btnLog))) {
 			clear();
 			if (e.getSource().equals(btex)) {
 				System.exit(0);
@@ -312,19 +307,22 @@ public class mainbook implements ActionListener {
 				// goCheckout();//책 대출
 			} else if (e.getSource().equals(delbtn)) {
 				pan = new MemberDelete();// 회원 삭제
-			} if(e.getSource().equals(btnLog)) {
-				clear();
-				clearLogin();
-				frame.revalidate();
-				frame.repaint();
-				menuBar.setVisible(false);
-				return;
-			}
+			} 
 			pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 			frame.getContentPane().add(pan);
+		}else if ((A == false)&&(e.getSource().equals(btnLog))) {
+			clear();
+			clearLogin();
+			LoginGo();
+			A=true;
 		}
 	}
-
+	
+	public void LoginGo() {
+		this.initialize();
+		this.dbcon();
+	}
+	
 	public void Search() {
 		String Code = tf.getText();
 		System.out.println(Code);
@@ -434,6 +432,7 @@ public class mainbook implements ActionListener {
 	}
 
 	public void Term() {//
+
 		// mCode->mcode, mCodec->mcodec,
 		mcodec = Integer.valueOf(mCodec);
 

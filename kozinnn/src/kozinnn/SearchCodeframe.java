@@ -52,6 +52,7 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 		this.setVisible(true);
 		this.setTitle("Code Ã£±â");
 		this.setLayout(null);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("\uC774\uB984");
 		lblNewLabel.setBounds(52, 67, 93, 15);

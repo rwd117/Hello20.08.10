@@ -25,7 +25,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	private JTextField tf2;
 	private JButton btnCheck, btnex;
 	private String mname, bname, bamount, bamt, mamount, mamt;
-	private int year, month, date, amount, amt, amountt, amtt;
+	private int year, month, date, amount, amt, amountt, amtt,bamountt;
 	private String Date;
 
 	private String driver = "oracle.jdbc.OracleDriver";
@@ -306,7 +306,8 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	public void CheckTerm() {
 		amountt = Integer.valueOf(mamount);
 		amtt = Integer.valueOf(mamt);
-		if (amount == 0) {
+		bamountt=Integer.valueOf(bamount);
+		if (bamountt == 0) {
 			JOptionPane.showMessageDialog(null, "책이 없습니다");
 			Sear();
 			clear();
@@ -316,7 +317,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 			Sear();
 			clear();
 			return;
-		}else if (amount != 0 && amountt != 0) {
+		}else if (bamountt != 0 && amountt != 0) {
 			BookCal();
 			MemberCal();
 			CheckInsert();

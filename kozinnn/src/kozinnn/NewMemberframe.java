@@ -56,8 +56,9 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	private void initialize() {
 		this.setVisible(true);
 		this.setTitle("Code Ã£±â");
-		getContentPane().setLayout(null);
-
+		this.setLayout(null);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		JLabel lblNewLabel = new JLabel("\uC774\uB984");
 		lblNewLabel.setBounds(62, 122, 77, 15);
 		getContentPane().add(lblNewLabel);

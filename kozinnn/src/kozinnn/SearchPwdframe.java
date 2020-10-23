@@ -23,7 +23,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 	private JButton btnC;
 	private JLabel lblNewLabel_2;
 	private String scode,icode;
-	private int scd,icd;
+	private int scd,icd,count=0;
 	
 	private String driver = "oracle.jdbc.OracleDriver";
 	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -56,6 +56,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setTitle("비밀번호 수정");
 		this.setLayout(null);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		
 		JLabel lblNewLabel = new JLabel("\uCF54\uB4DC");
@@ -96,8 +97,8 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnS)) {
 			SearchPw();
-			SearCheck();
-			Term();
+			if(count==1) {SearCheck();
+			Term();}
 		}else if(e.getSource().equals(btnC)) {
 			this.setVisible(false);
 			dispose();
@@ -113,6 +114,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			pst.setString(2, name);
 			rs = pst.executeQuery();
 			while (rs.next()) {
+				count=count+1;
 				scode = rs.getString(1);
 			}
 		} catch (Exception e) {
@@ -124,6 +126,9 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}if(count!=1) {
+			JOptionPane.showMessageDialog(null, "코드 혹은 이름을 잘못 입력했습니다.");
+			return;
 		}
 	}
 	
@@ -147,6 +152,9 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}if(icode.equals(null)) {
+			JOptionPane.showMessageDialog(null, "이름을 잘못 입력했습니다.");
+			return;
 		}
 	}
 
@@ -157,8 +165,9 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			pwup=new Pwdupdateframe(scd);
 			pwup.setVisible(true);
 			pwup.setBounds(100, 100, 450, 300);
-		}if(scd!=icd) {
+		}else if(scd!=icd) {
 			JOptionPane.showMessageDialog(null, "코드 혹은 이름이 틀렸습니다.");
+			return;
 		}
 	}
 }

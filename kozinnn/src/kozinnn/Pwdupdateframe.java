@@ -58,6 +58,7 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setTitle("비밀번호 수정");
 		this.setLayout(null);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JLabel lblNewLabel = new JLabel("\uBE44\uBC00\uBC88\uD638 \uC218\uC815");
 		lblNewLabel.setBounds(149, 56, 93, 15);
@@ -128,6 +129,7 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 		}else if(!pwd.equals(pwd2)) {
 			JOptionPane.showMessageDialog(null, "비밀번호를 한번 더 확인 해 주세요");
 			return;
+		
 		}
 	}
 
