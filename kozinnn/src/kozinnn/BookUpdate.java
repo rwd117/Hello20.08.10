@@ -124,7 +124,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 		this.add(Btca);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(389, 30, 339, 386);
+		scrollPane.setBounds(389, 30, 420, 386);
 		this.add(scrollPane);
 
 		table = new JTable();
