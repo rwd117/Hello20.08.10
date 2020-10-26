@@ -317,6 +317,7 @@ public class mainbook implements ActionListener {
 			panel.setLayout(null);
 			menuBar.setVisible(false);
 			A=true;
+			JOptionPane.showMessageDialog(null, "로그아웃 되었습니다.");
 		}
 		
 		
@@ -443,10 +444,14 @@ public class mainbook implements ActionListener {
 			count = 0;
 			cnt = 0;
 			A = false;
+			menuBar.setVisible(true);
 			if (mcodec >= 0 && mcodec<1000) {
-				menuBar.setVisible(true);
+				mn2.setVisible(true);
+				mn3.setVisible(true);
+				mn4.setVisible(true);
+				McodeSe.setVisible(true);
+				MnameSe.setVisible(true);
 			} else if (mcodec >= 1000) {
-				menuBar.setVisible(true);
 				mn2.setVisible(false);
 				mn3.setVisible(false);
 				mn4.setVisible(false);
