@@ -311,6 +311,12 @@ public class mainbook implements ActionListener {
 		}else if ((A == false)&&(e.getSource().equals(btnLog))) {
 			clear();
 			clearLogin();
+			panel.setVisible(true);
+			panel.setBounds(12, 10, 833, 540);
+			frame.getContentPane().add(panel);
+			panel.setLayout(null);
+			menuBar.setVisible(false);
+			A=true;
 		}
 		
 		
