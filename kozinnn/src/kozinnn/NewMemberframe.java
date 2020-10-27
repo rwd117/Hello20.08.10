@@ -130,6 +130,10 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		phone = tf1.getText();
 		pwd = tf2.getText();
 		address = tf3.getText();
+		if(name.equals("")||phone.equals("")||pwd.equals("")) {
+			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호 중에 빈 칸이 있습니다.");
+			return;
+		}
 		try {
 			pst = con.prepareStatement(sql1);
 			pst.setString(1, name);
@@ -153,6 +157,10 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		name = tf.getText();
 		phone = tf1.getText();
 		pwd = tf2.getText();
+		if(name.equals("")||phone.equals("")||pwd.equals("")) {
+			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호 중에 빈 칸이 있습니다.");
+			return;
+		}
 		try {
 			pst = con.prepareStatement(sql2);
 			pst.setString(1, name);
