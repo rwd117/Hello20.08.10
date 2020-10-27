@@ -263,15 +263,15 @@ public class mainbook implements ActionListener {
 			} else if (e.getSource().equals(btnNew)) {
 				nmf = new NewMemberframe();
 				nmf.setVisible(true);
-				nmf.setBounds(100, 100, 500, 500);
+				nmf.setBounds(500, 300, 500, 500);
 			} else if (e.getSource().equals(btnCode)) {
 				Sch = new SearchCodeframe();
 				Sch.setVisible(true);
-				Sch.setBounds(100, 100, 450, 300);
+				Sch.setBounds(500, 300, 450, 300);
 			} else if (e.getSource().equals(btnPwd)) {
 				Sp = new SearchPwdframe();
 				Sp.setVisible(true);
-				Sp.setBounds(100, 100, 450, 300);
+				Sp.setBounds(500, 300, 450, 300);
 			}
 		} else if ((A == false)&&(!e.getSource().equals(btnLog))) {
 			clear();

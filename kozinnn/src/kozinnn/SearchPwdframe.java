@@ -108,6 +108,10 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 	public void SearchPw() {//입력한값 비교하는 거
 		String code=tf.getText();
 		String name=tf1.getText();
+		if((code.equals(""))||(code.equals(null))||(name.equals(null))||(name.equals(null))) {
+			JOptionPane.showMessageDialog(null, "코드와 이름을 바르게 입력 해주세요");
+			return;
+		}
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setInt(1,Integer.valueOf(code));
@@ -126,9 +130,6 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}if(count!=1) {
-			JOptionPane.showMessageDialog(null, "코드 혹은 이름을 잘못 입력했습니다.");
-			return;
 		}
 	}
 	

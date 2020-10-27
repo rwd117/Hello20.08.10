@@ -56,7 +56,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	private void initialize() {
 		this.setVisible(true);
 		this.setTitle("Code Ã£±â");
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("\uC774\uB984");
@@ -105,8 +105,12 @@ public class NewMemberframe extends JFrame implements ActionListener {
 
 		JLabel lblNewLabel_1 = new JLabel(
 				"\uC774\uB984 \uBE44\uBC00\uBC88\uD638 \uC804\uD654\uBC88\uD638 \uD544\uC218 \uC785\uB825");
-		lblNewLabel_1.setBounds(95, 36, 257, 44);
+		lblNewLabel_1.setBounds(76, 29, 214, 44);
 		getContentPane().add(lblNewLabel_1);
+		
+		JLabel label_2 = new JLabel("\uC804\uD654\uBC88\uD638'-' \uC81C\uC678");
+		label_2.setBounds(114, 64, 214, 44);
+		getContentPane().add(label_2);
 
 		btnGo.addActionListener(this);
 		btnCa.addActionListener(this);
@@ -201,5 +205,4 @@ public class NewMemberframe extends JFrame implements ActionListener {
 			}
 		}
 	}
-
 }
