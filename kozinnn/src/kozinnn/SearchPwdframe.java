@@ -97,8 +97,11 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnS)) {
 			SearchPw();
-			if(count==1) {SearCheck();
-			Term();}
+			if(count==1) {
+			SearCheck();
+			Term();
+			count=0;
+			}
 		}else if(e.getSource().equals(btnC)) {
 			this.setVisible(false);
 			dispose();
@@ -108,8 +111,8 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 	public void SearchPw() {//�Է��Ѱ� ���ϴ� ��
 		String code=tf.getText();
 		String name=tf1.getText();
-		if((code.equals(""))||(code.equals(null))||(name.equals(null))||(name.equals(null))) {
-			JOptionPane.showMessageDialog(null, "�ڵ�� �̸��� �ٸ��� �Է� ���ּ���");
+		if((code.equals(""))||(code.equals(null))||(name.equals(""))||(name.equals(null))) {
+			JOptionPane.showMessageDialog(null, "빈칸이 있습니다. 다시 입력 해 주세요.");
 			return;
 		}
 		try {
@@ -120,6 +123,10 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			while (rs.next()) {
 				count=count+1;
 				scode = rs.getString(1);
+			}
+			if(count !=1) {
+				JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
+				count=0;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,6 +151,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			while (rs.next()) {
 				icode = rs.getString(1);
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -153,9 +161,6 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}if(icode.equals(null)) {
-			JOptionPane.showMessageDialog(null, "�̸��� �߸� �Է��߽��ϴ�.");
-			return;
 		}
 	}
 
@@ -167,7 +172,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			pwup.setVisible(true);
 			pwup.setBounds(100, 100, 450, 300);
 		}else if(scd!=icd) {
-			JOptionPane.showMessageDialog(null, "�ڵ� Ȥ�� �̸��� Ʋ�Ƚ��ϴ�.");
+			JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
 			return;
 		}
 	}

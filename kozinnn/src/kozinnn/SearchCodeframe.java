@@ -119,10 +119,10 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	
 	public void Result() {
 		if(code==null) {
-			JOptionPane.showMessageDialog(null, "�̸� Ȥ�� ��ȭ��ȣ�� Ȯ�� ���ּ���");
+			JOptionPane.showMessageDialog(null, "입력하신 정보가 틀렸습니다.");
 			return;
 		}else {
-			JOptionPane.showMessageDialog(null, "ȸ������ �ڵ� ��ȣ��"+code+"�Դϴ�.");
+			JOptionPane.showMessageDialog(null, "회원님의 코드는"+code+"입니다.");
 			return;
 		}
 	}

@@ -123,11 +123,11 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-			JOptionPane.showMessageDialog(null, "��� ��ȣ ���� �Ϸ�!");
+			JOptionPane.showMessageDialog(null, "비밀번호 수정 완료!");
 			this.setVisible(false);
 			
 		}else if(!pwd.equals(pwd2)) {
-			JOptionPane.showMessageDialog(null, "��й�ȣ�� �ѹ� �� Ȯ�� �� �ּ���");
+			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
 			return;
 		
 		}

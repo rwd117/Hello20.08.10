@@ -26,6 +26,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	private String name, phone, pwd, address, scode;
 	private int icode;
 	private boolean bln=false;
+	private boolean bln2=false;
 	
 
 	String driver = "oracle.jdbc.OracleDriver";
@@ -134,6 +135,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		address = tf3.getText();
 		if(name.equals("")||phone.equals("")||pwd.equals("")) {
 			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
+			bln2=true;
 			return;
 		}
 		if(phone.contains("-")) {
@@ -166,6 +168,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		pwd = tf2.getText();
 		if(name.equals("")||phone.equals("")||pwd.equals("")) {
 			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
+			bln2=true;
 			return;
 		}
 		if(phone.contains("-")) {
@@ -194,20 +197,24 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	public void Check() {
 		if(tf3.getText().equals("")||tf3.getText().equals(null)) {
 			InsertGo2();
-			if(bln==false) {
+			if((bln==false)&&(bln2==false)) {
 			CodeCheck();
 			icode=Integer.valueOf(scode);
 			JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 "+icode+" 입니다.잊지 말아주세요");
 			dispose();
 			}
+			bln=false;
+			bln2=false;
 		}else {
 			InsertGo();
-			if(bln==false) {
+			if((bln==false)&&(bln2=false)) {
 			CodeCheck();
 			icode=Integer.valueOf(scode);
 			JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 "+icode+" 입니다.잊지 말아주세요");
 			dispose();
 			}
+			bln=false;
+			bln2=false;
 		}
 	}
 
