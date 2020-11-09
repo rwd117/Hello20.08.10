@@ -48,6 +48,7 @@ public class BookPublish extends JPanel implements ActionListener {
 	private void initialize() {
 		this.setVisible(true);
 		this.setLayout(null);
+	
 		
 		JLabel lbl = new JLabel("\uCD9C\uD310\uC0AC \uAC80\uC0C9");
 		lbl.setBounds(134, 99, 88, 30);

@@ -50,7 +50,7 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	
 	private void initialize() {
 		this.setVisible(true);
-		this.setTitle("Code Ã£±â");
+		this.setTitle("íšŒì› ì½”ë“œ ì°¾ê¸°");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -119,10 +119,10 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	
 	public void Result() {
 		if(code==null) {
-			JOptionPane.showMessageDialog(null, "ÀÌ¸§ È¤Àº ÀüÈ­¹øÈ£¸¦ È®ÀÎ ÇØÁÖ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ï¿½Ì¸ï¿½ È¤ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 			return;
 		}else {
-			JOptionPane.showMessageDialog(null, "È¸¿ø´ÔÀÇ ÄÚµå ¹øÈ£´Â"+code+"ÀÔ´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½È£ï¿½ï¿½"+code+"ï¿½Ô´Ï´ï¿½.");
 			return;
 		}
 	}

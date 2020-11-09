@@ -56,7 +56,7 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 
 	private void initialize() {
 		this.setVisible(true);
-		this.setTitle("ºñ¹Ð¹øÈ£ ¼öÁ¤");
+		this.setTitle("ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -123,11 +123,11 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-			JOptionPane.showMessageDialog(null, "ºñ¹Ð ¹øÈ£ º¯°æ ¿Ï·á!");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½!");
 			this.setVisible(false);
 			
 		}else if(!pwd.equals(pwd2)) {
-			JOptionPane.showMessageDialog(null, "ºñ¹Ð¹øÈ£¸¦ ÇÑ¹ø ´õ È®ÀÎ ÇØ ÁÖ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½");
 			return;
 		
 		}

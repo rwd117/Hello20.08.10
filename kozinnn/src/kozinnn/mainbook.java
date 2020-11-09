@@ -39,7 +39,7 @@ public class mainbook implements ActionListener {
 	private int mcode, mcodec, count = 0, cnt = 0;
 	private boolean A = true;
 
-	SearchCodeframe Sch;
+	SearchCodeframe Sch; 
 	SearchPwdframe Sp;
 	NewMemberframe nmf;
 
@@ -177,7 +177,7 @@ public class mainbook implements ActionListener {
 		btsema = new JMenuItem("\uC791\uAC00 \uAC80\uC0C9");
 		mn1.add(btsema);
 
-		btnpublish = new JMenuItem("ÃâÆÇ»ç °Ë»ö");
+		btnpublish = new JMenuItem("ì¶œíŒì‚¬ ê²€ìƒ‰");
 		mn1.add(btnpublish);
 
 		McodeSe = new JMenuItem("\uD68C\uC6D0 \uBC88\uD638 \uAC80\uC0C9");
@@ -263,7 +263,7 @@ public class mainbook implements ActionListener {
 			} else if (e.getSource().equals(btnNew)) {
 				nmf = new NewMemberframe();
 				nmf.setVisible(true);
-				nmf.setBounds(500, 300, 500, 500);
+				nmf.setBounds(500, 300, 400, 450);
 			} else if (e.getSource().equals(btnCode)) {
 				Sch = new SearchCodeframe();
 				Sch.setVisible(true);
@@ -279,32 +279,32 @@ public class mainbook implements ActionListener {
 				System.exit(0);
 			} else if (e.getSource().equals(btin)) {
 				pan = new Bookinsert();
-				// goInsert();//Ã¥ Ãß°¡
+				// goInsert();//Ã¥ ï¿½ß°ï¿½
 			} else if (e.getSource().equals(btup)) {
 				pan = new BookUpdate();
-				// goUpdate();//Ã¥ ¼öÁ¤
+				// goUpdate();//Ã¥ ï¿½ï¿½ï¿½ï¿½
 			} else if (e.getSource().equals(btde)) {
 				pan = new BookDelete();
-				// goDelete();//Ã¥ »èÁ¦
+				// goDelete();//Ã¥ ï¿½ï¿½ï¿½ï¿½
 			} else if (e.getSource().equals(btsena)) {
-				pan = new BookTitle();// Ã¥ Á¦¸ñ °Ë»ö
+				pan = new BookTitle();// Ã¥ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 			} else if (e.getSource().equals(btsema)) {
 				pan = new BookMan();
-				// goMan();//ÀÛ°¡ °Ë»ö
+				// goMan();//ï¿½Û°ï¿½ ï¿½Ë»ï¿½
 			} else if (e.getSource().equals(btnpublish)) {
-				pan = new BookPublish();// ÃâÆÇ»ç °Ë»ö
+				pan = new BookPublish();// ï¿½ï¿½ï¿½Ç»ï¿½ ï¿½Ë»ï¿½
 			} else if (e.getSource().equals(McodeSe)) {
-				pan = new MemberCode();// È¸¿ø ¹øÈ£ °Ë»ö
+				pan = new MemberCode();// È¸ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ë»ï¿½
 			} else if (e.getSource().equals(MnameSe)) {
 				pan = new MemberName();
-				// goMname();//È¸¿ø ÀÌ¸§ °Ë»ö
+				// goMname();//È¸ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ë»ï¿½
 			} else if (e.getSource().equals(btnReturn)) {
-				pan = new BookReturn();// Ã¥ ¹İ³³
+				pan = new BookReturn();// Ã¥ ï¿½İ³ï¿½
 			} else if (e.getSource().equals(btnCheckout)) {
 				pan = new BookCheckOut();
-				// goCheckout();//Ã¥ ´ëÃâ
+				// goCheckout();//Ã¥ ï¿½ï¿½ï¿½ï¿½
 			} else if (e.getSource().equals(delbtn)) {
-				pan = new MemberDelete();// È¸¿ø »èÁ¦
+				pan = new MemberDelete();// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			} 
 			pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 			frame.getContentPane().add(pan);
@@ -317,7 +317,7 @@ public class mainbook implements ActionListener {
 			panel.setLayout(null);
 			menuBar.setVisible(false);
 			A=true;
-			JOptionPane.showMessageDialog(null, "·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "ï¿½Î±×¾Æ¿ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 		}
 		
 		
@@ -335,7 +335,7 @@ public class mainbook implements ActionListener {
 				mCode = rs.getString(1);
 			}
 			if (count != 1) {
-				JOptionPane.showMessageDialog(null, "ÄÚµå¸¦ Àß¸ø ÀÔ·ÂÇß½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null, "ï¿½Úµå¸¦ ï¿½ß¸ï¿½ ï¿½Ô·ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 				count = 0;
 				cnt = 0;
 				return;
@@ -377,7 +377,7 @@ public class mainbook implements ActionListener {
 
 	}
 
-	public void Search2() {// mPwd °á°ú°ª ÀúÀå
+	public void Search2() {// mPwd ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String Pwd = tf1.getText();
 		String Code = tf.getText();
 		try {
@@ -390,7 +390,7 @@ public class mainbook implements ActionListener {
 				mPwd = rst.getString(1);
 			}
 			if (cnt != 1) {
-				JOptionPane.showMessageDialog(null, "ºñ¹Ğ¹øÈ£¸¦ Àß¸ø ÀÔ·ÂÇß½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½Ô·ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 				count = 0;
 				cnt = 0;
 				return;
@@ -407,7 +407,7 @@ public class mainbook implements ActionListener {
 		}
 	}
 
-	public void Search2Check() {// mpd¿¡ ÀúÀå
+	public void Search2Check() {// mpdï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String Code = tf.getText();
 		try {
 			pst = con.prepareStatement(sql2);
@@ -461,12 +461,12 @@ public class mainbook implements ActionListener {
 		} else if ((mcodec != mcode) || (!a.equals(b))) {
 			System.out.println("?");
 			if ((mcodec != mcode)) {
-				JOptionPane.showMessageDialog(null, "ÄÚµå¸¦ Àß¸ø ÀÔ·ÂÇß½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null, "ï¿½Úµå¸¦ ï¿½ß¸ï¿½ ï¿½Ô·ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 				count = 0;
 				cnt = 0;
 				return;
 			} else {
-				JOptionPane.showMessageDialog(null, "ºñ¹Ğ¹øÈ£¸¦ Àß¸ø ÀÔ·ÂÇß½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½Ô·ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 				count = 0;
 				cnt = 0;
 				return;
@@ -477,13 +477,13 @@ public class mainbook implements ActionListener {
 
 	public void Check() {
 		if (tf.getText().equals("") && tf1.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "ÄÚµå¿Í ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ï¿½Úµï¿½ï¿½ ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 			return;
 		} else if (tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "ÄÚµå¸¦ ÀÔ·Â ÇØ ÁÖ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ï¿½Úµå¸¦ ï¿½Ô·ï¿½ ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½");
 			return;
 		} else if (tf1.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·Â ÇØ ÁÖ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½");
 			return;
 		} else {
 			Search();

@@ -54,7 +54,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 
 	private void initialize() {
 		this.setVisible(true);
-		this.setTitle("ºñ¹Ð¹øÈ£ ¼öÁ¤");
+		this.setTitle("ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -105,11 +105,11 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void SearchPw() {//ÀÔ·ÂÇÑ°ª ºñ±³ÇÏ´Â °Å
+	public void SearchPw() {//ï¿½Ô·ï¿½ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½
 		String code=tf.getText();
 		String name=tf1.getText();
 		if((code.equals(""))||(code.equals(null))||(name.equals(null))||(name.equals(null))) {
-			JOptionPane.showMessageDialog(null, "ÄÚµå¿Í ÀÌ¸§À» ¹Ù¸£°Ô ÀÔ·Â ÇØÁÖ¼¼¿ä");
+			JOptionPane.showMessageDialog(null, "ï¿½Úµï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 			return;
 		}
 		try {
@@ -133,7 +133,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void SearCheck() {//scode¸¦ ÀÔ·ÂÇÏ¿© ºñ±³
+	public void SearCheck() {//scodeï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½
 		
 		String name=tf1.getText();
 		try {
@@ -154,7 +154,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		}if(icode.equals(null)) {
-			JOptionPane.showMessageDialog(null, "ÀÌ¸§À» Àß¸ø ÀÔ·ÂÇß½À´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½Ô·ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 			return;
 		}
 	}
@@ -167,7 +167,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			pwup.setVisible(true);
 			pwup.setBounds(100, 100, 450, 300);
 		}else if(scd!=icd) {
-			JOptionPane.showMessageDialog(null, "ÄÚµå È¤Àº ÀÌ¸§ÀÌ Æ²·È½À´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "ï¿½Úµï¿½ È¤ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ Æ²ï¿½È½ï¿½ï¿½Ï´ï¿½.");
 			return;
 		}
 	}

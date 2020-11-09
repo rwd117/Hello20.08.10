@@ -55,7 +55,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 
 	private void initialize() {
 		this.setVisible(true);
-		this.setTitle("Code Ã£±â");
+		this.setTitle("íšŒì›ê°€ì…");
 		getContentPane().setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -131,7 +131,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		pwd = tf2.getText();
 		address = tf3.getText();
 		if(name.equals("")||phone.equals("")||pwd.equals("")) {
-			JOptionPane.showMessageDialog(null, "ÀÌ¸§, ÀüÈ­¹øÈ£, ºñ¹Ğ¹øÈ£ Áß¿¡ ºó Ä­ÀÌ ÀÖ½À´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "ì´ë¦„, ì „í™”ë²ˆí˜¸, ë¹„ë°€ë²ˆí˜¸ì— ë¹ˆ ì¹¸ì´ ìˆìŠµë‹ˆë‹¤.");
 			return;
 		}
 		try {
@@ -158,7 +158,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		phone = tf1.getText();
 		pwd = tf2.getText();
 		if(name.equals("")||phone.equals("")||pwd.equals("")) {
-			JOptionPane.showMessageDialog(null, "ÀÌ¸§, ÀüÈ­¹øÈ£, ºñ¹Ğ¹øÈ£ Áß¿¡ ºó Ä­ÀÌ ÀÖ½À´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "ì´ë¦„, ì „í™”ë²ˆí˜¸, ë¹„ë°€ë²ˆí˜¸ì— ë¹ˆ ì¹¸ì´ ìˆìŠµë‹ˆë‹¤.");
 			return;
 		}
 		try {
@@ -184,13 +184,13 @@ public class NewMemberframe extends JFrame implements ActionListener {
 			InsertGo2();
 			CodeCheck();
 			icode=Integer.valueOf(scode);
-			JOptionPane.showMessageDialog(null, "È¸¿ø°¡ÀÔ ¿Ï·á. °í°´´ÔÀÇ È¸¿ø ÄÚµå´Â  "+icode+" ÀÔ´Ï´Ù.ÀØÁö ¸»¾ÆÁÖ¼¼¿ä.");
+			JOptionPane.showMessageDialog(null, "íšŒì›ê°€ì…ì´ ë˜ì…¨ìŠµë‹ˆë‹¤. ê³ ê°ë‹˜ì˜ íšŒì› ì½”ë“œëŠ” "+icode+" ì…ë‹ˆë‹¤.ìŠì§€ ë§ì•„ì£¼ì„¸ìš”");
 			dispose();
 		}else {
 			InsertGo();
 			CodeCheck();
 			icode=Integer.valueOf(scode);
-			JOptionPane.showMessageDialog(null, "È¸¿ø°¡ÀÔ ¿Ï·á. °í°´´ÔÀÇ È¸¿ø ÄÚµå´Â"+icode+"ÀÔ´Ï´Ù.ÀØÁö ¸»¾ÆÁÖ¼¼¿ä.");
+			JOptionPane.showMessageDialog(null, "íšŒì›ê°€ì…ì´ ë˜ì…¨ìŠµë‹ˆë‹¤. ê³ ê°ë‹˜ì˜ íšŒì› ì½”ë“œëŠ” "+icode+" ì…ë‹ˆë‹¤.ìŠì§€ ë§ì•„ì£¼ì„¸ìš”");
 			dispose();
 		}
 	}
