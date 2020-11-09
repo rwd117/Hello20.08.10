@@ -317,7 +317,7 @@ public class mainbook implements ActionListener {
 			panel.setLayout(null);
 			menuBar.setVisible(false);
 			A=true;
-			JOptionPane.showMessageDialog(null, "�α׾ƿ� �Ǿ����ϴ�.");
+			JOptionPane.showMessageDialog(null, "로그 아웃 되었습니다.");
 		}
 		
 		
@@ -335,7 +335,7 @@ public class mainbook implements ActionListener {
 				mCode = rs.getString(1);
 			}
 			if (count != 1) {
-				JOptionPane.showMessageDialog(null, "�ڵ带 �߸� �Է��߽��ϴ�.");
+				JOptionPane.showMessageDialog(null, "코드를 잘못 입력했습니다.");
 				count = 0;
 				cnt = 0;
 				return;
@@ -390,7 +390,7 @@ public class mainbook implements ActionListener {
 				mPwd = rst.getString(1);
 			}
 			if (cnt != 1) {
-				JOptionPane.showMessageDialog(null, "��й�ȣ�� �߸� �Է��߽��ϴ�.");
+				JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력했습니다.");
 				count = 0;
 				cnt = 0;
 				return;
@@ -461,12 +461,12 @@ public class mainbook implements ActionListener {
 		} else if ((mcodec != mcode) || (!a.equals(b))) {
 			System.out.println("?");
 			if ((mcodec != mcode)) {
-				JOptionPane.showMessageDialog(null, "�ڵ带 �߸� �Է��߽��ϴ�.");
+				JOptionPane.showMessageDialog(null, "코드가 틀렸습니다.");
 				count = 0;
 				cnt = 0;
 				return;
 			} else {
-				JOptionPane.showMessageDialog(null, "��й�ȣ�� �߸� �Է��߽��ϴ�.");
+				JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
 				count = 0;
 				cnt = 0;
 				return;
@@ -477,13 +477,13 @@ public class mainbook implements ActionListener {
 
 	public void Check() {
 		if (tf.getText().equals("") && tf1.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "�ڵ�� ��й�ȣ�� �Է����ּ���");
+			JOptionPane.showMessageDialog(null, "빈칸을 채워 주세요");
 			return;
 		} else if (tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "�ڵ带 �Է� �� �ּ���");
+			JOptionPane.showMessageDialog(null, "빈칸을 채워 주세요");
 			return;
 		} else if (tf1.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "��й�ȣ�� �Է� �� �ּ���");
+			JOptionPane.showMessageDialog(null, "빈칸을 채워 주세요");
 			return;
 		} else {
 			Search();

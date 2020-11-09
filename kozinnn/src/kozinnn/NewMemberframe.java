@@ -25,6 +25,8 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	private JButton btnGo, btnCa;
 	private String name, phone, pwd, address, scode;
 	private int icode;
+	private boolean bln=false;
+	
 
 	String driver = "oracle.jdbc.OracleDriver";
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -134,6 +136,11 @@ public class NewMemberframe extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
 			return;
 		}
+		if(phone.contains("-")) {
+			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+			bln=true;
+			return;
+		}
 		try {
 			pst = con.prepareStatement(sql1);
 			pst.setString(1, name);
@@ -161,6 +168,11 @@ public class NewMemberframe extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
 			return;
 		}
+		if(phone.contains("-")) {
+			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+			bln=true;
+			return;
+		}
 		try {
 			pst = con.prepareStatement(sql2);
 			pst.setString(1, name);
@@ -182,16 +194,20 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	public void Check() {
 		if(tf3.getText().equals("")||tf3.getText().equals(null)) {
 			InsertGo2();
+			if(bln==false) {
 			CodeCheck();
 			icode=Integer.valueOf(scode);
 			JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 "+icode+" 입니다.잊지 말아주세요");
 			dispose();
+			}
 		}else {
 			InsertGo();
+			if(bln==false) {
 			CodeCheck();
 			icode=Integer.valueOf(scode);
 			JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 "+icode+" 입니다.잊지 말아주세요");
 			dispose();
+			}
 		}
 	}
 
