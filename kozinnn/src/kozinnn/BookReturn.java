@@ -41,8 +41,8 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 
 	Model model;
 
-	String sqlUpdate = "update checkout set	c_curr='¹Ý³³',c_dday=? where c_bcode=? and c_mcode=?";
-	String sqlSearch = "select * from checkout where c_curr='¹Ý³³' order by c_code asc";
+	String sqlUpdate = "update checkout set	c_curr='ë°˜ë‚©',c_dday=? where c_bcode=? and c_mcode=?";
+	String sqlSearch = "select * from checkout where c_curr='ë°˜ë‚©' order by c_code asc";
 	
 	String sqlmamount = "select m_amount from member1 where m_code=?";
 	String sqlmamt = "select m_amt from member1 where m_code=?";
@@ -54,9 +54,9 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 
 	String sqlbupdate = "update book set b_amount=b_amount+1 where b_code=?";
 
-	String sqlTotal = "select * from checkout where c_curr='´ëÃâ Áß' order by c_code asc";
+	String sqlTotal = "select * from checkout where c_curr='ëŒ€ì¶œ' order by c_code asc";
 
-	String sqlSear = "select * from checkout where c_curr='´ëÃâ Áß' and c_bcode like'%";
+	String sqlSear = "select * from checkout where c_curr='ë°˜ë‚©' and c_bcode like'%";
 	String sql;
 	private JTextField tf1;
 
@@ -186,7 +186,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 			BookAmt();
 			ReturnTerm();
 		} else if (e.getSource().equals(btnSearch)) {
-			Search();//´ëÃâ ÁßÀÎ Ã¥µéÀ» ³ªÅ¸³»´Â °Í.
+			Search();//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 		} else if(e.getSource().equals(btnmcode)) {
 			BtnMcode();
 		}
@@ -329,12 +329,12 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 		amt = Integer.valueOf(bamt);
 		
 		if (amount == amt) {
-			JOptionPane.showMessageDialog(null, "Ã¥ ¼ö·® µ¿ÀÏ");
+			JOptionPane.showMessageDialog(null, "Ã¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			Search();
 			clear();
 			return;
 		} else if(amountt == amtt) {
-			JOptionPane.showMessageDialog(null, "ºô¸± ¼ö ÀÖ´Â ¾ç µ¿ÀÏ");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			Search();
 			clear();
 			return;
@@ -370,7 +370,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 		}
 	}
 
-	public void Search() {//ÇØ´çÇÏ´Â Ã¥ ÄÚµå¸¦ °Ë»ö.
+	public void Search() {//ï¿½Ø´ï¿½ï¿½Ï´ï¿½ Ã¥ ï¿½Úµå¸¦ ï¿½Ë»ï¿½.
 		String bcode = tf2.getText();
 		sql = sqlSear + bcode + "%'" + "order by c_code asc";
 		try {
@@ -403,7 +403,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 		}
 	}
 
-	public void Search2() {//¹Ý³³ÇÑ ¸ðµç Ã¥µéÀ» ³ªÅ¸³¿.
+	public void Search2() {//ï¿½Ý³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½.
 		try {
 			pstmttosc = con.prepareStatement(sqlSearch, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			pstmtto = con.prepareStatement(sqlSearch);

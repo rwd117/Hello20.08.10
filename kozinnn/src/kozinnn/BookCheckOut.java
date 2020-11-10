@@ -53,10 +53,10 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 
 	String sqlms = "select m_name from member1 where m_code=?";
 
-	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'´ëÃâ Áß',?)";
-	String sqlSearch = "select * from checkout where c_curr='´ëÃâ Áß' order by c_code asc";
-	// ?´Â ÀÚµ¿À¸·Î ¼³Á¤,2,4´Â ÀÔ·Â 3,5´Â select ÇØ¼­ °¡Á®¿À±â 6Àº ÀÔ·Â.7Àº ¾²·¹µå·Î ÀÔ·Â.
-	// ¼¿·º ÇØ¼­ ºÏ¿¡¼­ Á¤º¸¸¦ °¡Á®¿À°í ±× Á¤º¸°ªÀ» ±× ¼¿¿¡ ÀÔ·Â?
+	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½',?)";
+	String sqlSearch = "select * from checkout where c_curr='ëŒ€ì¶œ' order by c_code asc";
+	// ?ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,2,4ï¿½ï¿½ ï¿½Ô·ï¿½ 3,5ï¿½ï¿½ select ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½ ï¿½Ô·ï¿½.7ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¼ï¿½ ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½?
 
 	public BookCheckOut() {
 		initialize();
@@ -147,7 +147,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	}
 
 	public void Memberselect() {
-		// 1 È¸¿ø 2 Ã¥
+		// 1 È¸ï¿½ï¿½ 2 Ã¥
 		String member = tf1.getText();
 
 		try {
@@ -237,7 +237,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	}
 
 	public void Bookselect() {
-		// 1 È¸¿ø 2 Ã¥
+		// 1 È¸ï¿½ï¿½ 2 Ã¥
 		String book = tf2.getText();
 
 		try {
@@ -308,12 +308,12 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 		amtt = Integer.valueOf(mamt);
 		bamountt=Integer.valueOf(bamount);
 		if (bamountt == 0) {
-			JOptionPane.showMessageDialog(null, "Ã¥ÀÌ ¾ø½À´Ï´Ù");
+			JOptionPane.showMessageDialog(null, "Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 			Sear();
 			clear();
 			return;
 		}else if (amountt == 0) {
-			JOptionPane.showMessageDialog(null, "ºô¸± ¼ö ÀÖ´Â ±Ç ¼ö¸¦ ÃÊ°ú Çß½À´Ï´Ù.");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 			Sear();
 			clear();
 			return;
