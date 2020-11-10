@@ -53,7 +53,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 
 	String sqlms = "select m_name from member1 where m_code=?";
 
-	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'���� ��',?)";
+	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'대출',?)";
 	String sqlSearch = "select * from checkout where c_curr='대출' order by c_code asc";
 	// ?�� �ڵ����� ����,2,4�� �Է� 3,5�� select �ؼ� �������� 6�� �Է�.7�� ������� �Է�.
 	// ���� �ؼ� �Ͽ��� ������ �������� �� �������� �� ���� �Է�?

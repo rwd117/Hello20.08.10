@@ -56,7 +56,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 
 	String sqlTotal = "select * from checkout where c_curr='대출' order by c_code asc";
 
-	String sqlSear = "select * from checkout where c_curr='반납' and c_bcode like'%";
+	String sqlSear = "select * from checkout where c_curr='대출' and c_bcode like'%";
 	String sql;
 	private JTextField tf1;
 
