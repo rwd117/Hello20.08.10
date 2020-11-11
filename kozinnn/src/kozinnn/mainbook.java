@@ -1,5 +1,6 @@
 package kozinnn;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -105,12 +106,14 @@ public class mainbook implements ActionListener {
 		});
 		container = frame.getContentPane();
 		container.setLayout(null);
+		frame.setBackground(new Color(248,255,255));
 		
 		panel = new JPanel();
-		panel.setBounds(12, 10, 833, 540);
+		panel.setBounds(0, 0, 833, 540);
 		frame.getContentPane().add(panel);
 		panel.setVisible(true);
 		panel.setLayout(null);
+	
 
 		JLabel lblNewLabel = new JLabel("\uB85C\uADF8\uC778 \uD654\uBA74");
 		lblNewLabel.setBounds(345, 118, 102, 23);
