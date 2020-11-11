@@ -46,12 +46,12 @@ public class BookDelete  extends JPanel implements ActionListener{
 
 	Model model;
 	
-	String sqlTotal = "select * from book order by b_code asc";
-	String sqlDeletec="delete from book where b_code=?";
-	String sqlDeleten="delete from book where b_number=?";
-	String sqlDeletet="delete from book where b_title=?";
-	String sqlDeletena="delete from book where b_name=?";
-	String sqlDeletej="delete from book where b_ju=?";
+	String sqlTotal = "select * from book1 order by b_code asc";
+	String sqlDeletec="delete from book1 where b_code=?";
+	String sqlDeleten="delete from book1 where b_number=?";
+	String sqlDeletet="delete from book1 where b_title=?";
+	String sqlDeletena="delete from book1 where b_name=?";
+	String sqlDeletej="delete from book1 where b_ju=?";
 	private JButton btn5;
 	
 	
@@ -267,7 +267,7 @@ public class BookDelete  extends JPanel implements ActionListener{
 	}
 	
 	public void bpla() {
-		lblll.setText("È°¼ºÈ­¸¦ ´©¸¥ ÈÄ »èÁ¦¸¦ ´­·¯ÁÖ¼¼¿ä. º¹¼ö ¼±ÅÃ ºÒ°¡´É");
+		lblll.setText("í™œì„±í™” ë²„íŠ¼ì„ í•˜ë‚˜ ëˆŒëŸ¬ì£¼ì„¸ìš”. ì¤‘ë³µ ë¶ˆê°€");
 	}
 	
 	
@@ -356,8 +356,6 @@ public class BookDelete  extends JPanel implements ActionListener{
 			}
 		}
 	}
-
-
 	
 	public void tb1() {
 		tf.setEnabled(true);

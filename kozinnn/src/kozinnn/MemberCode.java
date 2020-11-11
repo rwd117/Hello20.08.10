@@ -33,8 +33,8 @@ public class MemberCode	extends JPanel implements ActionListener  {
 	
 	Model model;
 	
-	String sqlTotal="select * from member1 order by m_code";
-	String sqlSearch="select * from member1 where m_code like '%";
+	String sqlTotal="select * from member2 order by m_code";
+	String sqlSearch="select * from member2 where m_code like '%";
 	String sql;
 	private JButton btnSearch;
 	

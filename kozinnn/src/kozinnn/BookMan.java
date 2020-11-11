@@ -33,8 +33,8 @@ public class BookMan extends JPanel implements ActionListener  {
 	
 	Model model;
 	
-	String sqlTotal="select * from book order by b_code";
-	String sqlSearch="select * from book where b_name like '%";
+	String sqlTotal="select * from book1 order by b_code";
+	String sqlSearch="select * from book1 where b_name like '%";
 	String sql;
 	private JButton btnSearch;
 	

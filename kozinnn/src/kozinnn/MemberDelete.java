@@ -37,9 +37,9 @@ public class MemberDelete extends JPanel implements ActionListener {
 
 	Model model;
 
-	String sqlTotal = "select * from member1 order by m_code asc";
-	String sqlDeletec = "delete from member1 where m_code=?";
-	String sqlDeleten = "delete from member1 where m_name=?";
+	String sqlTotal = "select * from member2 order by m_code asc";
+	String sqlDeletec = "delete from member2 where m_code=?";
+	String sqlDeleten = "delete from member2 where m_name=?";
 	private JLabel lbll;
 
 	public MemberDelete() {

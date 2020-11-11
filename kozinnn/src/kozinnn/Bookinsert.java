@@ -48,16 +48,16 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 	
 	Model model;
 	
-	String sqlInsertauto="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(no_seq1.nextval,?,?,?,?,?,2,2)";
-	//ÄÚµå,¾ç ÀÚµ¿ÀÔ·Â -- ¹öÆ° µÑ´Ù ºñÈ°¼ºÈ­
-	String sqlInsertamount="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(?,?,?,?,?,?,2,2)";
-	//¾ç ÀÚµ¿ÀÔ·Â,ÄÚµå ¼öµ¿ÀÔ·Â
-	String sqlInsertcode="insert into book(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(no_seq1.nextval,?,?,?,?,?,?,?)";
-	//ÄÚµå ÀÚµ¿ÀÔ·Â,¾ç ¼öµ¿ÀÔ·Â
-	String sqlInsertto="insert into book values(?,?,?,?,?,?,?,?)";
-	//ÄÚµå,¾ç ¼öÁ¤
+	String sqlInsertauto="insert into book1(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(bo_seq1.nextval,?,?,?,?,?,2,2)";
+	//ï¿½Úµï¿½,ï¿½ï¿½ ï¿½Úµï¿½ï¿½Ô·ï¿½ -- ï¿½ï¿½Æ° ï¿½Ñ´ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+	String sqlInsertamount="insert into book1(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(?,?,?,?,?,?,2,2)";
+	//ï¿½ï¿½ ï¿½Úµï¿½ï¿½Ô·ï¿½,ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½
+	String sqlInsertcode="insert into book1(b_code,b_number,b_title,b_name,b_ju,b_in,b_amount,b_amt) values(bo_seq1.nextval,?,?,?,?,?,?,?)";
+	//ï¿½Úµï¿½ ï¿½Úµï¿½ï¿½Ô·ï¿½,ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½
+	String sqlInsertto="insert into book1 values(?,?,?,?,?,?,?,?)";
+	//ï¿½Úµï¿½,ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
-	String sqlTotal="select * from book order by b_code asc";
+	String sqlTotal="select * from book1 order by b_code asc";
 	private JButton btn1;
 	private JTextField tf6;
 	
@@ -277,14 +277,14 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 	}
 	
 	public void adcd() {
-		//ÄÚµå,Á¾·ù,Á¦¸ñ,ÀÛ°¡ÀÌ¸§,ÃâÆÇ»ç,³¯Â¥,Ã¥ ¼ö·®,true°¡ ¹öÆ° ²¨Áø°Í.
-		if((kfc==true)&&(mac==true)) {//µÑ´Ù ²¨Áü 
+		//ï¿½Úµï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½Û°ï¿½ï¿½Ì¸ï¿½,ï¿½ï¿½ï¿½Ç»ï¿½,ï¿½ï¿½Â¥,Ã¥ ï¿½ï¿½ï¿½ï¿½,trueï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+		if((kfc==true)&&(mac==true)) {//ï¿½Ñ´ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 			a();
-		}else if((kfc==false)&&(mac==true)) {//ÄÚµå¸¸ È°¼ºÈ­
+		}else if((kfc==false)&&(mac==true)) {//ï¿½Úµå¸¸ È°ï¿½ï¿½È­
 			b();
-		}else if((kfc==true)&&(mac==false)) {//¾ç¸¸ È°¼ºÈ­
+		}else if((kfc==true)&&(mac==false)) {//ï¿½ç¸¸ È°ï¿½ï¿½È­
 			c();
-		}else if((kfc==false)&&(mac==false)) {//µÑ´Ù È°¼ºÈ­
+		}else if((kfc==false)&&(mac==false)) {//ï¿½Ñ´ï¿½ È°ï¿½ï¿½È­
 			d();
 		}
 	}

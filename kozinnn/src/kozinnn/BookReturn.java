@@ -41,22 +41,22 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 
 	Model model;
 
-	String sqlUpdate = "update checkout set	c_curr='반납',c_dday=? where c_bcode=? and c_mcode=?";
-	String sqlSearch = "select * from checkout where c_curr='반납' order by c_code asc";
+	String sqlUpdate = "update checkout1 set c_curr='반납',c_dday=? where c_bcode=? and c_mcode=?";
+	String sqlSearch = "select * from checkout1 where c_curr='반납' order by c_code asc";
 	
-	String sqlmamount = "select m_amount from member1 where m_code=?";
-	String sqlmamt = "select m_amt from member1 where m_code=?";
+	String sqlmamount = "select m_amount from member2 where m_code=?";
+	String sqlmamt = "select m_amt from member2 where m_code=?";
 	
-	String sqlmupdate="update member1 set m_amount=m_amount+1 where m_code=?";
+	String sqlmupdate="update member2 set m_amount=m_amount+1 where m_code=?";
 	
-	String sqlbamount = "select b_amount from book where b_code=?";
-	String sqlbamt = "select b_amt from book where b_code=?";
+	String sqlbamount = "select b_amount from book1 where b_code=?";
+	String sqlbamt = "select b_amt from book1 where b_code=?";
 
-	String sqlbupdate = "update book set b_amount=b_amount+1 where b_code=?";
+	String sqlbupdate = "update book1 set b_amount=b_amount+1 where b_code=?";
 
-	String sqlTotal = "select * from checkout where c_curr='대출' order by c_code asc";
+	String sqlTotal = "select * from checkout1 where c_curr='대출' order by c_code asc";
 
-	String sqlSear = "select * from checkout where c_curr='대출' and c_bcode like'%";
+	String sqlSear = "select * from checkout1 where c_curr='대출' and c_bcode like'%";
 	String sql;
 	private JTextField tf1;
 
@@ -329,12 +329,12 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 		amt = Integer.valueOf(bamt);
 		
 		if (amount == amt) {
-			JOptionPane.showMessageDialog(null, "å ���� ����");
+			JOptionPane.showMessageDialog(null, "책 수량 동일");
 			Search();
 			clear();
 			return;
 		} else if(amountt == amtt) {
-			JOptionPane.showMessageDialog(null, "���� �� �ִ� �� ����");
+			JOptionPane.showMessageDialog(null, "빌릴 수 있는 양 동일");
 			Search();
 			clear();
 			return;

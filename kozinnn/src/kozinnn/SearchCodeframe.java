@@ -33,7 +33,7 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	PreparedStatement pst=null;
 	ResultSet rs;
 	
-	private String sql="select m_code from member1 where m_name=? and m_phone=?";
+	private String sql="select m_code from member2 where m_name=? and m_phone=?";
 	
 	public SearchCodeframe() {
 		initialize();
@@ -52,34 +52,38 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	private void initialize() {
 		this.setVisible(true);
 		this.setTitle("회원 코드 찾기");
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("\uC774\uB984");
 		lblNewLabel.setBounds(52, 67, 93, 15);
-		this.add(lblNewLabel);
+		getContentPane().add(lblNewLabel);
 		
 		tf = new JTextField();
 		tf.setBounds(179, 64, 146, 21);
-		this.add(tf);
+		getContentPane().add(tf);
 		tf.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("\uC804\uD654\uBC88\uD638");
 		lblNewLabel_1.setBounds(52, 116, 57, 15);
-		this.add(lblNewLabel_1);
+		getContentPane().add(lblNewLabel_1);
 		
 		tf1 = new JTextField();
 		tf1.setBounds(179, 113, 146, 21);
-		this.add(tf1);
+		getContentPane().add(tf1);
 		tf1.setColumns(10);
 		
 		btnS = new JButton("\uCC3E\uAE30");
 		btnS.setBounds(79, 186, 97, 23);
-		this.add(btnS);
+		getContentPane().add(btnS);
 		
 		btnC = new JButton("\uCDE8\uC18C");
 		btnC.setBounds(230, 186, 97, 23);
-		this.add(btnC);
+		getContentPane().add(btnC);
+		
+		JLabel lblNewLabel_2 = new JLabel("전화번호에 '-'를 제외 해주세요.");
+		lblNewLabel_2.setBounds(78, 20, 247, 34);
+		getContentPane().add(lblNewLabel_2);
 		
 		btnS.addActionListener(this);
 		btnC.addActionListener(this);
@@ -123,6 +127,7 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	public void Result() {
 		if(bln==true) {
 			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+			bln=false;
 			return ;
 		}
 		else if(code==null) {

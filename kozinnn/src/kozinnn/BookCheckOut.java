@@ -25,8 +25,10 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	private JTextField tf2;
 	private JButton btnCheck, btnex;
 	private String mname, bname, bamount, bamt, mamount, mamt;
-	private int year, month, date, amount, amt, amountt, amtt,bamountt;
+	private int year, month, date, amount, amt, amountt, amtt, bamountt;
 	private String Date;
+	private boolean bln = false;
+	private boolean bln2 = false;
 
 	private String driver = "oracle.jdbc.OracleDriver";
 	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -39,22 +41,22 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	ResultSet rst, rstt, rs;
 
 	Model model;
-	String sqlbs = "select b_title from book where b_code=?";
+	String sqlbs = "select b_title from book1 where b_code=?";
 
-	String sqlmamount = "select m_amount from member1 where m_code=?";
-	String sqlmamt = "select m_amt from member1 where m_code=?";
-	
-	String sqlmupdate="update member1 set m_amount=m_amount-1 where m_code=?";
-	
-	String sqlbamount = "select b_amount from book where b_code=?";
-	String sqlbamt = "select b_amt from book where b_code=?";
+	String sqlmamount = "select m_amount from member2 where m_code=?";
+	String sqlmamt = "select m_amt from member2 where m_code=?";
 
-	String sqlbupdate = "update book set b_amount=b_amount-1 where b_code=?";
+	String sqlmupdate = "update member2 set m_amount=m_amount-1 where m_code=?";
 
-	String sqlms = "select m_name from member1 where m_code=?";
+	String sqlbamount = "select b_amount from book1 where b_code=?";
+	String sqlbamt = "select b_amt from book1 where b_code=?";
 
-	String sqlInsert = "insert into checkout(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(no_seq4.nextval,?,?,?,?,'대출',?)";
-	String sqlSearch = "select * from checkout where c_curr='대출' order by c_code asc";
+	String sqlbupdate = "update book1 set b_amount=b_amount-1 where b_code=?";
+
+	String sqlms = "select m_name from member2 where m_code=?";
+
+	String sqlInsert = "insert into checkout1(c_code,c_mcode,c_mname,c_bcode,c_bname,c_curr,c_day) values(ch_seq1.nextval,?,?,?,?,'대출',?)";
+	String sqlSearch = "select * from checkout1 where c_curr='대출' order by c_code asc";
 	// ?�� �ڵ����� ����,2,4�� �Է� 3,5�� select �ؼ� �������� 6�� �Է�.7�� ������� �Է�.
 	// ���� �ؼ� �Ͽ��� ������ �������� �� �������� �� ���� �Է�?
 
@@ -68,7 +70,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	private void initialize() {
 		this.setVisible(true);
 		this.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 185, 651, 254);
 		this.add(scrollPane);
@@ -136,12 +138,6 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 		if (e.getSource().equals(btnex)) {
 			subCloseWindow();
 		} else if (e.getSource().equals(btnCheck)) {
-			Memberselect();
-			Bookselect();
-			BookAmount();
-			BookAmt();
-			MemberAmount();
-			MemberAmt();
 			CheckTerm();
 		}
 	}
@@ -149,14 +145,13 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 	public void Memberselect() {
 		// 1 ȸ�� 2 å
 		String member = tf1.getText();
-
 		try {
-
 			pst = con.prepareStatement(sqlms);
 			pst.setInt(1, Integer.valueOf(member));
 			rst = pst.executeQuery();
 			while (rst.next()) {
 				mname = rst.getString(1);
+				bln = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -246,6 +241,7 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 			pst.setInt(1, Integer.valueOf(book));
 			rstt = pst.executeQuery();
 			while (rstt.next()) {
+				bln2 = true;
 				bname = rstt.getString(1);
 			}
 		} catch (Exception e) {
@@ -303,30 +299,6 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 		}
 	}
 
-	public void CheckTerm() {
-		amountt = Integer.valueOf(mamount);
-		amtt = Integer.valueOf(mamt);
-		bamountt=Integer.valueOf(bamount);
-		if (bamountt == 0) {
-			JOptionPane.showMessageDialog(null, "å�� �����ϴ�");
-			Sear();
-			clear();
-			return;
-		}else if (amountt == 0) {
-			JOptionPane.showMessageDialog(null, "���� �� �ִ� �� ���� �ʰ� �߽��ϴ�.");
-			Sear();
-			clear();
-			return;
-		}else if (bamountt != 0 && amountt != 0) {
-			BookCal();
-			MemberCal();
-			CheckInsert();
-			Sear();
-			clear();
-		}
-
-	}
-
 	public void BookCal() {
 
 		String book = tf2.getText();
@@ -347,6 +319,44 @@ public class BookCheckOut extends JPanel implements ActionListener, Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void CheckTerm() {
+		Memberselect();
+		if (bln == false) {
+			JOptionPane.showMessageDialog(null, "회원 코드를 다시 입력해주세요.");
+			return;
+		}
+		Bookselect();
+		if (bln2 == false) {
+			JOptionPane.showMessageDialog(null, "책 코드를 다시 입력해주세요.");
+			return;
+		}
+		BookAmount();
+		BookAmt();
+		MemberAmount();
+		MemberAmt();
+		amountt = Integer.valueOf(mamount);
+		amtt = Integer.valueOf(mamt);
+		bamountt = Integer.valueOf(bamount);
+		if (bamountt == 0) {
+			JOptionPane.showMessageDialog(null, "책이 없습니다.");
+			Sear();
+			clear();
+			return;
+		} else if (amountt == 0) {
+			JOptionPane.showMessageDialog(null, "빌릴 수 있는 권 수를 초과했습니다.");
+			Sear();
+			clear();
+			return;
+		} else if (bamountt != 0 && amountt != 0) {
+			BookCal();
+			MemberCal();
+			CheckInsert();
+			Sear();
+			clear();
+		}
+
 	}
 
 	public void CheckInsert() {

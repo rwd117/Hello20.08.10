@@ -25,9 +25,8 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	private JButton btnGo, btnCa;
 	private String name, phone, pwd, address, scode;
 	private int icode;
-	private boolean bln=false;
-	private boolean bln2=false;
-	
+	private boolean bln = false;
+	private boolean bln2 = false;
 
 	String driver = "oracle.jdbc.OracleDriver";
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -39,9 +38,10 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	PreparedStatement pstmtto, pstmttosc;
 	ResultSet rs;
 
-	private String sql1 = "insert into member1(m_code,m_name,m_phone,m_pwd,m_address,m_amt,m_amount) values(no_seq2.nextval,?,?,?,?,3,3)";
-	private String sql2 = "insert into member1(m_code,m_name,m_phone,m_pwd,m_amt,m_amount) values(no_seq2.nextval,?,?,?,3,3)";
-	private String sqlS	= "select m_code from member1 order by m_code asc";
+	private String sql1 = "insert into member2(m_code,m_name,m_phone,m_pwd,m_address,m_amt,m_amount) values(me_seq1.nextval,?,?,?,?,3,3)";
+	private String sql2 = "insert into member2(m_code,m_name,m_phone,m_pwd,m_amt,m_amount) values(me_seq1.nextval,?,?,?,3,3)";
+	private String sqlS = "select m_code from member2 order by m_code asc";
+
 	public NewMemberframe() {
 		initialize();
 		dbcon();
@@ -61,7 +61,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		this.setTitle("회원가입");
 		getContentPane().setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		JLabel lblNewLabel = new JLabel("\uC774\uB984");
 		lblNewLabel.setBounds(62, 122, 77, 15);
 		getContentPane().add(lblNewLabel);
@@ -110,7 +110,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 				"\uC774\uB984 \uBE44\uBC00\uBC88\uD638 \uC804\uD654\uBC88\uD638 \uD544\uC218 \uC785\uB825");
 		lblNewLabel_1.setBounds(76, 29, 214, 44);
 		getContentPane().add(lblNewLabel_1);
-		
+
 		JLabel label_2 = new JLabel("\uC804\uD654\uBC88\uD638'-' \uC81C\uC678");
 		label_2.setBounds(114, 64, 214, 44);
 		getContentPane().add(label_2);
@@ -133,15 +133,10 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		phone = tf1.getText();
 		pwd = tf2.getText();
 		address = tf3.getText();
-		if(name.equals("")||phone.equals("")||pwd.equals("")) {
-			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
-			bln2=true;
-			return;
-		}
-		if(phone.contains("-")) {
-			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
-			bln=true;
-			return;
+		if (name.equals("") || phone.equals("") || pwd.equals("")) {
+			bln2 = true;
+		} else if (phone.contains("-")) {
+			bln = true;
 		}
 		try {
 			pst = con.prepareStatement(sql1);
@@ -166,16 +161,12 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		name = tf.getText();
 		phone = tf1.getText();
 		pwd = tf2.getText();
-		if(name.equals("")||phone.equals("")||pwd.equals("")) {
-			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
-			bln2=true;
-			return;
+		if (name.equals("") || phone.equals("") || pwd.equals("")) {
+			bln2 = true;
+		} else if (phone.contains("-")) {
+			bln = true;
 		}
-		if(phone.contains("-")) {
-			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
-			bln=true;
-			return;
-		}
+
 		try {
 			pst = con.prepareStatement(sql2);
 			pst.setString(1, name);
@@ -195,35 +186,45 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	}
 
 	public void Check() {
-		if(tf3.getText().equals("")||tf3.getText().equals(null)) {
+		if (tf3.getText().equals("") || tf3.getText().equals(null)) {
 			InsertGo2();
-			if((bln==false)&&(bln2==false)) {
-			CodeCheck();
-			icode=Integer.valueOf(scode);
-			JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 "+icode+" 입니다.잊지 말아주세요");
-			dispose();
+			if ((bln == true) || (bln2 == true)) {
+				JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
+
+			} else if ((bln == true) && (bln2 == false)) {
+				JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+			} else if ((bln == false) && (bln2 == false)) {
+				CodeCheck();
+				icode = Integer.valueOf(scode);
+				JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 " + icode + " 입니다.잊지 말아주세요");
+				dispose();
 			}
-			bln=false;
-			bln2=false;
-		}else {
+			bln = false;
+			bln2 = false;
+		} else {
 			InsertGo();
-			if((bln==false)&&(bln2=false)) {
-			CodeCheck();
-			icode=Integer.valueOf(scode);
-			JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 "+icode+" 입니다.잊지 말아주세요");
-			dispose();
+			if ((bln == true) || (bln2 == true)) {
+				JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
+
+			} else if ((bln == true) && (bln2 == false)) {
+				JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+			} else if ((bln == false) && (bln2 = false)) {
+				CodeCheck();
+				icode = Integer.valueOf(scode);
+				JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 " + icode + " 입니다.잊지 말아주세요");
+				dispose();
 			}
-			bln=false;
-			bln2=false;
+			bln = false;
+			bln2 = false;
 		}
 	}
 
 	public void CodeCheck() {
 		try {
 			pst = con.prepareStatement(sqlS);
-			rs=pst.executeQuery();
-			while(rs.next()) {
-				scode=rs.getString(1);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				scode = rs.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

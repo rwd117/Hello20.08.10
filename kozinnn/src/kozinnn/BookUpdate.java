@@ -47,13 +47,13 @@ public class BookUpdate extends JPanel implements ActionListener {
 
 	Model model;
 	// b_code,b_number,b_title,b_name,b_ju,b_in
-	String sqlUpdaten = "update book set b_number=?  where b_code=?";
-	String sqlUpdatet = "update book set b_title=?  where b_code=?";
-	String sqlUpdatena = "update book set b_name=?  where b_code=?";
-	String sqlUpdatej = "update book set b_ju=?  where b_code=?";
-	String sqlUpdatei=	"update book set b_amount=?,b_amt=?  where b_code=?";
+	String sqlUpdaten = "update book1 set b_number=?  where b_code=?";
+	String sqlUpdatet = "update book1 set b_title=?  where b_code=?";
+	String sqlUpdatena = "update book1 set b_name=?  where b_code=?";
+	String sqlUpdatej = "update book1 set b_ju=?  where b_code=?";
+	String sqlUpdatei=	"update book1 set b_amount=?,b_amt=?  where b_code=?";
 
-	String sqlTotal = "select * from book order by b_code asc";
+	String sqlTotal = "select * from book1 order by b_code asc";
 	private JLabel label_4;
 	private JTextField tf5;
 	private JButton btn5;
@@ -348,7 +348,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 	
 	public void bpla() {
 		// b_code,b_number,b_title,b_name,b_ju,b_in
-		lblll.setText("È°¼ºÈ­ ¹öÆ°À» ´­·¯ÁÖ¼¼¿ä. ÇÏ³ª¸¸ ¼öÁ¤ °¡´É ÇÕ´Ï´Ù.");
+		lblll.setText("í™œì„±í™” ë²„íŠ¼ì„ í•˜ë‚˜ë§Œ ëˆŒëŸ¬ ì£¼ì„¸ìš”. ì¤‘ë³µ ë¶ˆê°€");
 	}
 
 	public void bplb() {

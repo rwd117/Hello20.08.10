@@ -22,18 +22,19 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 	private JButton btnS;
 	private JButton btnC;
 	private JLabel lblNewLabel_2;
-	private String scode,icode;
-	private int scd,icd,count=0;
-	
+	private String scode, icode;
+	private int scd, icd, count = 0;
+	private boolean bln = false;
+
 	private String driver = "oracle.jdbc.OracleDriver";
 	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 	private String user = "system";
 	private String pwd = "123456";
-	
-	private String sql="select m_code from member1 where m_code=? and m_name=?";
-	
+
+	private String sql = "select m_code from member2 where m_code=? and m_name=?";
+
 	Pwdupdateframe pwup;
-	
+
 	Connection con = null;
 	PreparedStatement pst = null;
 	ResultSet rs;
@@ -57,8 +58,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 		this.setTitle("비밀번호 찾기");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		
+
 		JLabel lblNewLabel = new JLabel("\uCF54\uB4DC");
 		lblNewLabel.setBounds(65, 75, 57, 15);
 		this.add(lblNewLabel);
@@ -95,64 +95,53 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(btnS)) {
-			SearchPw();
-			if(count==1) {
-			SearCheck();
+		if (e.getSource().equals(btnS)) {
 			Term();
-			count=0;
-			}
-		}else if(e.getSource().equals(btnC)) {
+		} else if (e.getSource().equals(btnC)) {
 			this.setVisible(false);
 			dispose();
 		}
 	}
-	
-	public void SearchPw() {//�Է��Ѱ� ���ϴ� ��
-		String code=tf.getText();
-		String name=tf1.getText();
-		if((code.equals(""))||(code.equals(null))||(name.equals(""))||(name.equals(null))) {
-			JOptionPane.showMessageDialog(null, "빈칸이 있습니다. 다시 입력 해 주세요.");
-			return;
-		}
-		
-		try {
-			pst = con.prepareStatement(sql);
-			pst.setInt(1,Integer.valueOf(code));
-			pst.setString(2, name);
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				count=count+1;
-				scode = rs.getString(1);
-			}
-			if(count !=1) {
+
+	public void Term() {
+		SearchPw();
+		if ((bln==false)&&(count != 1)) {
+			JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
+			count = 0;
+			bln=false;
+		} else if ((bln==false)&&(count == 1)) {
+			SearCheck();
+			count = 0;
+			bln=false;
+			scd = Integer.valueOf(scode);
+			icd = Integer.valueOf(icode);
+			if (scd == icd) {
+				pwup = new Pwdupdateframe(scd);
+				pwup.setVisible(true);
+				pwup.setBounds(100, 100, 450, 300);
+			} else if (scd != icd) {
 				JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
-				count=0;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pst.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	}
 	
-	public void SearCheck() {//scode�� �Է��Ͽ� ��
-		
-		String name=tf1.getText();
+	public void SearchPw() {// �Է��Ѱ� ���ϴ� ��
+		String code = tf.getText();
+		String name = tf1.getText();
+		if ((code.equals("")) || (code.equals(null)) || (name.equals("")) || (name.equals(null))) {
+			JOptionPane.showMessageDialog(null, "빈칸이 있습니다. 다시 입력 해 주세요.");
+			bln = true;
+			return;
+		}
 		try {
 			pst = con.prepareStatement(sql);
-			pst.setInt(1,Integer.valueOf(scode));
+			pst.setInt(1, Integer.valueOf(code));
 			pst.setString(2, name);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				icode = rs.getString(1);
+				count = count + 1;
+				scode = rs.getString(1);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -165,16 +154,28 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 		}
 	}
 
-	public void Term() {
-		scd=Integer.valueOf(scode);
-		icd=Integer.valueOf(icode);
-		if(scd==icd) {
-			pwup=new Pwdupdateframe(scd);
-			pwup.setVisible(true);
-			pwup.setBounds(100, 100, 450, 300);
-		}else if(scd!=icd) {
-			JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
-			return;
+	public void SearCheck() {// scode�� �Է��Ͽ� ��
+
+		String name = tf1.getText();
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, Integer.valueOf(scode));
+			pst.setString(2, name);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				icode = rs.getString(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
+	
 }

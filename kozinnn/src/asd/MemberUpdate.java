@@ -1,4 +1,4 @@
-package kozinnn;
+package asd;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import kozinnn.Model;
 
 public class MemberUpdate extends JPanel implements ActionListener {
 	// m_code,m_name,m_address,m_phone

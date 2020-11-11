@@ -51,8 +51,8 @@ public class mainbook implements ActionListener {
 	private String user = "system";
 	private String pwd = "123456";
 
-	private String sql = "select m_code from member1 where m_code=?";
-	private String sql2 = "select m_pwd from member1 where m_pwd=? and m_code=?";
+	private String sql = "select m_code from member2 where m_code=?";
+	private String sql2 = "select m_pwd from member2 where m_pwd=? and m_code=?";
 
 	Connection con;
 	PreparedStatement pst;

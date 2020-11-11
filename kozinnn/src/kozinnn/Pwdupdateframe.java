@@ -28,7 +28,7 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 	private String user = "system";
 	private String pwd = "123456";
 
-	private String sql = "update member1 set m_pwd=? where m_code=?";
+	private String sql = "update member2 set m_pwd=? where m_code=?";
 	
 	Connection con = null;
 	PreparedStatement pst = null;
@@ -93,7 +93,12 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 		btnG.addActionListener(this);
 		btnC.addActionListener(this);
 	}
-
+	
+	public void clear() {
+		tf.setText("");
+		tf1.setText("");
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(btnG)) {
@@ -127,7 +132,8 @@ public class Pwdupdateframe extends JFrame implements ActionListener {
 			this.setVisible(false);
 			
 		}else if(!pwd.equals(pwd2)) {
-			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
+			JOptionPane.showMessageDialog(null, "비밀번호가 다릅니다. 다시 입력 해주세요");
+			clear();
 			return;
 		
 		}

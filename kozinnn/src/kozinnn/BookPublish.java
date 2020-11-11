@@ -33,8 +33,8 @@ public class BookPublish extends JPanel implements ActionListener {
 	
 	Model model;
 	
-	String sqlTotal="select * from book order by b_code";
-	String sqlSearch="select * from book where b_ju like '%";
+	String sqlTotal="select * from book1 order by b_code";
+	String sqlSearch="select * from book1 where b_ju like '%";
 	String sql;
 	private JButton btnSearch;
 	
