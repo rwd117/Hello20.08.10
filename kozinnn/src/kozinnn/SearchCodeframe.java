@@ -21,6 +21,7 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	private JTextField tf1;
 	private JButton btnS,btnC;
 	private String code;
+	private boolean bln=false;
 	
 
 	private String driver = "oracle.jdbc.OracleDriver";
@@ -97,6 +98,8 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	public void Search() {
 		String name=tf.getText();
 		String phone=tf1.getText();
+		if(phone.contains("-"))	bln=true;
+
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, name);
@@ -118,7 +121,11 @@ public class SearchCodeframe extends JFrame implements ActionListener{
 	}
 	
 	public void Result() {
-		if(code==null) {
+		if(bln==true) {
+			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+			return ;
+		}
+		else if(code==null) {
 			JOptionPane.showMessageDialog(null, "입력하신 정보가 틀렸습니다.");
 			return;
 		}else {

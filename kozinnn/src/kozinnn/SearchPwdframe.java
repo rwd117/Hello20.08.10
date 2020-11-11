@@ -115,6 +115,7 @@ public class SearchPwdframe extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "빈칸이 있습니다. 다시 입력 해 주세요.");
 			return;
 		}
+		
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setInt(1,Integer.valueOf(code));
