@@ -26,7 +26,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 	private JTextField tf3;
 	private JTextField tf4;
 	private JTable table;
-	private JButton Btok, Btca, btn1, btn2, btn3, btn4,btnexit;
+	private JButton Btok, Btca, btn1, btn2, btn3, btn4, btnexit, btnSe;
 
 	private final static int A = 0;
 	private final static int B = 1;
@@ -51,13 +51,16 @@ public class BookUpdate extends JPanel implements ActionListener {
 	String sqlUpdatet = "update book1 set b_title=?  where b_code=?";
 	String sqlUpdatena = "update book1 set b_name=?  where b_code=?";
 	String sqlUpdatej = "update book1 set b_ju=?  where b_code=?";
-	String sqlUpdatei=	"update book1 set b_amount=?,b_amt=?  where b_code=?";
+	String sqlUpdatei = "update book1 set b_amount=?,b_amt=?  where b_code=?";
+	String sqlSearch = "select * from book1 where b_code like '%";
+	String sql;
 
 	String sqlTotal = "select * from book1 order by b_code asc";
 	private JLabel label_4;
 	private JTextField tf5;
 	private JButton btn5;
 	private JLabel lblll;
+	private JButton btnTo;
 
 	public BookUpdate() {
 		initialize();
@@ -116,11 +119,11 @@ public class BookUpdate extends JPanel implements ActionListener {
 		this.add(tf4);
 
 		Btok = new JButton("\uCD94\uAC00");
-		Btok.setBounds(72, 393, 116, 23);
+		Btok.setBounds(143, 393, 97, 23);
 		this.add(Btok);
 
 		Btca = new JButton("\uCDE8\uC18C");
-		Btca.setBounds(213, 393, 116, 23);
+		Btca.setBounds(252, 393, 97, 23);
 		this.add(Btca);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -145,30 +148,39 @@ public class BookUpdate extends JPanel implements ActionListener {
 		btn4 = new JButton("\uD65C\uC131\uD654");
 		btn4.setBounds(293, 295, 84, 23);
 		this.add(btn4);
-		
+
 		label_4 = new JLabel("\uCC45 \uC218\uB7C9");
 		label_4.setBounds(24, 337, 88, 20);
 		this.add(label_4);
-		
+
 		tf5 = new JTextField();
 		tf5.setEnabled(false);
 		tf5.setColumns(10);
 		tf5.setBounds(124, 337, 157, 21);
 		this.add(tf5);
-		
+
 		btn5 = new JButton("\uD65C\uC131\uD654");
 		btn5.setBounds(293, 336, 84, 23);
 		this.add(btn5);
-		
-		lblll = new JLabel("\uD65C\uC131\uD654 \uBC84\uD2BC \uD558\uB098\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694 (\uBCF5\uC218 \uBD88\uAC00)");
-		lblll.setBounds(24, 30, 325, 43);
+
+		lblll = new JLabel(
+				"\uD65C\uC131\uD654 \uBC84\uD2BC \uD558\uB098\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694 (\uBCF5\uC218 \uBD88\uAC00)");
+		lblll.setBounds(66, 17, 278, 43);
 		this.add(lblll);
-		
+
 		btnexit = new JButton("");
 		btnexit.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
 		btnexit.setBounds(24, 10, 30, 23);
 		this.add(btnexit);
 
+		btnSe = new JButton("검색");
+		btnSe.setBounds(34, 393, 97, 23);
+		this.add(btnSe);
+		
+		btnTo = new JButton("전체 보기");
+		btnTo.setBounds(143, 440, 97, 23);
+		this.add(btnTo);
+		
 		Btok.addActionListener(this);
 		Btca.addActionListener(this);
 		btn1.addActionListener(this);
@@ -177,6 +189,9 @@ public class BookUpdate extends JPanel implements ActionListener {
 		btn4.addActionListener(this);
 		btn5.addActionListener(this);
 		btnexit.addActionListener(this);
+		btnSe.addActionListener(this);
+		btnTo.addActionListener(this);
+
 	}
 
 	public void dbcon() {
@@ -223,48 +238,84 @@ public class BookUpdate extends JPanel implements ActionListener {
 		} else if (e.getSource().equals(Btca)) {
 			set();
 		} else if (e.getSource().equals(btn1)) {
-			if(cmd==B) {
+			if (cmd == B) {
 				tf1.setEnabled(false);
-				cmd=A;
+				cmd = A;
 				return;
 			}
 			tb1();
 			cmd = B;
-			
+
 		} else if (e.getSource().equals(btn2)) {
-			if(cmd==C) {
+			if (cmd == C) {
 				tf2.setEnabled(false);
-				cmd=A;
+				cmd = A;
 				return;
 			}
 			tb2();
 			cmd = C;
 		} else if (e.getSource().equals(btn3)) {
-			if(cmd==D) {
+			if (cmd == D) {
 				tf3.setEnabled(false);
-				cmd=A;
+				cmd = A;
 				return;
 			}
 			tb3();
 			cmd = D;
 		} else if (e.getSource().equals(btn4)) {
-			if(cmd==E) {
+			if (cmd == E) {
 				tf4.setEnabled(false);
-				cmd=A;
+				cmd = A;
 				return;
 			}
 			tb4();
 			cmd = E;
-		} else if(e.getSource().equals(btn5)) {
-			if(cmd==F) {
+		} else if (e.getSource().equals(btn5)) {
+			if (cmd == F) {
 				tf5.setEnabled(false);
-				cmd=A;
+				cmd = A;
 				return;
 			}
 			tb5();
-			cmd=F;
-		}else if(e.getSource().equals(btnexit)) {
+			cmd = F;
+		} else if (e.getSource().equals(btnSe)) {
+			Sear();
+		} else if (e.getSource().equals(btnTo)) {
+			to();
+		} else if (e.getSource().equals(btnexit)) {
 			subCloseWindow();
+		}
+	}
+
+	public void Sear() {
+		String code = tf.getText();
+		int icode = Integer.valueOf(code);
+		sql = sqlSearch + icode + "%'" + "order by b_code asc";
+		try {
+			pst = con.prepareStatement(sql);
+
+			pstmttosc = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			pstmtto = con.prepareStatement(sql);
+
+			ResultSet rsscroll = pstmttosc.executeQuery();
+			ResultSet rs = pstmtto.executeQuery();
+
+			if (model == null)
+				model = new Model();
+			model.getRowCount(rsscroll);
+			model.setData(rs);
+			table.setModel(model);
+			table.updateUI();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -289,7 +340,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 			to();
 		}
 		set();
-	}	
+	}
 
 	public void set() {
 		tf1.setEnabled(false);
@@ -303,9 +354,9 @@ public class BookUpdate extends JPanel implements ActionListener {
 		tf3.setText("");
 		tf4.setText("");
 		tf5.setText("");
-		cmd=A;
+		cmd = A;
 	}
-	
+
 	public void tb1() {
 		tf1.setEnabled(true);
 		tf2.setEnabled(false);
@@ -345,7 +396,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 		tf4.setEnabled(false);
 		tf5.setEnabled(true);
 	}
-	
+
 	public void bpla() {
 		// b_code,b_number,b_title,b_name,b_ju,b_in
 		lblll.setText("활성화 버튼을 하나만 눌러 주세요. 중복 불가");
@@ -355,7 +406,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 		// b_code,b_number,b_title,b_name,b_ju,b_in
 		String code = tf.getText();
 		String number = tf1.getText();
-		
+
 		try {
 
 			pst = con.prepareStatement(sqlUpdaten);
@@ -379,7 +430,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 		// b_code,b_number,b_title,b_name,b_ju,b_in
 		String code = tf.getText();
 		String title = tf2.getText();
-		
+
 		try {
 
 			pst = con.prepareStatement(sqlUpdatet);
@@ -403,8 +454,8 @@ public class BookUpdate extends JPanel implements ActionListener {
 	public void bpld() {
 		// b_code,b_number,b_title,b_name,b_ju,b_in
 		String code = tf.getText();
-		String name= tf3.getText();
-		
+		String name = tf3.getText();
+
 		try {
 
 			pst = con.prepareStatement(sqlUpdatena);
@@ -427,8 +478,8 @@ public class BookUpdate extends JPanel implements ActionListener {
 	public void bple() {
 		// b_code,b_number,b_title,b_name,b_ju,b_in
 		String code = tf.getText();
-		String ju= tf4.getText();
-		
+		String ju = tf4.getText();
+
 		try {
 
 			pst = con.prepareStatement(sqlUpdatej);
@@ -450,8 +501,8 @@ public class BookUpdate extends JPanel implements ActionListener {
 
 	public void bplf() {
 		String code = tf.getText();
-		String amount= tf5.getText();
-		
+		String amount = tf5.getText();
+
 		try {
 
 			pst = con.prepareStatement(sqlUpdatei);
@@ -474,5 +525,5 @@ public class BookUpdate extends JPanel implements ActionListener {
 
 	public void subCloseWindow() {
 		this.setVisible(false);
-    }
+	}
 }

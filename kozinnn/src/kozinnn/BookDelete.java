@@ -53,6 +53,7 @@ public class BookDelete  extends JPanel implements ActionListener{
 	String sqlDeletena="delete from book1 where b_name=?";
 	String sqlDeletej="delete from book1 where b_ju=?";
 	private JButton btn5;
+	private JLabel label;
 	
 	
 	public BookDelete() {
@@ -187,7 +188,7 @@ public class BookDelete  extends JPanel implements ActionListener{
 		this.add(btnexit);
 		
 		lblll = new JLabel("\uD65C\uC131\uD654 \uBC84\uD2BC\uC744 \uB20C\uB7EC\uC8FC\uC138\uC694 (\uBCF5\uC218 \uC120\uD0DD \uBD88\uAC00)");
-		lblll.setBounds(12, 43, 339, 47);
+		lblll.setBounds(77, 15, 271, 47);
 		this.add(lblll);
 		
 
@@ -198,6 +199,10 @@ public class BookDelete  extends JPanel implements ActionListener{
 		btn4.addActionListener(this);
 		btn5.addActionListener(this);
 		btnexit.addActionListener(this);
+		
+		label = new JLabel("정확한 이름을 적어주세요.");
+		label.setBounds(87, 51, 271, 47);
+		add(label);
 	}
 
 	
