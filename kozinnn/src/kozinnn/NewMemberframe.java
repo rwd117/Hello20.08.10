@@ -120,6 +120,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 	}
 
 	@Override
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(btnGo)) {
 			Check();
@@ -133,12 +134,7 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		phone = tf1.getText();
 		pwd = tf2.getText();
 		address = tf3.getText();
-		if (name.equals("") || phone.equals("") || pwd.equals("")) {
-			bln2 = true;
-		}
-		if (phone.contains("-")) {
-			bln = true;
-		}
+
 		try {
 			pst = con.prepareStatement(sql1);
 			pst.setString(1, name);
@@ -162,12 +158,6 @@ public class NewMemberframe extends JFrame implements ActionListener {
 		name = tf.getText();
 		phone = tf1.getText();
 		pwd = tf2.getText();
-		if (name.equals("") || phone.equals("") || pwd.equals("")) {
-			bln2 = true;
-		}
-		if (phone.contains("-")) {
-			bln = true;
-		}
 
 		try {
 			pst = con.prepareStatement(sql2);
@@ -189,14 +179,9 @@ public class NewMemberframe extends JFrame implements ActionListener {
 
 	public void Check() {
 		if (tf3.getText().equals("") || tf3.getText().equals(null)) {
-			InsertGo2();
-			if ((bln == true) && (bln2 == true)) {
-				JOptionPane.showMessageDialog(null, "빈칸 혹은 전화번호를 확인 해주세요.");
-			} else if ((bln == false) && (bln2 == true)) {
-				JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
-			} else if ((bln == true) && (bln2 == false)) {
-				JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
-			} else if ((bln == false) && (bln2 == false)) {
+			Checkgo2();
+			if ((bln == false) && (bln2 == false)) {
+				InsertGo2();
 				CodeCheck();
 				icode = Integer.valueOf(scode);
 				JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 " + icode + " 입니다.잊지 말아주세요");
@@ -205,14 +190,9 @@ public class NewMemberframe extends JFrame implements ActionListener {
 			bln = false;
 			bln2 = false;
 		} else {
-			InsertGo();
-			if ((bln == true) && (bln2 == true)) {
-				JOptionPane.showMessageDialog(null, "빈칸 혹은 전화번호를 확인 해주세요.");
-			} else if ((bln == false) && (bln2 == true)) {
-				JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
-			} else if ((bln == true) && (bln2 == false)) {
-				JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
-			} else if ((bln == false) && (bln2 == false)) {
+			Checkgo();
+			if ((bln == false) && (bln2 == false)) {
+				InsertGo();
 				CodeCheck();
 				icode = Integer.valueOf(scode);
 				JOptionPane.showMessageDialog(null, "회원가입이 되셨습니다. 고객님의 회원 코드는 " + icode + " 입니다.잊지 말아주세요");
@@ -239,6 +219,45 @@ public class NewMemberframe extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+
+	public void Checkgo() {
+		name = tf.getText();
+		phone = tf1.getText();
+		pwd = tf2.getText();
+		address = tf3.getText();
+		if (name.equals("") || phone.equals("") || pwd.equals("")) {
+			bln2 = true;
+		}
+		if (phone.contains("-")) {
+			bln = true;
+		}
+		if ((bln == true) && (bln2 == true)) {
+			JOptionPane.showMessageDialog(null, "빈칸 혹은 전화번호를 확인 해주세요.");
+		} else if ((bln == false) && (bln2 == true)) {
+			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
+		} else if ((bln == true) && (bln2 == false)) {
+			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
+		}
+	}
+
+	public void Checkgo2() {
+		name = tf.getText();
+		phone = tf1.getText();
+		pwd = tf2.getText();
+		if (name.equals("") || phone.equals("") || pwd.equals("")) {
+			bln2 = true;
+		}
+		if (phone.contains("-")) {
+			bln = true;
+		}
+		if ((bln == true) && (bln2 == true)) {
+			JOptionPane.showMessageDialog(null, "빈칸 혹은 전화번호를 확인 해주세요.");
+		} else if ((bln == false) && (bln2 == true)) {
+			JOptionPane.showMessageDialog(null, "이름, 전화번호, 비밀번호에 빈 칸이 있습니다.");
+		} else if ((bln == true) && (bln2 == false)) {
+			JOptionPane.showMessageDialog(null, "전화번호에 -가 있습니다.");
 		}
 	}
 }
