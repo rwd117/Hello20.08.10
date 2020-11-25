@@ -133,7 +133,7 @@ public class Bookinsert extends JPanel implements ActionListener,Runnable{
 		scrollPane.setViewportView(table);
 		
 		btn1 = new JButton("");
-		btn1.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btn1.setIcon(new ImageIcon("../kozinnn/src/TOOLBAR/EXIT.GIF"));
 		btn1.setBounds(39, 10, 32, 23);
 		this.add(btn1);
 		

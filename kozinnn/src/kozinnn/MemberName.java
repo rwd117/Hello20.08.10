@@ -65,7 +65,7 @@ public class MemberName extends JPanel implements ActionListener {
 		scrollPane.setViewportView(table);
 
 		btnex = new JButton("");
-		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btnex.setIcon(new ImageIcon("../kozinnn/src/TOOLBAR/EXIT.GIF"));
 		btnex.setBounds(12, 23, 37, 23);
 		this.add(btnex);
 

@@ -92,7 +92,7 @@ public class BookReturn extends JPanel implements ActionListener, Runnable {
 		this.add(btnReturn);
 
 		btnex = new JButton("");
-		btnex.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btnex.setIcon(new ImageIcon("../kozinnn/src/TOOLBAR/EXIT.GIF"));
 		btnex.setBounds(33, 24, 40, 23);
 		this.add(btnex);
 

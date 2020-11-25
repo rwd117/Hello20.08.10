@@ -169,7 +169,7 @@ public class BookUpdate extends JPanel implements ActionListener {
 		this.add(lblll);
 
 		btnexit = new JButton("");
-		btnexit.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btnexit.setIcon(new ImageIcon("../kozinnn/src/TOOLBAR/EXIT.GIF"));
 		btnexit.setBounds(24, 10, 30, 23);
 		this.add(btnexit);
 

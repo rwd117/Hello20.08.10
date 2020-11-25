@@ -79,7 +79,7 @@ public class MemberDelete extends JPanel implements ActionListener {
 		scrollPane.setViewportView(table);
 
 		btnEx = new JButton("");
-		btnEx.setIcon(new ImageIcon("C:\\kmv2\\gitbub\\rwd117\\20.08.10\\bankproject\\src\\TOOLBAR\\EXIT.GIF"));
+		btnEx.setIcon(new ImageIcon("../kozinnn/src/TOOLBAR/EXIT.GIF"));
 		btnEx.setBounds(38, 10, 33, 23);
 		this.add(btnEx);
 
