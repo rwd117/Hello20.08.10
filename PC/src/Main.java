@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -7,28 +8,31 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Seat.Seat;
 import Graphics.RoundedButton;
+import Seat.Seatexam;
 
 public class Main implements ActionListener {
 
 	private JFrame frame;
 	private Container container;
 	private JPanel panel;
-	private RoundedButton BtnSelect, BtnTime, BtnNewMember, button_2, button_3, BtnCoupon;
-
+	private RoundedButton  BtnTime, BtnNewMember, button_2, button_3, BtnCoupon;
+	private JButton BtnSelect;
 	/**
 	 * Launch the application.
 	 */
+
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -57,14 +61,13 @@ public class Main implements ActionListener {
 		frame = new JFrame();
 		frame.setTitle("인터존 PC방");
 		frame.getContentPane().setBackground(new Color(051, 051, 051));
-//		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-		
+		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		//뜨는 곳 모니터 기준
-//		int x = screensize.width / 4;
-//		int y = screensize.height / 4;
-//		int width = screensize.width / 2;
-//		int heigth = screensize.height / 2;
-		frame.setBounds(120, 150, 1600, 800);
+		int x = screensize.width / 4;
+		int y = screensize.height / 4;
+		int width = screensize.width / 2;
+		int height = screensize.height / 2;
+		frame.setBounds(x, y, width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent Cevent) {
@@ -77,7 +80,7 @@ public class Main implements ActionListener {
 		container = frame.getContentPane();
 		container.setLayout(null);
 
-		BtnSelect = new RoundedButton("좌석 보기") {
+		BtnSelect = new JButton("좌석 보기") {
 			@Override
 			public void paintComponent(Graphics g) {
 				int width = getWidth();
@@ -324,8 +327,8 @@ public class Main implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		clearContainer();
-		if (e.getSource() == BtnSelect) {
-			panel = new Seat();
+		if (e.getSource().equals(BtnSelect)) {
+			panel = new Seatexam();
 		} else if (e.getSource() == BtnTime) {
 
 		} else if (e.getSource() == BtnNewMember) {

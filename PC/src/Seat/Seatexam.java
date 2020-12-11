@@ -1,27 +1,25 @@
 package Seat;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import Graphics.RoundButton;
+import javax.swing.JButton;
 
-public class Seat extends JPanel {
-
+public class Seatexam extends JPanel{
 	/**
 	 * Create the application.
 	 */
-	public Seat() {
+	public Seatexam() {
 		initialize();
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+		
 		this.setVisible(true);
 		this.setLayout(null);
 //		this.setBackground(new Color(051, 051, 051));
@@ -219,5 +217,5 @@ public class Seat extends JPanel {
 		Btn48.setBounds(1275, 660, 98, 98);
 		this.add(Btn48);
 	}
-	
+
 }
