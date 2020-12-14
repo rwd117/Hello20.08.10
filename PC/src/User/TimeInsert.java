@@ -52,10 +52,6 @@ public class TimeInsert implements MouseListener, ActionListener {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 * 
-	 */
 	private void initialize() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(245, 245, 245));

@@ -24,10 +24,6 @@ public class Select extends JFrame implements ActionListener{
 	private JFrame frame = new JFrame();
 	private JButton BtnBack ;
 	
-	public static void main(String[] args) {
-		new Select();
-	}
-	
 	public Select() {
 		initialize();
 	}
