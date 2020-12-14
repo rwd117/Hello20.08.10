@@ -26,7 +26,7 @@ public class TimeInsert implements MouseListener, ActionListener {
 
 	private JFrame frame = new JFrame();
 	private JPanel Panel;
-	private JButton BtnPay, BtnCan;
+	private RoundedButton BtnPay, BtnCan;
 	private RoundedButton Btn1, Btn2, Btn3, Btn4, Btn5, Btn6, Btn7, Btn8;
 	private JScrollPane scrollPane;
 	private String Text;
@@ -158,11 +158,11 @@ public class TimeInsert implements MouseListener, ActionListener {
 
 		scrollPane.setViewportView(TA);
 
-		BtnPay = new JButton("\uACB0\uC81C");
+		BtnPay = new RoundedButton("\uACB0\uC81C");
 		BtnPay.setBounds(1069, 442, 179, 47);
 		Panel.add(BtnPay);
 
-		BtnCan = new JButton("\uCDE8\uC18C");
+		BtnCan = new RoundedButton("\uCDE8\uC18C");
 		BtnCan.setBounds(1370, 440, 179, 47);
 		Panel.add(BtnCan);
 

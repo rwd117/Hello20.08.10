@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
+import Graphics.RoundedButton;
 public class UserLogin implements ActionListener {
 
 	private JFrame frame;
@@ -101,7 +101,7 @@ public class UserLogin implements ActionListener {
 		BtnClear = new JButton("√Îº“");
 		BtnClear.setBounds(499, 396, 136, 41);
 		BtnClear.setFont(new Font("±º∏≤", Font.PLAIN, 30));
-		BtnLogin.setBackground(new Color(153, 204, 255));
+		BtnClear.setBackground(new Color(153, 204, 255));
 		frame.getContentPane().add(BtnClear);
 		
 		BtnLogin.addActionListener(this);

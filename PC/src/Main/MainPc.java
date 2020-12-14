@@ -307,12 +307,6 @@ public class MainPc extends JFrame implements ActionListener {
 		BtnCoupon.addActionListener(this);
 	}
 
-//	private void clearContainer() {
-//		container.removeAll();
-//		container.setVisible(false);
-//		container.setVisible(true);
-//	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == BtnSelect) {
@@ -325,9 +319,9 @@ public class MainPc extends JFrame implements ActionListener {
 			new NewMember();
 			frame.dispose();
 		} else if (e.getSource() == BtnCoupon) {
-
+			
 		} else if (e.getSource() == button_2) {
-
+			
 		} else if (e.getSource() == button_3) {
 
 		}

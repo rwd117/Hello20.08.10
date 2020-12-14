@@ -23,7 +23,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 
 import Main.MainPc;
-
+import Graphics.RoundedButton;
 public class NewMember extends JFrame implements ActionListener {
 
 	private JFrame frame = new JFrame();
@@ -35,7 +35,7 @@ public class NewMember extends JFrame implements ActionListener {
 	private JButton BtnOver, BtnNew, BtnCan;
 	private JLabel LBCheck;
 	private JCheckBox Check;
-	JPanel TopPan, BottomPan;
+	private JPanel TopPan, BottomPan;
 	private int CheckPoint = 0;
 
 	public NewMember() {
@@ -116,7 +116,7 @@ public class NewMember extends JFrame implements ActionListener {
 		Tfphone.setBounds(223, 336, 143, 23);
 		frame.getContentPane().add(Tfphone);
 
-		BtnOver = new JButton("\uC911\uBCF5\uD655\uC778");
+		BtnOver = new RoundedButton("\uC911\uBCF5\uD655\uC778");
 		BtnOver.setBounds(393, 135, 87, 23);
 		frame.getContentPane().add(BtnOver);
 
@@ -127,11 +127,13 @@ public class NewMember extends JFrame implements ActionListener {
 		BottomPan.setLayout(null);
 
 		BtnNew = new JButton("\uD68C\uC6D0\uAC00\uC785");
-		BtnNew.setBounds(141, 27, 81, 23);
+		BtnNew.setBounds(141, 27, 100, 23);
+		BtnNew.setBackground(new Color(153, 204, 255));
 		BottomPan.add(BtnNew);
 
 		BtnCan = new JButton("\uCDE8\uC18C");
-		BtnCan.setBounds(309, 27, 57, 23);
+		BtnCan.setBounds(309, 27, 70, 23);
+		BtnCan.setBackground(new Color(153, 204, 255));
 		BottomPan.add(BtnCan);
 
 //		Check = new JButton("\uB0B4\uC6A9 \uD655\uC778");
