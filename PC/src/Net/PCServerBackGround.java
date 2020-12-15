@@ -12,7 +12,7 @@ import java.util.Map;
 
 import Chat.ServerBackGround2;
 import Chat.ServerGUI;
-import User.UserLogin;
+import User.TimeUserLogin;
 
 public class PCServerBackGround {
 	
@@ -20,12 +20,12 @@ public class PCServerBackGround {
 	private Socket socket;
 	private String msg;
 	private String nick;
-	private UserLogin gui;
+	private TimeUserLogin gui;
 	private PCServerBackGround PCServer = new PCServerBackGround(); 
 	
 	private Map<String, DataOutputStream> clientMap = new HashMap<String, DataOutputStream>();
 
-	public void setGUI(UserLogin server) {
+	public void setGUI(TimeUserLogin server) {
 		this.gui = server;
 	}
 

@@ -16,15 +16,15 @@ import javax.swing.JFrame;
 import Graphics.RoundedButton;
 import Main.MainPc;
 import User.TimeInsert;
-import User.UserLogin;
+import User.TimeUserLogin;
 
-public class Select extends JFrame implements ActionListener{
+public class LoginSelect extends JFrame implements ActionListener{
 
 	private RoundedButton BtnUser, BtnNoUser;
 	private JFrame frame = new JFrame();
 	private JButton BtnBack ;
 	
-	public Select() {
+	public LoginSelect() {
 		initialize();
 	}
 
@@ -128,10 +128,10 @@ public class Select extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(BtnUser)) {
-			new UserLogin(true);
+			new TimeUserLogin(true);
 			frame.dispose();
 		}else if(e.getSource().equals(BtnNoUser)) {
-			new UserLogin(false);
+			new TimeUserLogin(false);
 			frame.dispose();
 		}else if(e.getActionCommand().equals("Ȩ")) {
 			new MainPc();

@@ -1,9 +1,6 @@
 package Main;
 
 import java.awt.Color;
-
-import java.awt.Container;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -12,24 +9,19 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Graphics.RoundedButton;
+import State.LoginSelect;
 import State.Seat;
-import User.TimeInsert;
-import State.Select;
+import State.TimeUserSelect;
 import User.NewMember;
 
 public class MainPc extends JFrame implements ActionListener {
 
 	private JFrame frame = new JFrame();
-	private RoundedButton BtnSelect, BtnTime, BtnNewMember, button_2, button_3, BtnCoupon;
+	private RoundedButton BtnSelect, BtnTime, BtnNewMember, BtnLogin, button_3, BtnCoupon;
 	private int a;
 
 	public static void main(String[] args) {
@@ -216,7 +208,7 @@ public class MainPc extends JFrame implements ActionListener {
 		BtnCoupon.setFocusPainted(false);
 		frame.add(BtnCoupon);
 
-		button_2 = new RoundedButton("New button") {
+		BtnLogin = new RoundedButton("회원 로그인") {
 			@Override
 			public void paintComponent(Graphics g) {
 				int width = getWidth();
@@ -250,9 +242,10 @@ public class MainPc extends JFrame implements ActionListener {
 				super.paintComponent(g);
 			}
 		};
-		button_2.setBounds(630, 423, 300, 300);
-		button_2.setFocusPainted(false);
-		frame.add(button_2);
+		BtnLogin.setBounds(630, 423, 300, 300);
+		BtnLogin.setFont(new Font("굴림", Font.PLAIN, 30));
+		BtnLogin.setFocusPainted(false);
+		frame.add(BtnLogin);
 
 		button_3 = new RoundedButton("New button") {
 			@Override
@@ -297,6 +290,7 @@ public class MainPc extends JFrame implements ActionListener {
 		BtnTime.addActionListener(this);
 		BtnNewMember.addActionListener(this);
 		BtnCoupon.addActionListener(this);
+		BtnLogin.addActionListener(this);
 	}
 
 	@Override
@@ -305,15 +299,16 @@ public class MainPc extends JFrame implements ActionListener {
 			new Seat();
 			frame.dispose();
 		} else if (e.getSource() == BtnTime) {
-			new Select();
+			new TimeUserSelect();
 			frame.dispose();
 		} else if (e.getSource() == BtnNewMember) {
 			new NewMember();
 			frame.dispose();
 		} else if (e.getSource() == BtnCoupon) {
 			
-		} else if (e.getSource() == button_2) {
-			
+		} else if (e.getSource() == BtnLogin) {
+			new LoginSelect();
+			frame.dispose();
 		} else if (e.getSource() == button_3) {
 
 		}

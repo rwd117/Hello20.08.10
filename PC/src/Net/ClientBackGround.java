@@ -7,13 +7,13 @@ import java.net.Socket;
 
 import Chat.ClientBackGround2;
 import Chat.ClientGUI;
-import User.UserLogin;
+import User.TimeUserLogin;
 
 public class ClientBackGround {
 	private Socket socket;
 	private DataInputStream in;
 	private DataOutputStream out;
-	private UserLogin gui;
+	private TimeUserLogin gui;
 
 	private String Number;
 	private String Name;
@@ -23,7 +23,7 @@ public class ClientBackGround {
 
 	private ClientBackGround Client = new ClientBackGround();
 
-	public void setGui(UserLogin gui) {
+	public void setGui(TimeUserLogin gui) {
 		this.gui = gui;
 	}
 
