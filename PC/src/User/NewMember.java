@@ -24,6 +24,9 @@ import javax.swing.JPanel;
 
 import Main.MainPc;
 import Graphics.RoundedButton;
+
+import Db.*;
+
 public class NewMember extends JFrame implements ActionListener {
 
 	private JFrame frame = new JFrame();
@@ -37,6 +40,7 @@ public class NewMember extends JFrame implements ActionListener {
 	private JCheckBox Check;
 	private JPanel TopPan, BottomPan;
 	private int CheckPoint = 0;
+	private boolean idcheck = false;
 
 	public NewMember() {
 		initialize();
@@ -158,9 +162,12 @@ public class NewMember extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		String pwd=Tfpwd.getText();
-		String pwdCheck=TfpwdCheck.getText();
-		
+		String id = Tfid.getText();
+		String pwd = Tfpwd.getText();
+		String pwdCheck = TfpwdCheck.getText();
+		String name = Tfname.getText();
+		String tel = Tfphone.getText();
+
 		if (e.getSource().equals(Check)) {
 			Check.setSelected(false);
 			int result = JOptionPane.showConfirmDialog(null, "개인정보 수집에 동의 하시겠습니까?", "확인 메시지",
@@ -182,26 +189,53 @@ public class NewMember extends JFrame implements ActionListener {
 				new MainPc();
 			}
 		} else if (e.getSource().equals(BtnNew)) {
-			if ((CheckPoint == 0) || (!pwdCheck.equals(pwd)) || (pwdCheck.equals("")) || (pwd.equals(""))) {
-				if (CheckPoint == 0) {
-					JOptionPane.showMessageDialog(null, "개인정보 수집에 동의 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+
+			if (CheckPoint == 0) {
+				JOptionPane.showMessageDialog(null, "개인정보 수집에 동의 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			} else if ((!pwdCheck.equals(pwd)) || (pwdCheck.equals("")) || (pwd.equals("")) || (pwdCheck.equals(null))|| (pwd.equals(null))) {
+				if ((pwdCheck.equals("")) || pwdCheck.equals(null) || (pwd.equals("")) || (pwd.equals(null))) {
+					JOptionPane.showMessageDialog(null, "비밀번호에 공백이 있습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
 					return;
-				} else if ((!pwdCheck.equals(pwd)) || (pwdCheck.equals("")) || (pwd.equals(""))||(pwdCheck.equals(null))||(pwd.equals(null))) {
-					if ((pwdCheck.equals("")) || pwdCheck.equals(null) || (pwd.equals(""))|| (pwd.equals(null))) {
-						JOptionPane.showMessageDialog(null, "비밀번호에 공백이 있습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
-						return;
-					} else if (!pwdCheck.equals(pwd)) {
-						JOptionPane.showMessageDialog(null, "비밀번호가 서로 다릅니다!", "알림 창", JOptionPane.WARNING_MESSAGE);
-						return;
-					}
+				} else if (!pwdCheck.equals(pwd)) {
+					JOptionPane.showMessageDialog(null, "비밀번호가 서로 다릅니다!", "알림 창", JOptionPane.WARNING_MESSAGE);
+					return;
 				}
-			} else {
+			} else if (idcheck == false) {
+				JOptionPane.showMessageDialog(null, "아이디 중복확인을 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			} else if (tel.contains("-") || tel.equals("")) {
+				JOptionPane.showMessageDialog(null, "전화번호를 확인해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else if(name.equals("")||name.equals(null)){
+				JOptionPane.showMessageDialog(null, "이름을 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else{
+				NewMemberDb.Setting(id, pwd, name, tel);
 				JOptionPane.showMessageDialog(null, "회원 가입 성공");
 				frame.dispose();
 				new MainPc();
 			}
 		} else if (e.getSource().equals(BtnOver)) {
-			// 아이디 중복확인, BtnNew에서도 체크 해줘야함,데이터베이스 만든 
+			// 아이디 중복확인, BtnNew에서도 체크 해줘야함,데이터베이스 만든
+
+			if (id.equals("") || id.equals(null)) {
+
+				JOptionPane.showMessageDialog(null, "아이디를 적어주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+
+			} else {
+
+				boolean Check = IDCheckDb.Setting(id);
+
+				if (Check) {
+					JOptionPane.showMessageDialog(null, "중복하는 아이디가 있습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
+					idcheck = false;
+				} else if (!Check) {
+					JOptionPane.showMessageDialog(null, "사용 가능한 아이디 입니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
+					idcheck = true;
+				}
+			}
+
 		}
 	}
 }

@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ClientBackGround {
+public class ClientBackGround2 {
 	
 	Socket socket;
 	DataInputStream in;
@@ -46,7 +46,7 @@ public class ClientBackGround {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ClientBackGround clientbackground=new ClientBackGround();
+		ClientBackGround2 clientbackground=new ClientBackGround2();
 		clientbackground.connet();
 	}
 

@@ -15,7 +15,7 @@ public class ClientGUI extends JFrame implements ActionListener {
  
 	private JTextField tf = new JTextField(25);
 	
-	private ClientBackGround client = new ClientBackGround();
+	private ClientBackGround2 client = new ClientBackGround2();
 	
 	private static String nickname;
 	

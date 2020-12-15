@@ -88,7 +88,7 @@ public class ImpoNotice extends JFrame{
 			
 		};
 		
-		time.schedule(timet, 5000);
+		time.schedule(timet, 3000);
 		
 	}
 }

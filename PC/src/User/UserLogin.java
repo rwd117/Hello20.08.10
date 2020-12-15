@@ -9,9 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import Graphics.RoundedButton;
+
+import Db.MemberLoginDb;
+import Net.ClientBackGround;
+import Net.PCServerBackGround;
 public class UserLogin implements ActionListener {
 
 	private JFrame frame;
@@ -24,7 +28,9 @@ public class UserLogin implements ActionListener {
 	private int index;
 	private boolean Check=true;
 	private String Name="아무개";
-	
+//	private ClientBackGround client=new ClientBackGround();
+//	private PCServerBackGround server=new PCServerBackGround();
+	private String msg;
 	/**
 	 * Create the application.
 	 */
@@ -40,19 +46,18 @@ public class UserLogin implements ActionListener {
 			initialize();
 			IDlb.setText("비회원 카드 번호");
 			IDlb.setBounds(200,202,200,33);
-			PWDlb.setText("회원 이름");
-			IDText.setVisible(false);
 			JCom.setVisible(true);
 			
+			PWDlb.setText("회원 이름");
+			IDText.setBounds(442, 307, 246, 41);
+			
+			PWDText.setVisible(false);
 			frame.setResizable(false);
 			frame.setVisible(true);
 		}
 	
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(500, 100, 966, 653);
@@ -85,7 +90,6 @@ public class UserLogin implements ActionListener {
 		frame.getContentPane().add(JCom);
 		JCom.setVisible(false);
 		
-		
 		PWDText = new JPasswordField();
 		PWDText.setBounds(442, 307, 246, 41);
 		PWDText.selectAll();
@@ -104,19 +108,46 @@ public class UserLogin implements ActionListener {
 		BtnClear.setBackground(new Color(153, 204, 255));
 		frame.getContentPane().add(BtnClear);
 		
+//		server.setGUI(this);
+//		server.setting();
+		
 		BtnLogin.addActionListener(this);
 		BtnClear.addActionListener(this);
 		JCom.addActionListener(this);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(BtnLogin)) {
 			if(Check==true) {
-				new TimeInsert(true,Name);
-				frame.dispose();
+				//회원
+				String id=IDText.getText();
+				String pwd=PWDText.getText();
 				
+				
+				boolean Check = MemberLoginDb.Setting(id , pwd);
+				
+				if (Check) {
+					JOptionPane.showMessageDialog(null, "확인되었습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
+					new TimeInsert(true,Name);
+					frame.dispose();
+				} else if (!Check) {
+					JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				}
+//				client.setGui(this);
+//				client.setCheckUser(id, pwd);
+//				client.Userconnet();
+			
 			}else if(Check==false){
+				//비회원
+				String Number=JCom.getSelectedItem().toString();
+				String Name=IDText.getText();
+//				
+//				client.setGui(this);
+//				client.setCheckNoUser(Number ,Name);
+//				client.NoUserconnet();
+				
 				new TimeInsert(false,index);
 				frame.dispose();
 			}
@@ -127,4 +158,17 @@ public class UserLogin implements ActionListener {
 			index = JCom.getSelectedIndex();
 		}
 	}
+
+	
+	public void appendCheck(PCServerBackGround PCServer, String msg) {
+		// TODO Auto-generated method stub
+		//데이터 베이스가 있어야 실행 가능.
+		
+	}
+
+	public void appendMsg(ClientBackGround Client , String msg2) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

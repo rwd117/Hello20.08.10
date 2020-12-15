@@ -32,10 +32,6 @@ public class MainPc extends JFrame implements ActionListener {
 	private RoundedButton BtnSelect, BtnTime, BtnNewMember, button_2, button_3, BtnCoupon;
 	private int a;
 
-	/**
-	 * Launch the application.
-	 */
-
 	public static void main(String[] args) {
 		new MainPc();	
 	}
@@ -44,10 +40,6 @@ public class MainPc extends JFrame implements ActionListener {
 		initialize();
 	}
 	
-	
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame.setTitle("인터존 PC방");
 		frame.getContentPane().setBackground(new Color(051, 051, 051));

@@ -13,7 +13,7 @@ public class ServerGUI extends JFrame implements ActionListener{
 	JTextArea ta = new JTextArea(40,25);
 	
 	JTextField tf=new JTextField(25); 
-	ServerBackGround server =new ServerBackGround();
+	ServerBackGround2 server =new ServerBackGround2();
 	//연동하기
 	public ServerGUI() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

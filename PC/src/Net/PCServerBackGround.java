@@ -1,4 +1,4 @@
-package Chat;
+package Net;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,17 +10,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ServerBackGround {
+import Chat.ServerBackGround2;
+import Chat.ServerGUI;
+import User.UserLogin;
 
+public class PCServerBackGround {
+	
 	private ServerSocket serversocket;
 	private Socket socket;
-	private ServerGUI gui;
 	private String msg;
 	private String nick;
-	//사용자들 정보 저장
+	private UserLogin gui;
+	private PCServerBackGround PCServer = new PCServerBackGround(); 
+	
 	private Map<String, DataOutputStream> clientMap = new HashMap<String, DataOutputStream>();
 
-	public void setGUI(ServerGUI server) {
+	public void setGUI(UserLogin server) {
 		this.gui = server;
 	}
 
@@ -48,9 +53,9 @@ public class ServerBackGround {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void main(String[] args) {
-		ServerBackGround serverbackground = new ServerBackGround();
+		PCServerBackGround serverbackground = new PCServerBackGround();
 		serverbackground.setting();
 	}
 	
@@ -68,10 +73,11 @@ public class ServerBackGround {
 
 	public void sendMessage(String msg) {
 		// TODO Auto-generated method stub
+		//sql문을 체크해주는거
 		
 		Iterator<String> it = clientMap.keySet().iterator();
 		
-		//it이 닉네임에 해당하는 사람한테서버에서 말하는 역할
+		//it이 닉네임에 해당하는 사람한테 서버에서 말하는 역할
 		String key="";
 		
 		while(it.hasNext()) {
@@ -122,7 +128,7 @@ public class ServerBackGround {
 					while (in != null) {
 					msg = in.readUTF();
 					sendMessage(msg);//메시지 보내버리기
-					gui.appendMsg(msg); 
+					gui.appendCheck(PCServer,msg); 
 					//1인용일때 쓰던거 1:1
 				}
 			} catch (IOException e) {
