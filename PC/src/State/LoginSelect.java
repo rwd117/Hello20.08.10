@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 
 import Graphics.RoundedButton;
 import Main.MainPc;
+import User.PCNouserLogin;
 import User.PCuserLogin;
-import User.TimeUserLogin;
 
 public class LoginSelect extends JFrame implements ActionListener{
 
@@ -131,7 +131,7 @@ public class LoginSelect extends JFrame implements ActionListener{
 			new PCuserLogin();
 			frame.dispose();
 		}else if(e.getSource().equals(BtnNoUser)) {
-
+			new PCNouserLogin();
 			frame.dispose();
 		}else if(e.getActionCommand().equals("Ȩ")) {
 			new MainPc();
