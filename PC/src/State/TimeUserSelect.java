@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 
 import Graphics.RoundedButton;
 import Main.MainPc;
-import User.TimeInsert;
+import User.TimeNoUserLogin;
 import User.TimeUserLogin;
 
 public class TimeUserSelect extends JFrame implements ActionListener{
@@ -128,10 +128,10 @@ public class TimeUserSelect extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(BtnUser)) {
-			new TimeUserLogin(true);
+			new TimeUserLogin();
 			frame.dispose();
 		}else if(e.getSource().equals(BtnNoUser)) {
-			new TimeUserLogin(false);
+			new TimeNoUserLogin();
 			frame.dispose();
 		}else if(e.getActionCommand().equals("Ȩ")) {
 			new MainPc();

@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Db.MemberLoginDb;
+import Main.MainPc;
 import Net.ClientBackGround;
 import Net.PCServerBackGround;
 
@@ -36,31 +37,7 @@ public class TimeUserLogin implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public TimeUserLogin(boolean UserCheck) {
-		this.Check = UserCheck;
-		if (Check == true) {
-
-			initialize();
-			IDText.setVisible(true);
-
-		} else if (Check == false) {
-
-			initialize();
-			IDlb.setText("비회원 카드 번호");
-			IDlb.setBounds(200, 202, 200, 33);
-			JCom.setVisible(true);
-
-			PWDlb.setText("회원 이름");
-			IDText.setBounds(442, 307, 246, 41);
-
-			PWDText.setVisible(false);
-			frame.setResizable(false);
-			frame.setVisible(true);
-		}
-
-	}
-
-	private void initialize() {
+	public TimeUserLogin() {
 		frame = new JFrame();
 		frame.setBounds(500, 100, 966, 653);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,14 +62,6 @@ public class TimeUserLogin implements ActionListener {
 		IDText.selectAll();
 		frame.getContentPane().add(IDText);
 
-		String[] Combo = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
-				"18", "19", "20" };
-
-		JCom = new JComboBox(Combo);
-		JCom.setBounds(442, 200, 246, 41);
-		frame.getContentPane().add(JCom);
-		JCom.setVisible(false);
-
 		PWDText = new JPasswordField();
 		PWDText.setBounds(442, 307, 246, 41);
 		PWDText.selectAll();
@@ -116,7 +85,7 @@ public class TimeUserLogin implements ActionListener {
 
 		BtnLogin.addActionListener(this);
 		BtnClear.addActionListener(this);
-		JCom.addActionListener(this);
+
 	}
 
 	@Override
@@ -124,48 +93,42 @@ public class TimeUserLogin implements ActionListener {
 		// TODO Auto-generated method stub
 		String id = IDText.getText();
 		String pwd = PWDText.getText();
-
 		if (e.getSource().equals(BtnLogin)) {
 			if (id.equals("") || id.equals(null)) {
 				JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 			} else if (pwd.equals("") || pwd.equals(null)) {
 				JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
-			}else if((!id.equals("")) && (!id.equals(null)) &&(!pwd.equals(""))&&(!pwd.equals(null))){
-			if (Check == true) {
+			} else if ((!id.equals("")) && (!id.equals(null)) && (!pwd.equals("")) && (!pwd.equals(null))) {
+
 				// 회원
 				boolean Check = MemberLoginDb.Setting(id, pwd);
-
 				if (Check) {
 					JOptionPane.showMessageDialog(null, "확인되었습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
 					new TimeInsert(true, Name);
 					frame.dispose();
+					
 				} else if (!Check) {
 					JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 				}
-//				client.setGui(this);
-//				client.setCheckUser(id, pwd);
-//				client.Userconnet();
-
-			} else if (Check == false) {
-				// 비회원
-				String Number = JCom.getSelectedItem().toString();
-				String Name = IDText.getText();
-//				
-//				client.setGui(this);
-//				client.setCheckNoUser(Number ,Name);
-//				client.NoUserconnet();
-
-				new TimeInsert(false, index);
-				frame.dispose();
 			}
-			}
-		} else if (e.getSource().equals(BtnClear)) {
+			} else if (e.getSource().equals(BtnClear)) {
+				int result = JOptionPane.showConfirmDialog(null, "홈 화면으로 돌아 가시겠습니까?", "확인 메시지",
+						JOptionPane.YES_NO_OPTION);
 
-		} else if (e.getSource().equals(JCom)) {
-			index = JCom.getSelectedIndex();
+				if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
+					Clear();
+				} else if (result == JOptionPane.YES_OPTION) {
+					new MainPc();
+					frame.dispose();
+				}
 		}
 	}
-
+	
+	public void Clear() {
+		IDText.setText("");
+		PWDText.setText("");
+	}
+	
 	public void appendCheck(PCServerBackGround PCServer, String msg) {
 		// TODO Auto-generated method stub
 		// 데이터 베이스가 있어야 실행 가능.
