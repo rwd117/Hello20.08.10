@@ -13,23 +13,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Main.MainPc;
+import Set.AllNum;
 
 public class PCNouserLogin implements ActionListener {
 	private JFrame frame;
 	private JTextField NameText;
 	private JButton BtnLogin, BtnClear;
-	private JLabel IDlb, Namelb;
+	private JLabel IDlb, Namelb,PClb;
 	private JComboBox JCom,JCom1;
 	private int index;
 	private boolean Check = true;
 //	private ClientBackGround client=new ClientBackGround();
 //	private PCServerBackGround server=new PCServerBackGround();
 //	private String msg;
-	private String combo="";
-	String[] CardNum = { "고르시오", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
-			"16", "17", "18", "19", "20" };
-	String[] PCNum= {"고르시오","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20",
-			"21","22","23","24","25","26","27","28","29","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48"};
+	private String Cardcombo="";
+	private String PCcombo="";
+	private String[] CardNum;
+	private String[] PCNum;
 
 
 	public PCNouserLogin() {
@@ -43,37 +43,52 @@ public class PCNouserLogin implements ActionListener {
 		frame.getContentPane().setBackground(new Color(051, 051, 051));
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
-
+		
+		PClb=new JLabel("자리 선택");
+		PClb.setForeground(Color.WHITE);
+		PClb.setFont(new Font("굴림", Font.PLAIN, 20));
+		PClb.setBounds(212, 121, 150, 33);
+		frame.getContentPane().add(PClb);
+		
 		IDlb = new JLabel("카드 번호");
 		IDlb.setForeground(Color.WHITE);
 		IDlb.setFont(new Font("굴림", Font.PLAIN, 20));
-		IDlb.setBounds(212, 202, 150, 33);
+		IDlb.setBounds(212, 222, 150, 33);
 		frame.getContentPane().add(IDlb);
 
 		Namelb = new JLabel("회원 이름");
 		Namelb.setForeground(Color.WHITE);
 		Namelb.setFont(new Font("굴림", Font.PLAIN, 20));
-		Namelb.setBounds(212, 303, 184, 33);
+		Namelb.setBounds(212, 323, 184, 33);
 		frame.getContentPane().add(Namelb);
-
+		
+		PCNum=AllNum.PCNum(PCNum);
+		
+		JCom1=new JComboBox(PCNum);
+		JCom1.setBounds(442, 121, 246, 41);
+		frame.getContentPane().add(JCom1);
+		JCom1.setVisible(true);
+		
+		CardNum=AllNum.CardNum(CardNum);
+		
 		JCom = new JComboBox(CardNum);
-		JCom.setBounds(442, 200, 246, 41);
+		JCom.setBounds(442, 222, 246, 41);
 		frame.getContentPane().add(JCom);
 		JCom.setVisible(true);
 
 		NameText = new JTextField();
-		NameText.setBounds(442, 307, 246, 41);
+		NameText.setBounds(442, 327, 246, 41);
 		NameText.selectAll();
 		frame.getContentPane().add(NameText);
 
 		BtnLogin = new JButton("로그인");
 		BtnLogin.setFont(new Font("굴림", Font.PLAIN, 30));
-		BtnLogin.setBounds(264, 396, 136, 41);
+		BtnLogin.setBounds(264, 420, 136, 41);
 		BtnLogin.setBackground(new Color(153, 204, 255));
 		frame.getContentPane().add(BtnLogin);
 
 		BtnClear = new JButton("취소");
-		BtnClear.setBounds(499, 396, 136, 41);
+		BtnClear.setBounds(499, 420, 136, 41);
 		BtnClear.setFont(new Font("굴림", Font.PLAIN, 30));
 		BtnClear.setBackground(new Color(153, 204, 255));
 		frame.getContentPane().add(BtnClear);
@@ -84,6 +99,7 @@ public class PCNouserLogin implements ActionListener {
 		BtnLogin.addActionListener(this);
 		BtnClear.addActionListener(this);
 		JCom.addActionListener(this);
+		JCom1.addActionListener(this);
 	}
 
 	@Override
@@ -96,14 +112,17 @@ public class PCNouserLogin implements ActionListener {
 //				client.setCheckUser(id, pwd);
 //				client.Userconnet();
 			String name = NameText.getText();
-			if (combo.equals(null) || combo.equals("") || combo.equals("고르시오")) {
+			if (Cardcombo.equals(null) || Cardcombo.equals("") || Cardcombo.equals("카드 번호를 골라주세요")) {
 				JOptionPane.showMessageDialog(null, "카드번호 를 선택해 주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 				return;
 			} else if (name.equals("") || name.equals(null)) {
 				JOptionPane.showMessageDialog(null, "이름을 적어주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 				return;
-			} else {
-				new PCnouser(combo, name);
+			} else if(PCcombo.equals("")||PCcombo.equals(null)||PCcombo.equals("좌석을 골라주세요")) {
+				JOptionPane.showMessageDialog(null, "좌석을 선택해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			}	else {
+				new PCnouser(PCcombo ,Cardcombo, name);
 				frame.dispose();
 			}
 		} else if (e.getSource().equals(BtnClear)) {
@@ -116,8 +135,10 @@ public class PCNouserLogin implements ActionListener {
 				frame.dispose();
 			}
 		} else if (e.getSource().equals(JCom)) {
-			combo = JCom.getSelectedItem().toString();
+			Cardcombo = JCom.getSelectedItem().toString();
 
+		} else if(e.getSource().equals(JCom1)) {
+			PCcombo=JCom1.getSelectedItem().toString();
 		}
 	}
 

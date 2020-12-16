@@ -25,10 +25,10 @@ public class PCnouser implements ActionListener {
 	private JButton BtnExit;
 	private JTextArea ta,ta1,ta2;
 	
-	public PCnouser(String combo,String name) {
+	public PCnouser(String PCcombo, String Cardcombo,String name) {
 		initialize();
 		
-		ta.setText(combo+"번 "+name+"님이 사용중입니다.");
+		ta.setText(PCcombo+"번 자리"+"\n"+Cardcombo+"번 "+name+"님이 사용중입니다.");
 		ta1.setText("ㅇㅇ");
 		ta2.setText("ㅇㅇㅇㅇ");
 	}
@@ -46,16 +46,16 @@ public class PCnouser implements ActionListener {
 
 		Border emptyBorder = BorderFactory.createEmptyBorder(7, 7, 7, 7);
 		
-		Cardnum = new JLabel("\uCE74\uB4DC \uBC88\uD638");
+		Cardnum = new JLabel("자리 및 카드 번호");
 		Cardnum.setBounds(43, 47, 139, 40);
 		frame.getContentPane().add(Cardnum);
 		
 		TimeInsert = new JLabel("\uCDA9\uC804\uD55C \uC2DC\uAC04");
-		TimeInsert.setBounds(43, 97, 139, 36);
+		TimeInsert.setBounds(43, 115, 139, 36);
 		frame.getContentPane().add(TimeInsert);
 		
 		Timer = new JLabel("\uD604\uC7AC \uC0AC\uC6A9\uD55C \uC2DC\uAC04");
-		Timer.setBounds(43, 143, 139, 38);
+		Timer.setBounds(43,  175, 139, 38);
 		frame.getContentPane().add(Timer);
 		
 		BtnExit = new JButton("\uB85C\uADF8\uC544\uC6C3");
@@ -67,7 +67,7 @@ public class PCnouser implements ActionListener {
 		frame.getContentPane().add(BtnExit);
 		
 		JScrollPane sp = new JScrollPane();
-		sp.setBounds(204, 40, 250, 65);
+		sp.setBounds(204, 40, 250, 88);
 		frame.getContentPane().add(sp);
 		sp.setBackground(new Color(255, 255, 255));
 		sp.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
@@ -81,7 +81,7 @@ public class PCnouser implements ActionListener {
 		sp.setViewportView(ta);
 		
 		JScrollPane sp1 = new JScrollPane();
-		sp1.setBounds(204, 85, 250, 65);
+		sp1.setBounds(204, 100, 250, 65);
 		frame.getContentPane().add(sp1);
 		sp1.setBackground(new Color(255, 255, 255));
 		sp1.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
@@ -95,7 +95,7 @@ public class PCnouser implements ActionListener {
 		sp1.setViewportView(ta1);
 		
 		JScrollPane sp2 = new JScrollPane();
-		sp2.setBounds(204, 125, 250, 65);
+		sp2.setBounds(204, 160, 250, 65);
 		frame.getContentPane().add(sp2);
 		sp2.setBackground(new Color(255, 255, 255));
 		sp2.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
