@@ -18,8 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-import Graphics.RoundedButton;
 import Main.MainPc;
+import Set.RoundedButton;
 import State.ImpoNotice;
 
 public class TimeInsert implements MouseListener, ActionListener {

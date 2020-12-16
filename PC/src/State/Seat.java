@@ -14,8 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Graphics.RoundedButton;
 import Main.MainPc;
+import Set.RoundedButton;
 
 public class Seat extends JFrame implements ActionListener{
 	private JFrame frame =new JFrame();

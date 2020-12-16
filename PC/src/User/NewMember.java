@@ -19,12 +19,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Main.MainPc;
+import Set.RoundedButton;
+
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 
 import Main.MainPc;
-import Graphics.RoundedButton;
-
 import Db.*;
 
 public class NewMember extends JFrame implements ActionListener {
