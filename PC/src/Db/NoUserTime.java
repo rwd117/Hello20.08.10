@@ -21,7 +21,6 @@ public class NoUserTime {
 		PreparedStatement pst = null;
 		ResultSet rs=null;
 		
-		boolean flag=false;
 		
 		try {
 			Class.forName(driver);
