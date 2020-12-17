@@ -14,8 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import Main.MainPc;
+import NoUser.PCNouserLogin;
 import Set.RoundedButton;
-import User.PCNouserLogin;
 import User.PCuserLogin;
 
 public class LoginSelect extends JFrame implements ActionListener{

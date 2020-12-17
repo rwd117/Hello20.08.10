@@ -1,9 +1,10 @@
-package User;
+package NoUser;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import Db.NoUserTime;
 import Main.MainPc;
 
 public class PCnouser implements ActionListener {
@@ -26,15 +28,19 @@ public class PCnouser implements ActionListener {
 	private JTextArea ta, ta1, ta2;
 	boolean state = true;
 	private String Time;
+	private String TimeCheck;
 	int seconds;
 	int minutes;
 	int hours;
-
+	
 	public PCnouser(String PCcombo, String Cardcombo, String name) {
 		initialize();
 		test();
+		TimeCheck=NoUserTime.Setting(Cardcombo,name);
+		
 		ta.setText(PCcombo + "번 자리" + "\n" + Cardcombo + "번 " + name + "님이 사용중입니다.");
-		ta1.setText("d");
+		ta1.setText(TimeCheck);
+		
 	}
 
 	private void initialize() {
@@ -70,7 +76,7 @@ public class PCnouser implements ActionListener {
 		frame.getContentPane().add(BtnExit);
 
 		JScrollPane sp = new JScrollPane();
-		sp.setBounds(204, 40, 250, 88);
+		sp.setBounds(204, 40, 250, 80);
 		frame.getContentPane().add(sp);
 		sp.setBackground(new Color(255, 255, 255));
 		sp.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
@@ -131,28 +137,37 @@ public class PCnouser implements ActionListener {
 
 	public void test() {
 		state = true;
+		
+		
 		Thread time = new Thread() {
 			public void run() {
 
 				for (;;) {
 					if (state == true) {
-
 						try {
 							sleep(1000);
-							
-							if (seconds >= 59) {
-								seconds = 0;
+							if(seconds>=59) {
+								seconds=0;
 								minutes++;
 							}
 							if (minutes >= 59) {
 								minutes = 0;
 								hours++;
-							}
+							}	
 							seconds++;
-							Time=hours + ":" + minutes + ":" + seconds;
+							Time=String.format("%02d", hours) + ":" + String.format("%02d", minutes);
 							ta2.setText(Time);
+							
+							if(Time.equals(TimeCheck)) {
+								JOptionPane.showMessageDialog(null, "충전 시간을 다 써서 종료됩니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
+								Thread.interrupted();
+								new MainPc();
+								frame.dispose();
+								
+							}
 						} catch (Exception e) {
-						}
+							Thread.currentThread().interrupt();
+							}
 					} else {
 						break;
 					}

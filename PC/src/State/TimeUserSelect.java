@@ -14,8 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import Main.MainPc;
+import NoUser.TimeNoUserLogin;
 import Set.RoundedButton;
-import User.TimeNoUserLogin;
 import User.TimeUserLogin;
 
 public class TimeUserSelect extends JFrame implements ActionListener{

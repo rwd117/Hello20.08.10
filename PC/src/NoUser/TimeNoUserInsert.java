@@ -1,4 +1,4 @@
-package User;
+package NoUser;
 
 import java.awt.Color;
 import java.awt.Font;

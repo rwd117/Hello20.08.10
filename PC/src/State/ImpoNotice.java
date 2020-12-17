@@ -25,7 +25,6 @@ public class ImpoNotice extends JFrame{
 		this.Time=Ti;
 		this.SeatNumber=index;
 		
-		SeatNumber=SeatNumber+1;
 		
 		initialize();
 		
