@@ -122,6 +122,7 @@ public class PCNouserLogin implements ActionListener {
 				JOptionPane.showMessageDialog(null, "좌석을 선택해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 				return;
 			}	else {
+				
 				new PCnouser(PCcombo ,Cardcombo, name);
 				frame.dispose();
 			}

@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,11 +17,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import Db.TimeNoUserInsertDb;
 import Main.MainPc;
 import Set.RoundedButton;
 import State.ImpoNotice;
 
-public class TimeInsert implements MouseListener, ActionListener {
+public class TimeNoUserInsert implements MouseListener, ActionListener {
 
 	private JFrame frame = new JFrame();
 	private JPanel Panel;
@@ -33,22 +33,13 @@ public class TimeInsert implements MouseListener, ActionListener {
 	private JTextArea TA;
 	private String Time, Money;
 	private boolean TAcheck = false;
-	private boolean Check = true;
 	private String UserName;
 	private int index;
-
-	// 회원
-	public TimeInsert(boolean Ch, String Na) {
-		this.Check = Ch;
-		this.UserName = Na;
-		initialize();
-	}
-
-	// 비회원
-	public TimeInsert(boolean Ch, int a) {
-		this.Check = Ch;
-		this.index = a;
-
+	private String Card,nname;
+	
+	public TimeNoUserInsert(String Cardnum,String name) {
+		this.Card=Cardnum;
+		this.nname=name;
 		initialize();
 	}
 
@@ -214,15 +205,12 @@ public class TimeInsert implements MouseListener, ActionListener {
 
 					Clear();
 				} else if (result == JOptionPane.YES_OPTION) {
-					if (Check==true) {
-						new ImpoNotice(Time, UserName);
-						frame.dispose();
-
-					} else if(Check==false){
-						new ImpoNotice(Time, index);
+	//cardnum,name		
+						TimeNoUserInsertDb.Setting(Card,Time,nname);
+						
+						new ImpoNotice(Time, Card);
 						frame.dispose();
 						
-					}
 				}
 
 			} else if (e.getSource().equals(BtnCan)) {
@@ -230,7 +218,7 @@ public class TimeInsert implements MouseListener, ActionListener {
 						JOptionPane.YES_NO_OPTION);
 
 				if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
-
+					
 					Clear();
 
 				} else if (result == JOptionPane.YES_OPTION) {

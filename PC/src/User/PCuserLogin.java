@@ -104,7 +104,6 @@ public class PCuserLogin extends JFrame implements ActionListener {
 				boolean Check = MemberLoginDb.Setting(id, pwd);
 				if (Check) {
 					JOptionPane.showMessageDialog(null, "확인되었습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
-					new TimeInsert(true, Name);
 					frame.dispose();
 					
 				} else if (!Check) {

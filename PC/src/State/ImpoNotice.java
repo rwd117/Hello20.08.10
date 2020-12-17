@@ -19,9 +19,9 @@ public class ImpoNotice extends JFrame{
 	private JScrollPane scrollPane;
 	private JTextArea TA;
 	private String Time,Name;
-	private int SeatNumber;
+	private String SeatNumber;
 	
-	public ImpoNotice(String Ti,int index) {
+	public ImpoNotice(String Ti, String index) {
 		this.Time=Ti;
 		this.SeatNumber=index;
 		
@@ -33,17 +33,17 @@ public class ImpoNotice extends JFrame{
 		
 		Time();
 	}
-	
-	public ImpoNotice(String Ti,String Na) {
-		this.Time=Ti;
-		this.Name=Na;
-		
-		initialize();
-		
-		TA.setText("회원 이름 : "+Name+"\n"+"추가 시간 : " + Time + "\n" + "남은 시간 : " +Time + " 입니다");
-		
-		Time();
-	}
+//	
+//	public ImpoNotice(String Ti, String Na) {
+//		this.Time=Ti;
+//		this.Name=Na;
+//		
+//		initialize();
+//		
+//		TA.setText("회원 이름 : "+Name+"\n"+"추가 시간 : " + Time + "\n" + "남은 시간 : " +Time + " 입니다");
+//		
+//		Time();
+//	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -77,15 +77,12 @@ public class ImpoNotice extends JFrame{
 	private void Time() {
 		Timer time= new Timer();
 		TimerTask timet=new TimerTask() {
-
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				new MainPc();
 				frame.dispose();
-				
 			}
-			
 		};
 		
 		time.schedule(timet, 3000);

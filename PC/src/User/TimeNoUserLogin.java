@@ -10,32 +10,23 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Db.MemberLoginDb;
 import Main.MainPc;
+import Set.AllNum;
 
-public class TimeNoUserLogin implements ActionListener{
+public class TimeNoUserLogin implements ActionListener {
 	private JFrame frame;
-	private JTextField PWDText;
+	private JTextField NameText;
 	private JButton BtnLogin, BtnClear;
 	private JLabel IDlb, Namelb;
 	private JComboBox JCom;
-	private int index;
-	private boolean Check = true;
-	private String Name = "아무개";
-//	private ClientBackGround client=new ClientBackGround();
-//	private PCServerBackGround server=new PCServerBackGround();
-	private String msg;
+	private String[] CardNum;
+	private String Cardcombo="";
 
-	
-	
 	public TimeNoUserLogin() {
-			initialize();
-		}
-
-	
+		initialize();
+	}
 
 	private void initialize() {
 		frame = new JFrame();
@@ -56,19 +47,18 @@ public class TimeNoUserLogin implements ActionListener{
 		Namelb.setFont(new Font("굴림", Font.PLAIN, 20));
 		Namelb.setBounds(212, 303, 184, 33);
 		frame.getContentPane().add(Namelb);
-
-		String[] Combo = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
-				"18", "19", "20" };
-
-		JCom = new JComboBox(Combo);
+		
+		CardNum=AllNum.CardNum(CardNum);
+		
+		JCom = new JComboBox(CardNum);
 		JCom.setBounds(442, 200, 246, 41);
 		frame.getContentPane().add(JCom);
 		JCom.setVisible(true);
-		
-		PWDText = new JTextField();
-		PWDText.setBounds(442, 307, 246, 41);
-		PWDText.selectAll();
-		frame.getContentPane().add(PWDText);
+
+		NameText = new JTextField();
+		NameText.setBounds(442, 307, 246, 41);
+		NameText.selectAll();
+		frame.getContentPane().add(NameText);
 
 		BtnLogin = new JButton("로그인");
 		BtnLogin.setFont(new Font("굴림", Font.PLAIN, 30));
@@ -93,29 +83,35 @@ public class TimeNoUserLogin implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		String name=NameText.getText();
+		
 		if (e.getSource().equals(BtnLogin)) {
-				
-//				client.setGui(this);
-//				client.setCheckUser(id, pwd);
-//				client.Userconnet();
-				frame.dispose();
+			if (Cardcombo.equals(null) || Cardcombo.equals("") || Cardcombo.equals("카드 번호를 골라주세요")) {
+				JOptionPane.showMessageDialog(null, "카드번호 를 선택해 주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else if(name.equals("")||name.equals(null)) {
+				JOptionPane.showMessageDialog(null, "이름을 적어주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else {
+				new TimeNoUserInsert(Cardcombo,name);
+				frame.dispose();	
+			}
+			
 		} else if (e.getSource().equals(BtnClear)) {
-			int result = JOptionPane.showConfirmDialog(null, "홈 화면으로 돌아 가시겠습니까?", "확인 메시지",
-					JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, "홈 화면으로 돌아 가시겠습니까?", "확인 메시지", JOptionPane.YES_NO_OPTION);
 
 			if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
-					Clear();
+				Clear();
 			} else if (result == JOptionPane.YES_OPTION) {
-					new MainPc();
-					frame.dispose();
+				new MainPc();
+				frame.dispose();
 			}
 		} else if (e.getSource().equals(JCom)) {
-		
+			Cardcombo = JCom.getSelectedItem().toString();
 		}
 	}
-	
+
 	public void Clear() {
-		PWDText.setText("");
+		NameText.setText("");
 	}
 }
