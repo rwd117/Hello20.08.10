@@ -1,4 +1,4 @@
-package NoUser;
+package User;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,12 +17,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-import Db.TimeNoUserInsertDb;
+import Db.UserTimeInsertDb;
 import Main.MainPc;
 import Set.RoundedButton;
-import State.NoUserImpoNotice;
+import State.UserImpoNotice;
 
-public class TimeNoUserInsert implements MouseListener, ActionListener {
+public class TimeUserInsert implements MouseListener, ActionListener {
 
 	private JFrame frame = new JFrame();
 	private JPanel Panel;
@@ -35,11 +35,11 @@ public class TimeNoUserInsert implements MouseListener, ActionListener {
 	private boolean TAcheck = false;
 	private String UserName;
 	private int index;
-	private String Card,nname;
+	private String id,pwd;
 	
-	public TimeNoUserInsert(String Cardnum,String name) {
-		this.Card=Cardnum;
-		this.nname=name;
+	public TimeUserInsert(String ID,String PWD) {
+		this.id=ID;
+		this.pwd=PWD;
 		initialize();
 	}
 
@@ -205,10 +205,9 @@ public class TimeNoUserInsert implements MouseListener, ActionListener {
 
 					Clear();
 				} else if (result == JOptionPane.YES_OPTION) {
-	//cardnum,name		
-						TimeNoUserInsertDb.Setting(Card,Time,nname);
-						
-						new NoUserImpoNotice(Time, Card);
+	//id,pwd	
+						String AllTime = UserTimeInsertDb.Setting(id, pwd, Time);
+						new UserImpoNotice(Time,id,AllTime);
 						frame.dispose();
 						
 				}

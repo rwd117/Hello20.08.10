@@ -13,36 +13,27 @@ import javax.swing.border.Border;
 
 import Main.MainPc;
 
-public class ImpoNotice extends JFrame{
+public class UserImpoNotice extends JFrame{
 
 	private JFrame frame = new JFrame();
 	private JScrollPane scrollPane;
 	private JTextArea TA;
-	private String Time,Name;
+	private String Time,Name,Alltime;
 	private String SeatNumber;
 	
-	public ImpoNotice(String Ti, String index) {
+	
+	
+	public  UserImpoNotice(String Ti, String Na,String All) {
 		this.Time=Ti;
-		this.SeatNumber=index;
-		
+		this.Name=Na;
+		this.Alltime=All;
 		
 		initialize();
 		
-		TA.setText("카드 번호 : "+SeatNumber+"\n"+"추가 시간 : " + Time + "\n" + "남은 시간 : " +Time + " 입니다");
+		TA.setText("회원 이름 : "+Name+"\n"+"추가 시간 : " + Time + "\n" + "남은 시간 : " +All + " 입니다");
 		
 		Time();
 	}
-//	
-//	public ImpoNotice(String Ti, String Na) {
-//		this.Time=Ti;
-//		this.Name=Na;
-//		
-//		initialize();
-//		
-//		TA.setText("회원 이름 : "+Name+"\n"+"추가 시간 : " + Time + "\n" + "남은 시간 : " +Time + " 입니다");
-//		
-//		Time();
-//	}
 
 	/**
 	 * Initialize the contents of the frame.

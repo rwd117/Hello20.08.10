@@ -21,6 +21,7 @@ public class IDCheckDb {
 		PreparedStatement pst = null;
 
 		try {
+			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			sql = "select * from Pcme where Pm_id=?";

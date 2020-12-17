@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MemberLoginDb {
+public class UserLoginDb {
 	public static boolean Setting(String id,String pwd) {
 
 		String driver = "oracle.jdbc.OracleDriver";

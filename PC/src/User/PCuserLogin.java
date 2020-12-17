@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Db.MemberLoginDb;
+import Db.UserLoginDb;
 import Main.MainPc;
 
 public class PCuserLogin extends JFrame implements ActionListener {
@@ -101,7 +101,7 @@ public class PCuserLogin extends JFrame implements ActionListener {
 			} else if ((!id.equals("")) && (!id.equals(null)) && (!pwd.equals("")) && (!pwd.equals(null))) {
 
 				// 회원
-				boolean Check = MemberLoginDb.Setting(id, pwd);
+				boolean Check = UserLoginDb.Setting(id, pwd);
 				if (Check) {
 					JOptionPane.showMessageDialog(null, "확인되었습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
 					frame.dispose();
