@@ -15,7 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import Db.Cardadd;
 import Db.NoUserTime;
+import Db.PCseatadd;
 import Main.MainPc;
 
 public class PCnouser implements ActionListener {
@@ -33,13 +35,16 @@ public class PCnouser implements ActionListener {
 	int minutes;
 	int hours;
 	Thread time;
+	private String pccombo;
+	private String cardcombo;
 	
 	public PCnouser(String PCcombo, String Cardcombo, String name) {
 		initialize();
 		test();
 		TimeCheck="00:01";
 				//NoUserTime.Setting(Cardcombo,name);
-		
+		this.pccombo=PCcombo;
+		this.cardcombo=Cardcombo;
 		
 		ta.setText(PCcombo + "번 자리" + "\n" + Cardcombo + "번 " + name + "님이 사용중입니다.");
 		ta1.setText(TimeCheck);
@@ -132,6 +137,8 @@ public class PCnouser implements ActionListener {
 			if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {
+				Cardadd.Setting(cardcombo);
+				PCseatadd.Setting(pccombo);
 				new MainPc();
 				frame.dispose();
 			}

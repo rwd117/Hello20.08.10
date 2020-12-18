@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import Db.PCseatsub;
 import Db.UserLoginDb;
 import Main.MainPc;
 import Set.AllNum;
@@ -25,8 +27,9 @@ public class PCuserLogin extends JFrame implements ActionListener {
 	private JButton BtnLogin, BtnClear;
 	private JLabel IDlb, PWDlb, pcseat;
 	private JComboBox Jcom;
-	private String Seat[];
 	private String Pccombo;
+	private ArrayList<String> PCNum;
+	private String PC[];
 //	private ClientBackGround client=new ClientBackGround();
 //	private PCServerBackGround server=new PCServerBackGround();
 
@@ -60,9 +63,10 @@ public class PCuserLogin extends JFrame implements ActionListener {
 		PWDlb.setBounds(212, 303, 184, 33);
 		frame.getContentPane().add(PWDlb);
 
-		Seat = AllNum.PCNum(Seat);
-
-		Jcom = new JComboBox(Seat);
+		PCNum=AllNum.PCNum(PCNum);
+		PC=PCNum.toArray(new String[PCNum.size()]);
+		
+		Jcom = new JComboBox(PC);
 		Jcom.setBounds(442, 101, 246, 41);
 		frame.getContentPane().add(Jcom);
 		Jcom.setVisible(true);
@@ -125,9 +129,10 @@ public class PCuserLogin extends JFrame implements ActionListener {
 				boolean Check = UserLoginDb.Setting(id, pwd);
 				if (Check) {
 					JOptionPane.showMessageDialog(null, "확인되었습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
+					PCseatsub.Setting(Pccombo);
 					new PCuser(Pccombo,id);
 					frame.dispose();
-
+					
 				} else if (!Check) {
 					JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 				}

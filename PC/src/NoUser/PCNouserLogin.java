@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,7 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Db.Cardsub;
 import Db.NoUserCheck;
+import Db.PCseatsub;
 import Main.MainPc;
 import Set.AllNum;
 
@@ -29,8 +32,10 @@ public class PCNouserLogin implements ActionListener {
 //	private String msg;
 	private String Cardcombo="";
 	private String PCcombo="";
-	private String[] CardNum;
-	private String[] PCNum;
+	private ArrayList<String> CardNum;
+	private String Card[];
+	private ArrayList<String> PCNum;
+	private String PC[];
 
 
 	public PCNouserLogin() {
@@ -64,15 +69,17 @@ public class PCNouserLogin implements ActionListener {
 		frame.getContentPane().add(Namelb);
 		
 		PCNum=AllNum.PCNum(PCNum);
+		PC=PCNum.toArray(new String[PCNum.size()]);
 		
-		JCom1=new JComboBox(PCNum);
+		JCom1=new JComboBox(PC);
 		JCom1.setBounds(442, 121, 246, 41);
 		frame.getContentPane().add(JCom1);
 		JCom1.setVisible(true);
 		
 		CardNum=AllNum.CardNum(CardNum);
+		Card=CardNum.toArray(new String[CardNum.size()]);
 		
-		JCom = new JComboBox(CardNum);
+		JCom = new JComboBox(Card);
 		JCom.setBounds(442, 222, 246, 41);
 		frame.getContentPane().add(JCom);
 		JCom.setVisible(true);
@@ -128,6 +135,8 @@ public class PCNouserLogin implements ActionListener {
 				
 				if(flag) {
 //					String Time=
+					PCseatsub.Setting(PCcombo);
+					Cardsub.Setting(Cardcombo);
 					new PCnouser(PCcombo ,Cardcombo, name);
 					frame.dispose();
 				}else if(!flag) {

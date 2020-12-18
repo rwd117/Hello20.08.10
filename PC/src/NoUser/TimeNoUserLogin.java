@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +22,8 @@ public class TimeNoUserLogin implements ActionListener {
 	private JButton BtnLogin, BtnClear;
 	private JLabel IDlb, Namelb;
 	private JComboBox JCom;
-	private String[] CardNum;
+	private ArrayList<String> CardNum;
+	private String Card[];
 	private String Cardcombo="";
 
 	public TimeNoUserLogin() {
@@ -49,8 +51,9 @@ public class TimeNoUserLogin implements ActionListener {
 		frame.getContentPane().add(Namelb);
 		
 		CardNum=AllNum.CardNum(CardNum);
+		Card=CardNum.toArray(new String[CardNum.size()]);
 		
-		JCom = new JComboBox(CardNum);
+		JCom = new JComboBox(Card);
 		JCom.setBounds(442, 200, 246, 41);
 		frame.getContentPane().add(JCom);
 		JCom.setVisible(true);

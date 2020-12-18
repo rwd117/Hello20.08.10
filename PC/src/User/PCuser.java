@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import Db.PCseatadd;
 import Db.UserTimeCalDb;
 import Db.UserTimeDb;
 import Main.MainPc;
@@ -34,11 +35,13 @@ public class PCuser implements ActionListener{
 	int hours;
 	private String ID;
 	Thread time;
+	private String pccombo;
 	
 	public PCuser (String PCcombo, String Id) {
 		initialize();
 		test();
 		this.ID=Id;
+		this.pccombo=PCcombo;
 		
 		TimeCheck=UserTimeDb.Setting(PCcombo,ID);
 		
@@ -135,7 +138,7 @@ public class PCuser implements ActionListener{
 			} else if (result == JOptionPane.YES_OPTION) {
 				//id로 읽고 Time가 실시간,TimeCheck 가 총 충전시간
 				UserTimeCalDb.Setting(ID, TimeCheck, Time);
-				
+				PCseatadd.Setting(pccombo);
 				new MainPc();
 				frame.dispose();
 			}
