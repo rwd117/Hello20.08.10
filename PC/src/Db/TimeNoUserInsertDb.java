@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TimeNoUserInsertDb {
-	
+	//비회원이 시간추가 했을시 그것을 기록하는 데이터베이스
 	public static int Setting(String Card, String Time, String name) {
 
 		String driver = "oracle.jdbc.OracleDriver";

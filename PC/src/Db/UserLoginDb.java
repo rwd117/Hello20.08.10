@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserLoginDb {
+	//유저가 로그인 할때 체크하는 db
 	public static boolean Setting(String id,String pwd) {
 
 		String driver = "oracle.jdbc.OracleDriver";

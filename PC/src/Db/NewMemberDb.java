@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class NewMemberDb {
-
+//회원가입 데이터베이스
 	public static void Setting(String id, String pwd, String name, String tel) {
 
 		String driver = "oracle.jdbc.OracleDriver";

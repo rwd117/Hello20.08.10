@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TimeNoUserDb {
+	//시간 클릭했을시 불러내는 db
 	public static boolean Setting(String time) {
 
 		String driver = "oracle.jdbc.OracleDriver";

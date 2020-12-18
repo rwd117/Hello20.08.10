@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NoUserCheck {
-	
+//비회원이 로그인시 이름이 일치할시 로그인할수있도록
 	public static boolean Setting(String Card, String name) {
 
 		String driver = "oracle.jdbc.OracleDriver";

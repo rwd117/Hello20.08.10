@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserTimeInsertDb {
-
+//유저의 시간 추가 시의 데이터베이스
 	public static String Setting(String ID, String PWD, String Time) {
 		String driver = "oracle.jdbc.OracleDriver";
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";

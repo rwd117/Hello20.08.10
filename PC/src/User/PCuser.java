@@ -1,10 +1,9 @@
-package NoUser;
+package User;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,11 +14,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-import Db.NoUserTime;
+import Db.UserTimeCalDb;
+import Db.UserTimeDb;
 import Main.MainPc;
 
-public class PCnouser implements ActionListener {
-
+public class PCuser implements ActionListener{
+	
 	private JFrame frame;
 	private JLabel Cardnum;
 	private JLabel TimeInsert;
@@ -32,16 +32,17 @@ public class PCnouser implements ActionListener {
 	int seconds;
 	int minutes;
 	int hours;
+	private String ID;
 	Thread time;
 	
-	public PCnouser(String PCcombo, String Cardcombo, String name) {
+	public PCuser (String PCcombo, String Id) {
 		initialize();
 		test();
-		TimeCheck="00:01";
-				//NoUserTime.Setting(Cardcombo,name);
+		this.ID=Id;
 		
+		TimeCheck=UserTimeDb.Setting(PCcombo,ID);
 		
-		ta.setText(PCcombo + "번 자리" + "\n" + Cardcombo + "번 " + name + "님이 사용중입니다.");
+		ta.setText(PCcombo + "번 자리" + "\n" + Id +  "님이 사용중입니다.");
 		ta1.setText(TimeCheck);
 		
 	}
@@ -58,7 +59,7 @@ public class PCnouser implements ActionListener {
 
 		Border emptyBorder = BorderFactory.createEmptyBorder(7, 7, 7, 7);
 
-		Cardnum = new JLabel("자리 및 카드 번호");
+		Cardnum = new JLabel("자리  번호 및 ID");
 		Cardnum.setBounds(43, 47, 139, 40);
 		frame.getContentPane().add(Cardnum);
 
@@ -130,8 +131,11 @@ public class PCnouser implements ActionListener {
 			int result = JOptionPane.showConfirmDialog(null, "사용 종료를 하시겠습니까?", "확인 메시지", JOptionPane.YES_NO_OPTION);
 
 			if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
-
+				
 			} else if (result == JOptionPane.YES_OPTION) {
+				//id로 읽고 Time가 실시간,TimeCheck 가 총 충전시간
+				UserTimeCalDb.Setting(ID, TimeCheck, Time);
+				
 				new MainPc();
 				frame.dispose();
 			}

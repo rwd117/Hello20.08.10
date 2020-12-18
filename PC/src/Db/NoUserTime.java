@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NoUserTime {
-
+//비회원 카드 일치할시 시간 불러내기
 	public static String Setting(String Card, String name) {
 
 		String driver = "oracle.jdbc.OracleDriver";
