@@ -145,8 +145,6 @@ public class PCnouser implements ActionListener {
 
 	public void test() {
 		state = true;
-		
-		
 		time = new Thread() {
 			public void run() {
 
@@ -174,6 +172,8 @@ public class PCnouser implements ActionListener {
 							
 						} catch (InterruptedException e) {
 							JOptionPane.showMessageDialog(null, "충전 시간을 다 써서 종료됩니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
+							PCSeatDb.PCSeatAdd(pccombo);
+							CardDb.Cardadd(cardcombo);
 							new MainPc();
 							frame.dispose();
 							return;
