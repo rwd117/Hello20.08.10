@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import Main.MainPc;
+import User.PCuser;
 
 public class UserImpoNotice extends JFrame{
 
@@ -35,9 +36,6 @@ public class UserImpoNotice extends JFrame{
 		Time();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(245, 245, 245));
@@ -78,4 +76,5 @@ public class UserImpoNotice extends JFrame{
 		time.schedule(timet, 3000);
 		
 	}
+
 }
