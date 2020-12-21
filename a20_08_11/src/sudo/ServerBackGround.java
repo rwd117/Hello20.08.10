@@ -1,4 +1,4 @@
-package Chat;
+package sudo;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,18 +10,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ServerBackGround2 {
+public class ServerBackGround {
 
 	private ServerSocket serversocket;
 	private Socket socket;
-	private ServerGUI gui;
+	private test2 gui;
 	private String msg;
 	private String nick;
 	//사용자들 정보 저장
 	private Map<String, DataOutputStream> clientMap = new HashMap<String, DataOutputStream>();
 
-	public void setGUI(ServerGUI server) {
-		this.gui = server;
+	public void setGUI(test2 test2) {
+		this.gui = test2;
 	}
 
 	public void setting() {
@@ -48,23 +48,23 @@ public class ServerBackGround2 {
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
-		ServerBackGround2 serverbackground = new ServerBackGround2();
-		serverbackground.setting();
-	}
+//
+//	public static void main(String[] args) {
+//		ServerBackGround serverbackground = new ServerBackGround();
+//		serverbackground.setting();
+//	}
 	
-	private void addClient(String nick, DataOutputStream out2) {
-		// TODO Auto-generated method stub
-		sendMessage(nick + "가 접속");
-		clientMap.put(nick, out2);
-		
-	}
-	//해당하는 사람의 이름을 제거 즉 로그아웃
-	public void removeClient(String nick) {
-		sendMessage(nick + "가 로그아웃 ");
-		clientMap.remove(nick);
-	}
+//	private void addClient(String nick, DataOutputStream out2) {
+//		// TODO Auto-generated method stub
+//		sendMessage(nick + "가 접속");
+//		clientMap.put(nick, out2);
+//		
+//	}
+//	//해당하는 사람의 이름을 제거 즉 로그아웃
+//	public void removeClient(String nick) {
+//		sendMessage(nick + "가 로그아웃 ");
+//		clientMap.remove(nick);
+//	}
 
 	public void sendMessage(String msg) {
 		// TODO Auto-generated method stub
@@ -106,8 +106,8 @@ public class ServerBackGround2 {
 				in = new DataInputStream(socket.getInputStream());
 				
 				//이름 읽기, 후에 데이터베이스로
-				nick=in.readUTF();
-				addClient(nick, out);
+//				nick=in.readUTF();
+//				addClient(nick, out);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -122,13 +122,12 @@ public class ServerBackGround2 {
 					while (in != null) {
 					msg = in.readUTF();
 					sendMessage(msg);//메시지 보내버리기
-					gui.appendMsg(msg); 
 					//1인용일때 쓰던거 1:1
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//접속 종료시 에러가 남,그러므로 제거해줌
-				removeClient(nick);
+//				removeClient(nick);
 			}
 
 			super.run();

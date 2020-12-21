@@ -1,4 +1,4 @@
-package chatting;
+package Net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,11 @@ public class ChatThread extends Thread  {
 	
 	PrintWriter out;
 	BufferedReader in;
-	 
+	
+	public ChatThread() {
+		super("ChatThread");
+	}
+	
 	public ChatThread(ChatServer server, Socket socket) {
 		super("ChatThread");
 		

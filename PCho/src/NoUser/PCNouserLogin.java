@@ -134,9 +134,16 @@ public class PCNouserLogin implements ActionListener {
 				if(flag) {
 //					String Time=
 					PCSeatDb.PCSeatSub(PCcombo);
-					 CardDb.Cardsub(Cardcombo);
-					new PCnouser(PCcombo ,Cardcombo, name);
-					frame.dispose();
+					CardDb.Cardsub(Cardcombo);
+					String TimeCheck = NoUserDb.NoUserTime(Cardcombo,name);
+					if(TimeCheck.equals(null)||TimeCheck.equals("00:00")||TimeCheck.equals("")) {
+						JOptionPane.showMessageDialog(null, "시간 충전 후에 사용 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+					else {
+						new PCnouser(PCcombo ,Cardcombo, name);
+						frame.dispose();
+					}
 				}else if(!flag) {
 					JOptionPane.showMessageDialog(null, "이름과 카드번호를 다시 확인 해주세요", "알림 창", JOptionPane.WARNING_MESSAGE);
 					return;

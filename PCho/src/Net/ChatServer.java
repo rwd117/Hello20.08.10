@@ -1,8 +1,9 @@
-package chatting;
+package Net;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Vector;
+
 
 public class ChatServer {
 	Vector clientVector=new Vector();
@@ -53,14 +54,10 @@ public class ChatServer {
 				client.start();
 				myServer.addClinet(client);
 				
-				myServer.clientNum++;
-				System.out.println("[현재 접속자 수]"+myServer.clientNum+"명");
 			}
 		}catch(IOException e) {
 			System.out.println(e.toString());
 		}
-		
-		
 		
 		
 		

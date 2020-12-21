@@ -1,21 +1,22 @@
-package Chat;
+package sudo;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ClientBackGround2 {
+public class ClientBackGround {
 	
 	Socket socket;
 	DataInputStream in;
 	DataOutputStream out;
-	ClientGUI gui;
+	test2 gui;
+	test3 gui2;
 	String msg;
 	private String nickName;
 	
-	public void setGui(ClientGUI gui) {
-		this.gui = gui;
+	public void setGui(test2 test2) {
+		this.gui = test2;
 	}
 
 	public void connet() {
@@ -31,7 +32,7 @@ public class ClientBackGround2 {
 			while(in!=null) {
 				msg=in.readUTF();
 				//서버에서 온거 읽음
-				gui.appendMsg(msg);
+				gui2.appendMsg(msg);
 				//클라이언트 gui로
 				//그런데 클라이언트 에서 서버로 말을 못검
 				//쓰레드로 그걸 해결
@@ -46,7 +47,7 @@ public class ClientBackGround2 {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ClientBackGround2 clientbackground=new ClientBackGround2();
+		ClientBackGround clientbackground=new ClientBackGround();
 		clientbackground.connet();
 	}
 
