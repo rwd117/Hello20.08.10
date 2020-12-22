@@ -22,7 +22,7 @@ public class NewMemberDb {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
-			sql = "insert into Pcme(Pm_id,Pm_pwd,Pm_name,Pm_tel) values(?,?,?,?)";
+			sql = "insert into Pcme(Pm_id,Pm_pwd,Pm_name,Pm_tel,pm_state) values(?,?,?,?,'·Î±×¾Æ¿ô')";
 
 			pst = con.prepareStatement(sql);
 

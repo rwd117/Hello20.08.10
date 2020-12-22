@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,7 +31,7 @@ public class PCuser implements ActionListener{
 	private JLabel Timer;
 	private JButton BtnExit;
 	private JTextArea ta;
-	private static JTextArea ta1;
+	private JTextArea ta1;
 	private JTextArea ta2;
 	boolean state = true;
 	private String Time;
@@ -37,12 +42,26 @@ public class PCuser implements ActionListener{
 	private String ID;
 	Thread time;
 	private String pccombo;
+	Socket mySocket=null;
+	PrintWriter out=null;
+	BufferedReader in=null;
+	Thread clock;
 	
 	public PCuser (String PCcombo, String Id) {
-		initialize();
-		test();
+		
 		this.ID=Id;
 		this.pccombo=PCcombo;
+		
+		try {
+			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
+			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
+			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		initialize();
+		test();
 		
 		TimeCheck=UserDb.UserTimeDb(PCcombo,ID);
 		
@@ -51,13 +70,12 @@ public class PCuser implements ActionListener{
 		
 	}
 	
-	public static void TimeCh(String msg) {
-		ta1.setText(msg);
-	}
+	public void Time(String Time) {
+		this.TimeCheck=Time;
+		ta1.setText(TimeCheck);
+	} 
 	
 	private void initialize() {
-		
-		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 496, 339);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,7 +148,33 @@ public class PCuser implements ActionListener{
 		ta2.setFont(new Font("Monospaced", Font.BOLD, 15));
 		ta2.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
 		sp2.setViewportView(ta2);
-
+		
+		if(clock==null) {
+			clock=new Thread() {
+				public void run() {
+					try {
+						while(true) {
+							out.println("LOGIN|"+ID);
+							sleep(1000);
+							String msg=in.readLine();
+							if(!msg.equals("")&&!msg.equals(null)) {
+								System.out.println("여기는 유~"+msg);
+								TimeCheck=msg;
+								ta1.repaint();
+								ta1.revalidate();
+								ta1.setText(TimeCheck);
+							} 
+						}
+						
+					}catch(Exception e) {
+					
+					}
+				}
+			};
+			clock.start();
+		}
+		
+		
 		BtnExit.addActionListener(this);
 	}
 
@@ -144,8 +188,22 @@ public class PCuser implements ActionListener{
 				
 			} else if (result == JOptionPane.YES_OPTION) {
 				//id로 읽고 Time가 실시간,TimeCheck 가 총 충전시간
+				if((clock!=null)&&(clock.isAlive())) {
+					clock=null;
+				}
+				
+				out.println("LOGOUT|");
+				out.flush();
+				try {
+					out.close();
+					in.close();
+					mySocket.close();
+				}catch(Exception e1) {
+				
+				}
 				UserDb.UserTimesub(ID, TimeCheck, Time);
 				PCSeatDb.PCSeatAdd(pccombo);
+				UserDb.Usersub(ID);
 				new MainPc();
 				frame.dispose();
 			}
@@ -154,8 +212,6 @@ public class PCuser implements ActionListener{
 
 	public void test() {
 		state = true;
-		
-		
 		time = new Thread() {
 			public void run() {
 
@@ -184,6 +240,7 @@ public class PCuser implements ActionListener{
 						} catch (InterruptedException e) {
 							JOptionPane.showMessageDialog(null, "충전 시간을 다 써서 종료됩니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
 							PCSeatDb.PCSeatAdd(pccombo);
+							UserDb.Usersub(ID);
 							new MainPc();
 							frame.dispose();
 							return;

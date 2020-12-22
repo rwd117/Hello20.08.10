@@ -7,6 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -35,9 +40,11 @@ public class TimeUserInsert implements MouseListener, ActionListener {
 	private boolean TAcheck = false;
 	private String id,pwd;
 	
+	
 	public TimeUserInsert(String ID,String PWD) {
 		this.id=ID;
 		this.pwd=PWD;
+	
 		initialize();
 	}
 
@@ -173,7 +180,7 @@ public class TimeUserInsert implements MouseListener, ActionListener {
 		TA.setText("");
 
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (TAcheck == false) {
@@ -186,8 +193,9 @@ public class TimeUserInsert implements MouseListener, ActionListener {
 					Clear();
 
 				} else if (result == JOptionPane.YES_OPTION) {
-
+					
 					new MainPc();
+				
 					frame.dispose();
 				}
 
@@ -206,6 +214,8 @@ public class TimeUserInsert implements MouseListener, ActionListener {
 	//id,pwd	
 						String AllTime = UserDb.UserTimeInsert(id, pwd, Time);
 						new UserImpoNotice(Time,id,AllTime);
+						
+						
 						frame.dispose();
 						
 				}
@@ -219,7 +229,7 @@ public class TimeUserInsert implements MouseListener, ActionListener {
 					Clear();
 
 				} else if (result == JOptionPane.YES_OPTION) {
-
+					
 					new MainPc();
 					frame.dispose();
 				}

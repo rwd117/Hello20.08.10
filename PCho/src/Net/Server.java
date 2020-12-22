@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Vector;
 
+import Db.UserDb;
+
 
 public class Server {
+	
 	Vector clientVector=new Vector();
 	int clientNum=0;
+	
 	//여기에 db를 연결해서 서버가 db를 관리한다.		
 	public void broadcast(String msg) throws IOException
 	{
@@ -35,11 +39,19 @@ public class Server {
 		}
 	}
 	
-	public static String UserTimeServerDb(String ID,String PWD) {
-		
-		
-		return null;
+	public String UserTimeServerDb(String ID) {
+		String Time = UserDb.UserTimeCheck(ID);
+		System.out.println("여기는 써버 : "+Time);
+		return Time;
 	}
+	
+	public String UserLoginCheck(String ID) {
+		String state =UserDb.UserLoginCheck(ID);
+		
+		String Time=UserDb.UserTimeCheck(ID);
+			
+		return Time;
+	} 
 	
 	public static void main(String[] args) {
 		ServerSocket myServerSocket=null;

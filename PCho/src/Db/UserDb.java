@@ -312,5 +312,143 @@ public class UserDb {
 		return Timesend;
 	}
 
-	
+	public static String UserTimeCheck(String ID) {
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+		String Time = "";
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+
+			sql = "select Pm_time from PCme where pm_id=?";
+			;
+			pst = con.prepareStatement(sql);
+			pst.setString(1, ID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Time = rs.getString("pm_time");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return Time;
+	}
+
+	public static void Useradd(String id) {
+
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			sql = "update pcme set pm_state='로그인' where pm_id=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			pst.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void Usersub(String id) {
+
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			sql = "update pcme set pm_state='로그아웃' where pm_id=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			pst.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static String UserLoginCheck(String id) {
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+		String state="";
+		
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs=null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			sql = "select pm_state from Pcme where pm_id=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				state=rs.getString("pm_state");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return state;
+	}
 }

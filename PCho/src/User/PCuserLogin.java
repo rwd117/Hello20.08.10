@@ -130,6 +130,7 @@ public class PCuserLogin extends JFrame implements ActionListener {
 				if (Check) {
 					JOptionPane.showMessageDialog(null, "확인되었습니다.", "알림 창", JOptionPane.WARNING_MESSAGE);
 					PCSeatDb.PCSeatSub(Pccombo);
+					UserDb.Useradd(id);
 					new PCuser(Pccombo,id);
 					frame.dispose();
 					
