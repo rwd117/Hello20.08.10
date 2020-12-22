@@ -35,6 +35,12 @@ public class Server {
 		}
 	}
 	
+	public static String UserTimeServerDb(String ID,String PWD) {
+		
+		
+		return null;
+	}
+	
 	public static void main(String[] args) {
 		ServerSocket myServerSocket=null;
 		Server myServer=new Server();

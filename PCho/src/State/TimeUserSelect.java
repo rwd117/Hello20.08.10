@@ -32,6 +32,8 @@ public class TimeUserSelect extends JFrame implements ActionListener{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(051, 051, 051));
 		frame.setBounds(120, 150, 1600, 800);

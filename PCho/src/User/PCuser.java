@@ -25,7 +25,9 @@ public class PCuser implements ActionListener{
 	private JLabel TimeInsert;
 	private JLabel Timer;
 	private JButton BtnExit;
-	private JTextArea ta, ta1, ta2;
+	private JTextArea ta;
+	private static JTextArea ta1;
+	private JTextArea ta2;
 	boolean state = true;
 	private String Time;
 	private String TimeCheck;
@@ -48,8 +50,14 @@ public class PCuser implements ActionListener{
 		ta1.setText(TimeCheck);
 		
 	}
-
+	
+	public static void TimeCh(String msg) {
+		ta1.setText(msg);
+	}
+	
 	private void initialize() {
+		
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 496, 339);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
