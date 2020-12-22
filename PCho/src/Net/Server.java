@@ -1,9 +1,12 @@
 package Net;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.Vector;
 
+import Db.PCSeatDb;
 import Db.UserDb;
 
 
@@ -45,12 +48,14 @@ public class Server {
 		return Time;
 	}
 	
-	public String UserLoginCheck(String ID) {
-		String state =UserDb.UserLoginCheck(ID);
+	public ArrayList<Integer> SeatCheckDb(){
+		ArrayList<Integer> Seat=new ArrayList<Integer>();
+		ArrayList<Integer> SeatCheck=new ArrayList<Integer>();
 		
-		String Time=UserDb.UserTimeCheck(ID);
-			
-		return Time;
+		Seat=PCSeatDb.PCSeatAll();
+		SeatCheck=PCSeatDb.PCSeatCheck(Seat);
+		
+		return SeatCheck;
 	} 
 	
 	public static void main(String[] args) {

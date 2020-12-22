@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import Db.UserDb;
@@ -85,23 +86,13 @@ public class ServerThread extends Thread {
 			out.flush();
 
 		} else if (command.equals("LOGOUT")) {
-
 			disconnect();
-		} else if (command.equals("INSERTTIME")) {
-			StringTokenizer st2 = new StringTokenizer(Next,",");
-			String AllTime = st2.nextToken();//읽어온 모든시간
-			String ID = st2.nextToken();
-			String UserState=UserDb.UserLoginCheck(ID);//유저가 현재 로그인이냐 아니냐
-			
-			if(UserState.equals("로그인")) {
-				String ReadId = myServer.UserTimeServerDb(ID);
-				
-				
-				out.flush();
-				
-			}else if(UserState.equals("로그아웃")) {
-				//보낼 이유가 없음.
-			}
+		} else if (command.equals("Seat")) {
+			StringTokenizer st2 = new StringTokenizer(Next);
+			ArrayList<Integer> SeatCheck=new ArrayList<Integer>();
+			SeatCheck = myServer.SeatCheckDb();
+			out.println(SeatCheck);
+			out.flush();
 		}
 	}
 }
