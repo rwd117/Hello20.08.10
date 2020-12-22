@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import Db.PCSeatDb;
 import Db.UserDb;
 import User.PCuser;
 
@@ -89,7 +90,11 @@ public class ServerThread extends Thread {
 			disconnect();
 		} else if (command.equals("Seat")) {
 			StringTokenizer st2 = new StringTokenizer(Next);
+			String Seat = st2.nextToken();
+			System.out.println(Seat);
+//			ArrayList<Integer> Seat=new ArrayList<Integer>();
 			ArrayList<Integer> SeatCheck=new ArrayList<Integer>();
+			
 			SeatCheck = myServer.SeatCheckDb();
 			out.println(SeatCheck);
 			out.flush();

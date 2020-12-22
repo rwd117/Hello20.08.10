@@ -33,7 +33,6 @@ public class Seat extends JFrame implements ActionListener{
 	private String Text;
 	private ArrayList<Integer> Seat=new ArrayList<Integer>();
 	private ArrayList<Integer> SeatCheck=new ArrayList<Integer>();
-	private ArrayList<Integer> ServerSeatCheck=new ArrayList<Integer>();
 	
 	Socket mySocket=null;
 	PrintWriter out=null;
@@ -1982,10 +1981,11 @@ public class Seat extends JFrame implements ActionListener{
 				public void run() {
 					try {
 						while(true) {
-							out.println("Seat|");
+							out.println("Seat|"+Seat);
 							sleep(1000);
 							
 							String msg=in.readLine();
+							
 							System.out.println(msg);
 							
 							if(!msg.equals("")&&!msg.equals(null)) {
