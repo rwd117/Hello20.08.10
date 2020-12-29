@@ -13,7 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-public class adminmain extends JFrame implements ActionListener{
+public class Adminmain extends JFrame implements ActionListener{
 	private JFrame frame=new JFrame();
 	private JMenuBar menuBar;
 	private JMenu mnNewMenu, mnNewMenu_1;
@@ -21,7 +21,7 @@ public class adminmain extends JFrame implements ActionListener{
 	private JPanel pan;
 	private Container container;
 	
-	public adminmain() {
+	public Adminmain() {
 		set();
 	}
 
@@ -83,12 +83,14 @@ public class adminmain extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		clear();
+		//Ä«µå
 		if(e.getSource().equals(Item)) {
 			pan = new CardNum(frame);
 		}else if(e.getSource().equals(Item1)) {
 			
+			//¸â¹ö
 		}else if(e.getSource().equals(Item2)) {
-			
+			pan = new Member(frame);
 		}else if(e.getSource().equals(Item3)) {
 			
 		}

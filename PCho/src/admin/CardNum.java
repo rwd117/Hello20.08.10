@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import Db.AdminDb;
 import Main.MainPc;
@@ -32,6 +33,8 @@ public class CardNum extends JPanel implements ActionListener, MouseListener{
 	private Vector<String> v=new Vector<String>();
 	private DefaultTableModel model;
 	private JButton BtnBack;
+	private int col ;
+	private int row ;
 	
 	public CardNum(JFrame frame) {
 		initialize();
@@ -82,27 +85,9 @@ public class CardNum extends JPanel implements ActionListener, MouseListener{
 		this.add(BtnBack);
 		
 		BtnBack.addActionListener(this);
+		table.addMouseListener(this);
 	}
 	
-	public Vector<String> getColumn() {
-		Vector<String> vec=new Vector<String>();
-		vec.addElement("카드 번호");
-		vec.addElement("현재 상태");
-		
-		return vec;
-	}
-	
-	public void setRow(){
-		v=AdminDb.CardSearchDb();
-		for(int i=0; i<v.size();i=i+2)
-		{	
-			Vector<String> row= new Vector<String>();
-			row.addElement(v.get(i));
-			row.addElement(v.get(i+1));
-			model.addRow(row);
-		}
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -114,21 +99,23 @@ public class CardNum extends JPanel implements ActionListener, MouseListener{
 			new MainPc();
 		}
 	}
-
+	
+	
+	public void getRow() {
+		col = 0;
+		row = table.getSelectedRow();
+		Object value=table.getValueAt(row, col);
+		System.out.println(value);
+	}
+	
+	public void getState() {
+		
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int col = table.getSelectedColumn();
-		int row = table.getSelectedRow();
-		if(col==0) {
-			for(int i=0;i<20;i++) {
-				if(row==i) {
-					
-				}
-			}
-			
-		}else if(col==1) {
-			
+		if(e.getClickCount()==2) {
+			getRow();
 		}
 	}
 
@@ -156,5 +143,23 @@ public class CardNum extends JPanel implements ActionListener, MouseListener{
 		
 	}
 	
+	private Vector<String> getColumn() {
+		Vector<String> vec=new Vector<String>();
+		vec.addElement("카드 번호");
+		vec.addElement("현재 상태");
+		
+		return vec;
+	}
 	
+	private void setRow(){
+		v=AdminDb.CardSearchDb();
+		for(int i=0; i<v.size();i=i+2)
+		{	
+			Vector<String> row= new Vector<String>();
+			row.addElement(v.get(i));
+			row.addElement(v.get(i+1));
+			model.addRow(row);
+		}
+	}
+
 }

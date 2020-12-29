@@ -451,4 +451,39 @@ public class UserDb {
 		}
 		return state;
 	}
+
+	public int UserPwdUpdate(String id) {
+		int re=0;
+
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			
+			sql = "update pcme set pm_state='·Î±×ÀÎ' where pm_id=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			pst.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return re;
+	}
 }

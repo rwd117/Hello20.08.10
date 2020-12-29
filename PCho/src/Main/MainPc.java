@@ -17,7 +17,7 @@ import State.LoginSelect;
 import State.Seat;
 import State.TimeUserSelect;
 import User.NewMember;
-import admin.adminmain;
+import admin.Adminmain;
 
 public class MainPc extends JFrame implements ActionListener {
 
@@ -312,7 +312,7 @@ public class MainPc extends JFrame implements ActionListener {
 			new LoginSelect();
 			frame.dispose();
 		} else if (e.getSource() == BtnAdmin) {
-			new adminmain();
+			new Adminmain();
 			frame.dispose();
 		}
 	}
