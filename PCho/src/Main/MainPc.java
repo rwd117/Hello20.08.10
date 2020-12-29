@@ -17,11 +17,12 @@ import State.LoginSelect;
 import State.Seat;
 import State.TimeUserSelect;
 import User.NewMember;
+import admin.adminmain;
 
 public class MainPc extends JFrame implements ActionListener {
 
 	private JFrame frame = new JFrame();
-	private RoundedButton BtnSelect, BtnTime, BtnNewMember, BtnLogin, button_3, BtnCoupon;
+	private RoundedButton BtnSelect, BtnTime, BtnNewMember, BtnLogin, BtnAdmin, BtnCoupon;
 	private int a;
 
 	public static void main(String[] args) {
@@ -247,7 +248,7 @@ public class MainPc extends JFrame implements ActionListener {
 		BtnLogin.setFocusPainted(false);
 		frame.add(BtnLogin);
 
-		button_3 = new RoundedButton("New button") {
+		BtnAdmin = new RoundedButton("관리자 화면") {
 			@Override
 			public void paintComponent(Graphics g) {
 				int width = getWidth();
@@ -281,11 +282,12 @@ public class MainPc extends JFrame implements ActionListener {
 				super.paintComponent(g);
 			}
 		};
-		button_3.setBounds(1087, 423, 300, 300);
-		button_3.setFocusPainted(false);
-		frame.add(button_3);
+		BtnAdmin.setBounds(1087, 423, 300, 300);
+		BtnAdmin.setFont(new Font("굴림", Font.PLAIN, 30));
+		BtnAdmin.setFocusPainted(false);
+		frame.add(BtnAdmin);
 		
-
+		BtnAdmin.addActionListener(this);
 		BtnSelect.addActionListener(this);
 		BtnTime.addActionListener(this);
 		BtnNewMember.addActionListener(this);
@@ -309,8 +311,9 @@ public class MainPc extends JFrame implements ActionListener {
 		} else if (e.getSource() == BtnLogin) {
 			new LoginSelect();
 			frame.dispose();
-		} else if (e.getSource() == button_3) {
-
+		} else if (e.getSource() == BtnAdmin) {
+			new adminmain();
+			frame.dispose();
 		}
 	}
 	

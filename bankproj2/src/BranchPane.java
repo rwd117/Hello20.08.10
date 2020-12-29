@@ -112,6 +112,7 @@ public class BranchPane extends JPanel implements ActionListener, KeyListener, M
 			}
 		};
 		db.disConnect();
+		
 		model.addColumn("수정");
 		model.addColumn("삭제");
 		

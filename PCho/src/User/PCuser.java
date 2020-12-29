@@ -51,15 +51,15 @@ public class PCuser implements ActionListener{
 		
 		this.ID=Id;
 		this.pccombo=PCcombo;
-		
-		try {
-			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
-			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
-			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		
+//		
+//		try {
+//			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
+//			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
+//			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
+//		} catch (Exception e) {
+//			System.out.println(e.toString());
+//		}
+//		
 		initialize();
 		test();
 		
@@ -149,31 +149,31 @@ public class PCuser implements ActionListener{
 		ta2.setBorder(BorderFactory.createCompoundBorder(lineBorder, emptyBorder));
 		sp2.setViewportView(ta2);
 		
-		if(clock==null) {
-			clock=new Thread() {
-				public void run() {
-					try {
-						while(true) {
-							out.println("LOGIN|"+ID);
-							sleep(1000);
-							String msg=in.readLine();
-							if(!msg.equals("")&&!msg.equals(null)) {
-								System.out.println("여기는 유~"+msg);
-								TimeCheck=msg;
-								ta1.repaint();
-								ta1.revalidate();
-								ta1.setText(TimeCheck);
-							} 
-						}
-						
-					}catch(Exception e) {
-					
-					}
-				}
-			};
-			clock.start();
-		}
-		
+//		if(clock==null) {
+//			clock=new Thread() {
+//				public void run() {
+//					try {
+//						while(true) {
+//							out.println("LOGIN|"+ID);
+//							sleep(1000);
+//							String msg=in.readLine();
+//							if(!msg.equals("")&&!msg.equals(null)) {
+//								System.out.println("여기는 유~"+msg);
+//								TimeCheck=msg;
+//								ta1.repaint();
+//								ta1.revalidate();
+//								ta1.setText(TimeCheck);
+//							} 
+//						}
+//						
+//					}catch(Exception e) {
+//					
+//					}
+//				}
+//			};
+//			clock.start();
+//		}
+//		
 		
 		BtnExit.addActionListener(this);
 	}
@@ -188,19 +188,19 @@ public class PCuser implements ActionListener{
 				
 			} else if (result == JOptionPane.YES_OPTION) {
 				//id로 읽고 Time가 실시간,TimeCheck 가 총 충전시간
-				if((clock!=null)&&(clock.isAlive())) {
-					clock=null;
-				}
-				
-				out.println("LOGOUT|");
-				out.flush();
-				try {
-					out.close();
-					in.close();
-					mySocket.close();
-				}catch(Exception e1) {
-				
-				}
+//				if((clock!=null)&&(clock.isAlive())) {
+//					clock=null;
+//				}
+//				
+//				out.println("LOGOUT|");
+//				out.flush();
+//				try {
+//					out.close();
+//					in.close();
+//					mySocket.close();
+//				}catch(Exception e1) {
+//				
+//				}
 				UserDb.UserTimesub(ID, TimeCheck, Time);
 				PCSeatDb.PCSeatAdd(pccombo);
 				UserDb.Usersub(ID);

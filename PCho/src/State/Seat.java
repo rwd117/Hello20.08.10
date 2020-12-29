@@ -44,13 +44,13 @@ public class Seat extends JFrame implements ActionListener{
 		Seat=PCSeatDb.PCSeatAll();
 		SeatCheck=PCSeatDb.PCSeatCheck(Seat);
 		
-		try {
-			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
-			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
-			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
+//		try {
+//			mySocket=new Socket("127.0.0.1",2587);//127.0.0.1
+//			out=new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream(),"KSC5601"),true);
+//			in=new BufferedReader(new InputStreamReader(mySocket.getInputStream(),"KSC5601"),1024);
+//		} catch (Exception e) {
+//			System.out.println(e.toString());
+//		}
 		
 		for(int i=0;i<SeatCheck.size();i++) {
 			int j = SeatCheck.get(i);
@@ -1976,37 +1976,37 @@ public class Seat extends JFrame implements ActionListener{
 		BtnBack.setBounds(1501, 28, 75, 75);
 		frame.add(BtnBack);
 		
-		if(clock==null) {
-			clock=new Thread() {
-				public void run() {
-					try {
-						while(true) {
-							out.println("Seat|"+Seat);
-							sleep(1000);
-							
-							String msg=in.readLine();
-							
-							System.out.println(msg);
-							
-							if(!msg.equals("")&&!msg.equals(null)) {
-								System.out.println("여기는 유~"+msg);
-									
-								for(int i=0;i<SeatCheck.size();i++) {
-									int j = SeatCheck.get(i);
-									Btn[j].disable();
-									Btn[j].setBackground(Color.BLACK);
-								}
-							} 
-						}
-						
-					}catch(Exception e) {
-					
-					}
-				}
-			};
-			clock.start();
-		}
-		
+//		if(clock==null) {
+//			clock=new Thread() {
+//				public void run() {
+//					try {
+//						while(true) {
+//							out.println("Seat|"+Seat);
+//							sleep(1000);
+//							
+//							String msg=in.readLine();
+//							
+//							System.out.println(msg);
+//							
+//							if(!msg.equals("")&&!msg.equals(null)) {
+//								System.out.println("여기는 유~"+msg);
+//									
+//								for(int i=0;i<SeatCheck.size();i++) {
+//									int j = SeatCheck.get(i);
+//									Btn[j].disable();
+//									Btn[j].setBackground(Color.BLACK);
+//								}
+//							} 
+//						}
+//						
+//					}catch(Exception e) {
+//					
+//					}
+//				}
+//			};
+//			clock.start();
+//		}
+//		
 		
 		BtnBack.addActionListener(this);
 		Btn[1].addActionListener(this);
@@ -2058,28 +2058,28 @@ public class Seat extends JFrame implements ActionListener{
 		Btn[48].addActionListener(this);
 	}
 	
-	public void Clientout() {
-		if((clock!=null)&&(clock.isAlive())) {
-			clock=null;
-		}
-		
-		out.println("LOGOUT|");
-		out.flush();
-		try {
-			out.close();
-			in.close();
-			mySocket.close();
-		}catch(Exception e1) {
-		
-		}
-	}
+//	public void Clientout() {
+//		if((clock!=null)&&(clock.isAlive())) {
+//			clock=null;
+//		}
+//		
+//		out.println("LOGOUT|");
+//		out.flush();
+//		try {
+//			out.close();
+//			in.close();
+//			mySocket.close();
+//		}catch(Exception e1) {
+//		
+//		}
+//	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 			
 		if(e.getActionCommand().equals("홈")) {
-			Clientout();
+			//Clientout();
 			new MainPc();
 			frame.dispose();
 
