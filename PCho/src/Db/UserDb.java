@@ -14,14 +14,14 @@ public class UserDb {
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 		String user = "system";
 		String password = "123456";
-		String sql = null;
+		String sql = null;	
 		String pwdCheck = "";
 
 		boolean flag = false;
 
 		Connection con = null;
 		PreparedStatement pst = null;
-		ResultSet rs = null;
+		ResultSet rs = null;	
 
 		try {
 			Class.forName(driver);
@@ -369,8 +369,7 @@ public class UserDb {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, id);
 			pst.executeUpdate();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -401,8 +400,7 @@ public class UserDb {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, id);
 			pst.executeUpdate();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -421,25 +419,25 @@ public class UserDb {
 		String user = "system";
 		String password = "123456";
 		String sql = null;
-		String state="";
-		
+		String state = "";
+
 		Connection con = null;
 		PreparedStatement pst = null;
-		ResultSet rs=null;
-		
+		ResultSet rs = null;
+
 		try {
-			
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			sql = "select pm_state from Pcme where pm_id=?";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, id);
 			rs = pst.executeQuery();
-			
-			while(rs.next()) {
-				state=rs.getString("pm_state");
+
+			while (rs.next()) {
+				state = rs.getString("pm_state");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -452,8 +450,8 @@ public class UserDb {
 		return state;
 	}
 
-	public int UserPwdUpdate(String id) {
-		int re=0;
+	public int UserstateUpdate(String id) {
+		int re = 0;
 
 		String driver = "oracle.jdbc.OracleDriver";
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
@@ -467,13 +465,12 @@ public class UserDb {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
-			
+
 			sql = "update pcme set pm_state='·Î±×ÀÎ' where pm_id=?";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, id);
 			pst.executeUpdate();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -486,4 +483,77 @@ public class UserDb {
 
 		return re;
 	}
+
+	public static int UserCheck(String id, String name) {
+
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs;
+		int re = 0;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			sql = "select Pm_name from pcme where pm_id=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+
+				if (rs.getString(1).equals(name)) {
+					re = 1;
+				}
+				else {
+					re = 0;
+				}
+			}
+
+			rs.close();
+			pst.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return re;
+	}
+
+	public static void Pwdupdate(String id, String pwd) {
+
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			sql = "update pcme set Pm_pwd=? where pm_id=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, pwd);
+			pst.setString(2, id);
+			
+			pst.executeUpdate();
+			
+			pst.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

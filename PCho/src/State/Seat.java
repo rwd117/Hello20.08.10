@@ -41,7 +41,7 @@ public class Seat extends JFrame implements ActionListener{
 	
 	public Seat() {
 		initialize();
-		Seat=PCSeatDb.PCSeatAll();
+		Seat=PCSeatDb.PCSeatAll();	
 		SeatCheck=PCSeatDb.PCSeatCheck(Seat);
 		
 //		try {

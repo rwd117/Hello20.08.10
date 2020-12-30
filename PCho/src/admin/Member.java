@@ -49,7 +49,7 @@ public class Member extends JPanel implements ActionListener, MouseListener {
 		scrollPane.setBounds(12, 134, 1560, 525);
 		this.add(scrollPane);
 		// 컬럼 설정
-		model = new DefaultTableModel(getColumn(), 0) {
+		model = new DefaultTableModel(getColumn(), 0) {	
 			public boolean isCellEditable(int row, int column) {
 				if (column < this.getColumnCount()) {
 					return false;
@@ -194,7 +194,7 @@ public class Member extends JPanel implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+ 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub

@@ -17,18 +17,19 @@ import Main.MainPc;
 import NoUser.PCNouserLogin;
 import Set.RoundedButton;
 import User.PCuserLogin;
+import User.PwdUpdate;
 
 public class LoginSelect extends JFrame implements ActionListener{
 
 	private RoundedButton BtnUser, BtnNoUser;
 	private JFrame frame = new JFrame();
-	private JButton BtnBack ;
+	private JButton BtnBack,BtnPwd ;
 	
 	public LoginSelect() {
 		initialize();
 	}
 
-	/**
+	/**	
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
@@ -41,7 +42,7 @@ public class LoginSelect extends JFrame implements ActionListener{
 		BtnUser = new RoundedButton("\uD68C\uC6D0"){
 			@Override
 			public void paintComponent(Graphics g) {
-				int width = getWidth();
+				int width = getWidth();	
 				int height = getHeight();
 				Graphics2D graphics = (Graphics2D) g;
 
@@ -119,6 +120,11 @@ public class LoginSelect extends JFrame implements ActionListener{
 		BtnBack.setBounds(1501, 28, 75, 75);
 		frame.getContentPane().add(BtnBack);
 		
+		BtnPwd = new JButton("비밀번호 변경");
+		BtnPwd.setBounds(10,10,150,75);
+		frame.add(BtnPwd);
+		
+		BtnPwd.addActionListener(this);
 		BtnBack.addActionListener(this);
 		BtnUser.addActionListener(this);
 		BtnNoUser.addActionListener(this);
@@ -136,6 +142,8 @@ public class LoginSelect extends JFrame implements ActionListener{
 		}else if(e.getActionCommand().equals("홈")) {
 			new MainPc();
 			frame.dispose();
+		}else if(e.getSource().equals(BtnPwd)) {
+			new PwdUpdate();
 		}
 	}
 }

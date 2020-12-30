@@ -252,7 +252,7 @@ public class MainPc extends JFrame implements ActionListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				int width = getWidth();
-				int height = getHeight();
+				int height = getHeight();	
 				Graphics2D graphics = (Graphics2D) g;
 
 				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

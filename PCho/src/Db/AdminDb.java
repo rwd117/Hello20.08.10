@@ -175,6 +175,61 @@ public class AdminDb {
 		return v;
 	}
 
+	public static Vector<String> NoUserSearchDb() {
+		//카드 숫자 읽어서 사용 중이면 제거하기 위한 db
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+		String user = "system";
+		String password = "123456";
+		String sql = null;
+
+		Vector<String> v = new Vector<String>(); 
+		
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+
+			sql = "select * from PCnome";
+
+			pst = con.prepareStatement(sql);
+			
+			rs=pst.executeQuery();
+			
+			if(rs != null) {
+				
+				while(rs.next()) {
+					
+					String code=rs.getString("nm_code");
+					v.addElement(code);
+					String carnum=rs.getString("nm_Carnum");
+					v.addElement(carnum);
+					String time=rs.getString("nm_Time");
+					v.addElement(time);
+					String name=rs.getString("nm_Name");
+					v.addElement(name);
+				}
+				
+			}else {
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return v;
+	}
+	
 	public static void MemPwdUpdate(String Id,String Pwd) {
 		//카드 숫자 읽어서 사용 중이면 제거하기 위한 db
 		String driver = "oracle.jdbc.OracleDriver";

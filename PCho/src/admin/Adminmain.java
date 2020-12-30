@@ -72,7 +72,7 @@ public class Adminmain extends JFrame implements ActionListener{
 		Item2.addActionListener(this);
 		Item3.addActionListener(this);
 		
-	}
+	} 
 	
 	public void clear() {
 		container.removeAll();
@@ -91,7 +91,7 @@ public class Adminmain extends JFrame implements ActionListener{
 		}else if(e.getSource().equals(Item2)) {
 			pan = new Member(frame);
 		}else if(e.getSource().equals(Item3)) {
-			
+			pan = new NoUser(frame);
 		}
 		pan.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(pan);
