@@ -87,8 +87,7 @@ public class Adminmain extends JFrame implements ActionListener{
 		if(e.getSource().equals(Item)) {
 			pan = new CardNum(frame);
 		}else if(e.getSource().equals(Item1)) {
-			
-			//¸â¹ö
+			pan = new SeatNum(frame);
 		}else if(e.getSource().equals(Item2)) {
 			pan = new Member(frame);
 		}else if(e.getSource().equals(Item3)) {

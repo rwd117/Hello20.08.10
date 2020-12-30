@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -24,7 +23,7 @@ import javax.swing.table.TableColumnModel;
 import Db.AdminDb;
 import Main.MainPc;
 
-public class Member extends JPanel implements ActionListener, MouseListener {
+public class SeatNum extends JPanel implements ActionListener, MouseListener {
 
 	private JFrame jframe;
 	private JTable table;
@@ -35,7 +34,7 @@ public class Member extends JPanel implements ActionListener, MouseListener {
 	private int col;
 	private int row;
 
-	public Member(JFrame frame) {
+	public SeatNum(JFrame frame) {
 		initialize();
 		this.jframe = frame;
 	}
@@ -106,41 +105,8 @@ public class Member extends JPanel implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) {
-			getRowCount();// 더블클릭하면 아이디 값을 받아냄 데이터베이스에 보낸후 확인 창 뜬후 그 확인을 누르면 랜덤으로 숫자가 업데이트 되면서 한다.
-			int result = JOptionPane.showConfirmDialog(null, getRowCount() + "님의 비밀번호를 바꾸시겠습니까?", "확인 메시지",
-					JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
-
-			} else if (result == JOptionPane.YES_OPTION) {
-				// JOptionPane.INFORMATION_MESSAGE(null,)
-				String NewPwd=getPwd();
-				String Id= (String) getRowCount();
-				JOptionPane.showMessageDialog(null,Id+"님의 비밀번호는"+NewPwd+"입니다.");
-				AdminDb.MemPwdUpdate(Id, NewPwd);
-				ClearRow();
-				setRow();
-				table.revalidate();
-				table.repaint();
-				
+							
 			}
-		}
-	}
-
-	public String getPwd() {
-		 int index = 0;
-		    char[] charArr = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
-		    'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
-		    'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-		    'w', 'x', 'y', 'z' };
-		 
-		    StringBuffer sb = new StringBuffer();
-		 
-		    for (int i = 0; i < 6; i++) {
-		        index = (int) (charArr.length * Math.random());
-		        sb.append(charArr[index]);
-		    }
-		 
-		    return sb.toString();
 	}
 
 	public Object getRowCount() {
@@ -151,35 +117,21 @@ public class Member extends JPanel implements ActionListener, MouseListener {
 		return value;
 	}
 	
-	private void ClearRow(){
-		for(int i=0; i<model.getRowCount();i++) {
-			model.removeRow(i);
-		}
-	}
-	
 	private Vector<String> getColumn() {
 		Vector<String> vec = new Vector<String>();
-		vec.addElement("아이디");
-		vec.addElement("비밀번호");
-		vec.addElement("회원 이름");
-		vec.addElement("회원 전화번호");
-		vec.addElement("회원 시간");
+		vec.addElement("좌석 번호");
 		vec.addElement("현재 상태");
-
 		return vec;
 	}
 
 	private void setRow() {
-		v = AdminDb.MemSearchDb();
-		for (int i = 0; i < v.size(); i = i + 6) {
+		v = AdminDb.SeatSearchDb();
+		for (int i = 0; i < v.size(); i = i + 2) {
 			Vector<String> row = new Vector<String>(6);
 			row.addElement(v.get(i));
 			row.addElement(v.get(i + 1));
-			row.addElement(v.get(i + 2));
-			row.addElement(v.get(i + 3));
-			row.addElement(v.get(i + 4));
-			row.addElement(v.get(i + 5));
-			model.addRow(row);
+				
+			model.addRow(row); 
 		}
 	}
 
@@ -208,3 +160,4 @@ public class Member extends JPanel implements ActionListener, MouseListener {
 	}
 
 }
+
